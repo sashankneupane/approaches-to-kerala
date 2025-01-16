@@ -12,14 +12,32 @@ const students = [
 ];
 
 const projects = [
-  { title: 'Project 1', author: 'Author 1', logo: '/dp/laakhay.png' },
-  { title: 'Project 2', author: 'Author 2', logo: '/dp/laakhay.png' },
-  { title: 'Project 3', author: 'Author 3', logo: '/dp/laakhay.png' },
+  { 
+    title: 'Power of Performances', 
+    author: 'Sashank Neupane', 
+    mode: 'video', 
+    link: '/projects/power-of-performances',
+    description: 'Performances are not just art and visual spectacle but they hold deeper culture signifance, heritage, and identity.'
+  },
+  { 
+    title: 'Potraits of Kerala', 
+    author: 'Bipana Bastola', 
+    mode: 'photo',
+    link: '/projects/potraits-of-kerala',
+    description: 'Potraits of Kerala'
+  },
+  { 
+    title: 'Colors of Kerala', 
+    author: 'Soyuj Jung Basnet', 
+    mode: 'photo',
+    link: '/projects/colors-of-kerala',
+    description: 'Colors of Kerala'
+  },
 ];
 
 // Helper Components
 const SectionTitle = ({ title }) => (
-  <div className="bg-black bg-opacity-40 p-8 text-center text-white rounded-lg shadow-lg">
+  <div className="p-8 text-center text-white rounded-lg shadow-lg">
     <motion.h1
       className="text-5xl md:text-7xl font-extrabold tracking-wider"
       initial={{ opacity: 0, scale: 0.8 }}
@@ -55,23 +73,15 @@ const ScrollHint = () => (
 );
 
 const ProjectCard = ({ project }) => (
-  <div className="w-full flex flex-col sm:flex-row items-center sm:items-start bg-gray-100 rounded-lg shadow-lg p-4 mb-6">
-    <div className="flex-shrink-0 mb-4 sm:mb-0 sm:mr-4">
-      <Image
-        src={project.logo}
-        alt={`${project.title} Logo`}
-        className="w-16 h-16 rounded-full shadow-md"
-        width={64}
-        height={64}
-      />
-    </div>
-    <div className="flex-1 text-center sm:text-left">
-      <p className="text-xl font-semibold text-gray-800">{project.title}</p>
-      <p className="text-sm text-gray-600">{project.author}</p>
-      <p className="text-sm text-gray-600">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+  <div className="border-white border-2 cursor-pointer min-w-full bg-gray-400 bg-opacity-40 shadow-lg overflow-hidden flex flex-col transition-transform duration-300 hover:scale-105">
+    {/* Project Details Section */}
+    <div className="p-4">
+      <h2 className="text-lg font-bold text-white">{project.title}</h2>
+      <p className="text-white font-bold text-sm mt-1">{project.author}</p>
     </div>
   </div>
 );
+
 
 // Main Component
 export default function Home() {
@@ -93,8 +103,8 @@ export default function Home() {
         animate={{ opacity: scrolled ? 0 : 1 }}
       >
         <div className="absolute inset-0 -z-10">
-          <video autoPlay loop muted className="object-cover w-full h-full">
-            <source src="/placeholder-video.mp4" type="video/mp4" />
+          <video autoPlay muted loop className="object-cover w-full h-full">
+            <source src="/videos/landing.mov" type="video/mp4" />
           </video>
         </div>
         <SectionTitle title="Approaches to Kerala" />
@@ -102,44 +112,51 @@ export default function Home() {
       </motion.section>
 
       <motion.section
-  className="min-h-screen w-full transition-opacity duration-700"
-  initial={{ opacity: 0 }}
-  animate={{ opacity: scrolled ? 1 : 0 }}
->
-  <div className="grid grid-cols-4 w-full h-screen">
-    {['text', 'audio', 'video', '360'].map((mode) => (
-      <div
-        key={mode}
-        className="relative group flex items-center justify-center overflow-hidden text-white transition-transform duration-300 opacity-75 hover:opacity-100"
-        style={{
-          backgroundImage: `url('/bg/${mode.toLowerCase()}.jpg')`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-        }}
+        className="min-h-screen w-full transition-opacity duration-700"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: scrolled ? 1 : 0 }}
       >
-        {/* Overlay */}
-        <div className="absolute inset-0 bg-black bg-opacity-40 group-hover:bg-opacity-50 transition-opacity"></div>
+        <div className="grid grid-cols-4 w-full h-screen">
+          {['text', 'audio', 'photo', 'video' ].map((mode) => (
+            <div
+              key={mode}
+              className="relative group flex items-center justify-center overflow-hidden text-white transition-transform duration-300 opacity-75 hover:opacity-100"
+              style={{
+                backgroundImage: `url('/bg/${mode.toLowerCase()}.jpg')`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+              }}
+            >
+              {/* Overlay */}
+              <div className="absolute inset-0 bg-black bg-opacity-40 group-hover:bg-opacity-50"></div>
 
-        {/* Mode Name */}
-        <p className="absolute text-3xl font-semibold tracking-wide capitalize transition-opacity duration-300 group-hover:opacity-0">
-          {mode}
-        </p>
+              {/* Mode Name */}
+              <p
+                className="absolute text-4xl md:text-5xl font-custom capitalize text-white tracking-wider z-20 group-hover:opacity-0 duration-300"
+                style={{
+                  textShadow: "2px 2px 4px rgba(0, 0, 0, 0.8)",
+                  transform: "translate(-50%, -50%)",
+                  top: "50%",
+                  left: "50%",
+                  fontWeight: "bold",
+                  whiteSpace: "nowrap",
+                }}
+              >
+                {mode}
+              </p>
 
-        {/* Projects on Hover */}
-        <div className="absolute inset-0 hidden group-hover:flex flex-col items-center justify-center p-6 bg-black bg-opacity-80 transition-all z-10">
-          <p className="mb-4 text-xl font-bold uppercase">{mode} Projects</p>
-          <div className="space-y-4">
-            {projects.map((project) => (
-              <ProjectCard key={project.title} project={project} />
-            ))}
-          </div>
+              {/* Projects on Hover */}
+              <div className="absolute inset-0 hidden group-hover:flex flex-col items-center justify-center p-6 bg-black bg-opacity-40 transition-all z-10">
+                <div className="space-y-8 w-full">
+                  {projects.filter((project) => project.mode === mode).map((project) => (
+                    <ProjectCard key={project.title} project={project} />
+                  ))}
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
-      </div>
-    ))}
-  </div>
-</motion.section>
-
-
+      </motion.section>
 
       {/* Info Section */}
       <motion.section

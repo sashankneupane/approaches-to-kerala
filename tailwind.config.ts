@@ -8,6 +8,9 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        custome: ["Dancing Script", "cursive"],
+      },
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
