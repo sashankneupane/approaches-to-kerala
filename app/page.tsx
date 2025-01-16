@@ -9,6 +9,18 @@ const students = [
   { name: 'Laakhay', dp: '/dp/laakhay.png' },
   { name: 'Bipana', dp: '/dp/laakhay.png' },
   { name: 'Soyuj', dp: '/dp/laakhay.png' },
+  { name: 'Alia', dp: '/dp/laakhay.png' },
+  { name: 'Carlota', dp: '/dp/laakhay.png' },
+  { name: 'Yumi', dp: '/dp/laakhay.png' },
+  { name: 'Timothy', dp: '/dp/laakhay.png' },
+  { name: 'Didi', dp: '/dp/laakhay.png' },
+  { name: 'Sayda', dp: '/dp/laakhay.png' },
+  { name: 'Shahad', dp: '/dp/laakhay.png' },
+  { name: 'Luca', dp: '/dp/laakhay.png' },
+  { name: 'Khater', dp: '/dp/laakhay.png' },
+  { name: 'Mustafa', dp: '/dp/laakhay.png' },
+  { name: 'Noor', dp: '/dp/laakhay.png' },
+  { name: 'Sungyun', dp: '/dp/laakhay.png' },
 ];
 
 const projects = [
@@ -49,6 +61,76 @@ const SectionTitle = ({ title }) => (
     <div className="mt-4 w-20 h-1 bg-white mx-auto rounded"></div>
   </div>
 );
+
+function StudentsGrid() {
+  const [currentPage, setCurrentPage] = useState(0);
+  const studentsPerPage = 6;
+
+  const totalStudents = students.length; // Total number of students
+  const totalPages = totalStudents; // Since we change 1 student at a time, there are as many pages as there are students
+
+  const handleNext = () => {
+    if (currentPage < totalStudents - 1) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const handlePrev = () => {
+    if (currentPage > 0) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  // Get the current students (displaying a full row of 6)
+  const startIndex = currentPage; // Show students in sets of 6, but only shift one by one
+  const currentStudents = students.slice(startIndex, startIndex + studentsPerPage);
+
+  return (
+    <div className="flex flex-col items-center">
+      {/* Students Grid */}
+      <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-8 gap-6">
+      <button
+      onClick={handlePrev}
+      disabled={currentPage === 0}
+      className={`px-4 py-2 ${currentPage === 0 ? 'cursor-not-allowed' : ''}`}
+    >
+      &lt;
+    </button>
+        {currentStudents.map((student, index) => (
+          <div key={index} className="flex flex-col items-center">
+            <div
+              className="w-20 h-20 md:w-24 md:h-24 bg-gray-400 rounded-full shadow-md hover:scale-105 transition-transform"
+              style={{
+                backgroundImage: `url('${student.dp}')`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+              }}
+            ></div>
+            <p
+              className="text-center mt-2 font-light text-gray-700"
+              style={{ fontFamily: "'Roboto', 'Helvetica Neue', sans-serif", fontWeight: 300 }}
+            >
+              {student.name}  
+            </p>
+            
+          </div>
+          
+        ))}
+        <button
+          onClick={handleNext}
+          disabled={currentPage === totalPages - 1}
+          className={`px-4 py-2 ${
+            currentPage === totalPages - 1 ? 'bg-gray-400 cursor-not-allowed' : ''
+          }`}
+        >
+           &gt;
+        </button>
+      </div>
+      
+  </div>
+  );
+}
+
 
 const ScrollHint = () => (
   <div className="absolute bottom-4 w-full text-center text-white">
@@ -160,29 +242,46 @@ export default function Home() {
 
       {/* Info Section */}
       <motion.section
-        className="min-h-screen flex flex-col items-center bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 text-black px-6 py-12 md:px-12 md:py-20 transition-opacity duration-700"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: scrolled ? 1 : 0 }}
-      >
-        <p className="max-w-4xl text-lg md:text-xl leading-relaxed mb-10 text-left">
-          Discover Kerala's evolving cultural identity through an engaging journey of research, art, and heritage.
-        </p>
+  className="min-h-screen flex flex-col items-center bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 text-black px-6 py-12 md:px-12 md:py-20 transition-opacity duration-700"
+  initial={{ opacity: 0 }}
+  animate={{ opacity: scrolled ? 1 : 0 }}
+>
+  {/* About Section */}
+  <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-8 text-left">About</h2>
+  <p className="text-lg md:text-xl leading-relaxed mb-6 text-justify text-gray-700">
+    <em>Approaches to Kerala</em> is a digital compilation of the vibrant culture, history, and traditions of Kerala, South India. This website brings together multimedia content collected during ethnographic fieldwork as part of a J-term class offered by NYU Abu Dhabi. It offers a glimpse into the people, places, and practices that make Kerala unique.
+  </p>
+  <p className="text-lg md:text-xl leading-relaxed mb-6 text-justify text-gray-700">
+    From the intricate performances of Theyyam to the craftsmanship behind traditional dhows and the eco-conscious architecture that reflects Kerala’s harmony with nature, this platform showcases the diverse ways in which culture is preserved, practiced, and transformed. Through videos, photographs, audio recordings, and 360° media, we aim to present an immersive and thoughtful journey into Kerala’s multifaceted cultural heritage.
+  </p>
+  <p className="text-lg md:text-xl leading-relaxed mb-6 text-justify text-gray-700">
+    <em>Approaches to Kerala</em> invites you to explore this rich tapestry of culture and tradition and to engage with the voices, histories, and practices of Kerala.
+  </p>
 
-        <div className="mb-12 text-left">
-          <p className="text-lg md:text-xl font-medium">Professor: <span className="font-semibold">Samuel Mark Anderson</span></p>
-          <p className="text-lg md:text-xl font-medium">Trip Advisor: <span className="font-semibold">Anna</span></p>
-        </div>
+  <hr className="my-8 border-t border-gray-300" />
 
-        <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-6 gap-6">
-          {students.map((student, index) => (
-            <div
-              key={index}
-              className="w-20 h-20 md:w-24 md:h-24 bg-gray-400 rounded-full shadow-md hover:scale-105 transition-transform"
-              style={{ backgroundImage: `url('${student.dp}')`, backgroundSize: 'cover', backgroundPosition: 'center' }}
-            ></div>
-          ))}
-        </div>
-      </motion.section>
+    {/* Students Section */}
+<StudentsGrid />
+
+<hr className="my-8 border-t border-gray-300" />
+  {/* Professor and Trip Advisor Section */}
+  <div className="mb-12 text-left">
+  <p
+    className="text-lg md:text-xl"
+    style={{ fontFamily: "'Roboto', 'Helvetica Neue', sans-serif", fontWeight: 100 }}
+  >
+    Professor: <span className="font-semibold">Samuel Mark Anderson</span>
+</p>
+  <p
+    className="text-lg md:text-xl"
+    style={{ fontFamily: "'Roboto', 'Helvetica Neue', sans-serif", fontWeight: 100 }}
+  >
+    Trip Advisor: <span className="font-semibold">Anna</span>
+  </p>
+</div>
+
+</motion.section>
+
     </div>
   );
 }
