@@ -106,7 +106,7 @@ export default function ColorsOfKeralaPage() {
 
   // Fetch colorInfo.json from public directory
   useEffect(() => {
-    fetch('/colors-of-kerala/colorInfo.json')
+    fetch('/projects/colors-of-kerala/colorInfo.json')
       .then((response) => response.json())
       .then((data: ColorEntry[]) => {
         setShuffledImages(shuffleArray(data));
