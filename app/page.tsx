@@ -25,7 +25,7 @@ const SectionTitle = ({ title } : { title: string }) => (
 const ScrollHint = () => (
   <div className="absolute bottom-4 w-full text-center text-white">
     <motion.p
-      className="text-lg font-semibold mb-10"
+      className="text-4xl font-semibold mb-10"
       style={{ fontFamily: 'Impact' }}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
@@ -47,14 +47,17 @@ const ScrollHint = () => (
   </div>
 );
 
-const ProjectCard = ({ project } : {project: Project}) => (
-  <div className="border-white border-2 cursor-pointer min-w-full bg-gray-400 bg-opacity-40 shadow-lg overflow-hidden flex flex-col transition-transform duration-300 hover:scale-105">
+const ProjectCard = ({ project }: { project: Project }) => (
+  <div className="border-white border-2 cursor-pointer min-w-full text-white bg-opacity-40 shadow-lg overflow-hidden flex flex-col transition-transform duration-300 hover:scale-105 hover:bg-white hover:text-black">
     {/* Project Details Section */}
-    <a className="p-4" href={project.link}>
-      <h2 className="text-lg font-bold text-white"
-      style={{ fontFamily: 'Impact' }}>{project.title}</h2>
-      <p className="text-white font-bold text-sm mt-1"
-      >{project.author}</p>
+    <a className="p-4 text-inherit no-underline" href={project.link}>
+      <h2
+        className="text-lg"
+        style={{ fontFamily: 'Impact' }}
+      >
+        {project.title}
+      </h2>
+      <p className="font-bold text-sm mt-1">{project.author}</p>
     </a>
   </div>
 );
@@ -87,23 +90,32 @@ export default function Home() {
 
   return (
     <div className="w-full overflow-x-hidden">
-      {/* Landing Section */}
       <motion.section
-        ref={landingRef}
-        className="relative min-h-screen w-full flex flex-col items-center justify-center transition-opacity duration-700"
-        animate={{ opacity: scrolled ? 0 : 1 }}
-      >
-        <video 
-          autoPlay 
-          muted 
-          loop 
-          className="absolute inset-0 -z-10 object-cover w-full h-full bg-opacity-70"
-        >
-          <source src="/videos/landing.mov" type="video/mp4" />
-        </video>
-        <SectionTitle title="Approaches to Kerala" />
-        <ScrollHint />
-      </motion.section>
+  ref={landingRef}
+  className="relative min-h-screen w-full flex flex-col items-center justify-center transition-opacity duration-700"
+  animate={{ opacity: scrolled ? 0 : 1 }}
+>
+  {/* Video Background */}
+  <video 
+    autoPlay 
+    muted 
+    loop 
+    className="absolute inset-0 -z-10 object-cover w-full h-full opacity-60" 
+    // Adjust the opacity here
+  >
+    <source src="/videos/landing.mov" type="video/mp4" />
+  </video>
+
+  {/* Overlay to Darken Video */}
+  <div className="text-9xl absolute bg-black bg-opacity-40 -z-5"></div>
+
+  {/* Text Content */}
+  <SectionTitle 
+    title="Approaches to Kerala" 
+    // className="text-white text-4xl md:text-6xl font-bold tracking-wide drop-shadow-lg"
+  />
+  <ScrollHint />
+</motion.section>
 
       <motion.section
         className="min-h-screen w-full transition-opacity duration-700"
@@ -111,7 +123,7 @@ export default function Home() {
         animate={{ opacity: scrolled ? 1 : 0 }}
       >
         <div className="grid grid-cols-4 w-full h-screen">
-          {['text', 'audio', 'photo', 'video' ].map((mode) => (
+          {['form', 'audio', 'photo', 'video' ].map((mode) => (
             <div
               key={mode}
               className="relative group flex items-center justify-center overflow-hidden text-white transition-transform duration-300 opacity-75 hover:opacity-100"
@@ -122,11 +134,13 @@ export default function Home() {
               }}
             >
               {/* Overlay */}
-              <div className="absolute inset-0 bg-black bg-opacity-40 group-hover:bg-opacity-50"></div>
+              <div className="absolute inset-0 bg-black bg-opacity-40 group-hover:bg-opacity-70"></div>
 
               {/* Mode Name */}
               <p
-                className="absolute text-4xl md:text-5xl font-custom capitalize text-white tracking-wider z-20 group-hover:opacity-0 duration-300"
+                // className="border-white border-2 absolute text-4xl md:text-5xl shadow-lg font-custom capitalize text-white tracking-wider z-20 group-hover:opacity-0 duration-300"
+                className="border-white border-4 p-6 absolute text-4xl md:text-5xl shadow-lg font-custom capitalize text-white tracking-wider z-20 group-hover:opacity-0 duration-300"
+
                 style={{
                   fontFamily:'Impact',
                   textShadow: "2px 2px 4px rgba(0, 0, 0, 0.8)",
