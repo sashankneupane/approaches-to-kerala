@@ -27,7 +27,7 @@ export const projects: Project[] = [
     description: 'Performances are not just art and visual spectacle but they hold deeper culture signifance, heritage, and identity.'
   },
   { 
-    title: 'Potraits of Kerala', 
+    title: 'Portraits of Kerala', 
     author: 'Bipana Bastola', 
     mode: 'photo',
     link: '/portraits-of-kerala',
@@ -52,6 +52,13 @@ export const projects: Project[] = [
     author: 'Dinobi Ibegbu', 
     mode: 'photo',
     link: '/chromatic-narrative-of-kerala',
+    description: 'ok description.'
+  },
+  { 
+    title: 'Keralatography', 
+    author: 'Shahad Alsaqqaf', 
+    mode: 'video',
+    link: '/keralatography',
     description: 'ok description.'
   },
 ];
