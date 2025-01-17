@@ -1,93 +1,75 @@
 [
   {
-    "name": "Theyyam Performance",
-    "type": "Performance",
-    "videoUrl": "https://www.youtube.com/embed/ZZyBG6UsvoQ?si=i5aGUSG3hAiR6MZe",
-    "thumbnail": "https://i.ytimg.com/vi/ZZyBG6UsvoQ/maxresdefault.jpg",
-    "description": "Experience the divine connection through Theyyam's fiery dances and sacred rituals."
-  },
-  {
-    "name": "Kalari Demonstration",
-    "type": "Performance",
-    "videoUrl": "https://www.youtube.com/embed/ZZyBG6UsvoQ?si=i5aGUSG3hAiR6MZe",
-    "thumbnail": "https://i.ytimg.com/vi/ZZyBG6UsvoQ/maxresdefault.jpg",
-    "description": "Witness the ancient martial art of Kalaripayattu, blending agility, strength, and tradition."
-  },
-  {
-    "name": "Kathakali Drama",
+    "name": "St. Angelo Fort Entrance",
+    "place": "St. Angelo Fort",
+    "location": "Kannur",
+    "date": "2025-01-09",
     "type": "Place",
-    "videoUrl": "https://www.youtube.com/embed/ZZyBG6UsvoQ?si=i5aGUSG3hAiR6MZe",
-    "thumbnail": "https://i.ytimg.com/vi/ZZyBG6UsvoQ/maxresdefault.jpg",
-    "description": "Explore the vibrant storytelling through Kathakali's elaborate costumes and facial expressions."
-  },
-  {
-    "name": "Mohiniyattam Performance",
+    "videoUrl": "https://www.youtube.com/embed/lzm_lsAD56Y?si=0fkhlYjUOIvnFNeX",
+    "thumbnail": "https://i.ytimg.com/vi/lzm_lsAD56Y/hqdefault.jpg",
+    "description": "Entrance walking shot of the St. Angelo Fort in Kannur in the evening."
+  }, {
+    "name": "St. Angelo Fort Inside",
+    "place": "St. Angelo Fort",
+    "location": "Kannur",
+    "date": "2025-01-09",
     "type": "Place",
-    "videoUrl": "https://www.youtube.com/embed/ZZyBG6UsvoQ?si=i5aGUSG3hAiR6MZe",
-    "thumbnail": "https://i.ytimg.com/vi/ZZyBG6UsvoQ/maxresdefault.jpg",
-    "description": "Feel the grace and elegance of Mohiniyattam, Kerala's mesmerizing classical dance."
-  },
-  {
-    "name": "Onam Festival Parade",
-    "type": "Street",
-    "videoUrl": "https://www.youtube.com/embed/ZZyBG6UsvoQ?si=i5aGUSG3hAiR6MZe",
-    "thumbnail": "https://i.ytimg.com/vi/ZZyBG6UsvoQ/maxresdefault.jpg",
-    "description": "Celebrate Onam with vibrant parades and flower arrangements symbolizing joy and unity."
-  },
-  {
-    "name": "Snake Boat Race",
-    "type": "Sports Event",
-    "videoUrl": "https://www.youtube.com/embed/ZZyBG6UsvoQ?si=i5aGUSG3hAiR6MZe",
-    "thumbnail": "https://i.ytimg.com/vi/ZZyBG6UsvoQ/maxresdefault.jpg",
-    "description": "Feel the thrill of the traditional Snake Boat Race on Kerala's tranquil backwaters."
-  },
-  {
-    "name": "Aranmula Mirror Crafting",
-    "type": "Street",
-    "videoUrl": "https://www.youtube.com/embed/ZZyBG6UsvoQ?si=i5aGUSG3hAiR6MZe",
-    "thumbnail": "https://i.ytimg.com/vi/ZZyBG6UsvoQ/maxresdefault.jpg",
-    "description": "Discover the secrets of crafting the unique Aranmula metal mirrors."
-  },
-  {
-    "name": "Thrissur Pooram Festival",
-    "type": "Cultural Festival",
-    "videoUrl": "https://www.youtube.com/embed/ZZyBG6UsvoQ?si=i5aGUSG3hAiR6MZe",
-    "thumbnail": "https://i.ytimg.com/vi/ZZyBG6UsvoQ/maxresdefault.jpg",
-    "description": "Experience the grandeur of Thrissur Pooram, Kerala's iconic temple festival."
-  },
-  {
-    "name": "Pulikali Performance",
-    "type": "Folk Art",
-    "videoUrl": "https://www.youtube.com/embed/ZZyBG6UsvoQ?si=i5aGUSG3hAiR6MZe",
-    "thumbnail": "https://i.ytimg.com/vi/ZZyBG6UsvoQ/maxresdefault.jpg",
-    "description": "Enjoy the playful yet artistic Pulikali, where performers paint themselves as tigers."
-  },
-  {
-    "name": "Nettur Petti Making",
-    "type": "Artisan Craft",
-    "videoUrl": "https://www.youtube.com/embed/ZZyBG6UsvoQ?si=i5aGUSG3hAiR6MZe",
-    "thumbnail": "https://i.ytimg.com/vi/ZZyBG6UsvoQ/maxresdefault.jpg",
-    "description": "Learn about the intricate craftsmanship behind Kerala's Nettur Petti jewel boxes."
-  },
-  {
-    "name": "Vallam Kali Preparation",
-    "type": "Cultural Sport",
-    "videoUrl": "https://www.youtube.com/embed/ZZyBG6UsvoQ?si=i5aGUSG3hAiR6MZe",
-    "thumbnail": "https://i.ytimg.com/vi/ZZyBG6UsvoQ/maxresdefault.jpg",
-    "description": "Get an inside look at the rigorous preparation for Vallam Kali boat races."
-  },
-  {
-    "name": "Kathakali Makeup Artistry",
-    "type": "Artisan Craft",
-    "videoUrl": "https://www.youtube.com/embed/ZZyBG6UsvoQ?si=i5aGUSG3hAiR6MZe",
-    "thumbnail": "https://i.ytimg.com/vi/ZZyBG6UsvoQ/maxresdefault.jpg",
-    "description": "Explore the detailed process of Kathakali makeup, an art in itself."
-  },
-  {
-    "name": "Chenda Melam Performance",
-    "type": "Music",
-    "videoUrl": "https://www.youtube.com/embed/ZZyBG6UsvoQ?si=i5aGUSG3hAiR6MZe",
-    "thumbnail": "https://i.ytimg.com/vi/ZZyBG6UsvoQ/maxresdefault.jpg",
-    "description": "Feel the rhythm and power of Chenda Melam, Kerala's traditional percussion."
+    "videoUrl": "https://www.youtube.com/embed/HAiaMBp1px0?si=d60GYO_lORJ9B6tr",
+    "thumbnail": "https://i.ytimg.com/vi/HAiaMBp1px0/hqdefault.jpg",
+    "description": "Inside view of the St. Angelo Fort in Kannur in the evening."
+  }, {
+    "name": "St. Angelo Fort Ocean Side",
+    "place": "St. Angelo Fort",
+    "location": "Kannur",
+    "date": "2025-01-09",
+    "type": "Place",
+    "videoUrl": "https://www.youtube.com/embed/3rlBd857nrA?si=TLGk00j8WQv7aU_j",
+    "thumbnail": "https://i.ytimg.com/vi/3rlBd857nrA/hqdefault.jpg",
+    "description": "Ocean side view of the St. Angelo Fort in Kannur in the evening."
+  }, {
+    "name": "Fish Market Street View",
+    "place": "Kannur Fish Market",
+    "location": "Kannur",
+    "date": "2025-01-09",
+    "type": "Place",
+    "videoUrl": "https://www.youtube.com/embed/ZlcKw0bMe2g?si=mUCnMz1045k8qOLW",
+    "thumbnail": "https://i.ytimg.com/vi/ZlcKw0bMe2g/hqdefault.jpg",
+    "description": "Street view of the Kannur Fish Market in the evening."
+  }, {
+    "name": "House of a Theyyam Performer",
+    "place": "House of Murali Panicker",
+    "location": "Kannur",
+    "date":"2025-01-10",
+    "type": "Place",
+    "videoUrl": "https://www.youtube.com/embed/N32ULkxvuRY?si=OmygtLQgkxztc00N",
+    "thumbnail": "https://i.ytimg.com/vi/N32ULkxvuRY/hqdefault.jpg",
+    "description": "House of a revered Theyyam performer, Murali Panicker, in Kannur."
+  }, {
+    "name": "Village Street in Kannur",
+    "place": "Kannur",
+    "location": "Kannur",
+    "date": "2025-01-10",
+    "type": "Place",
+    "videoUrl": "https://www.youtube.com/embed/h9p9ndlB_Wk?si=nojPuAQEcB4_Gk6R",
+    "thumbnail": "https://i.ytimg.com/vi/h9p9ndlB_Wk/hqdefault.jpg",
+    "description": "A village street view leading to a temple where Theyyams are present."
+  }, {
+    "name": "Village Street Entrance to a Theyyam Performance",
+    "place": "Kannur",
+    "location": "Kannur",
+    "date": "2025-01-10",
+    "type": "Place",
+    "videoUrl": "https://www.youtube.com/embed/hXI4aL0WJPM?si=QJbgHxHV14hmOdOY",
+    "thumbnail": "https://i.ytimg.com/vi/hXI4aL0WJPM/hqdefault.jpg",
+    "description": "A village street near reverred Theyyam performer Murali Panicker's house."
+  }, {
+    "name": "Premises of a Theyyam Temple",
+    "place": "Kannur",
+    "location": "Kannur",
+    "date": "2025-01-10",
+    "type": "Place",
+    "videoUrl": "https://www.youtube.com/embed/AEbgpS79ISA?si=EaU-c8F-xpZ7z9Cq",
+    "thumbnail": "https://i.ytimg.com/vi/AEbgpS79ISA/hqdefault.jpg",
+    "description": "Premises of a Theyyam temple in Kannur."
   }
 ]
