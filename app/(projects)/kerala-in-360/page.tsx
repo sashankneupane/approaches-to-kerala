@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState, useMemo } from "react";
 import Image from "next/image";
+import { motion, AnimatePresence } from "framer-motion";
 import performances from "./data.json";
 
 interface Performance {
@@ -14,18 +15,21 @@ interface Performance {
 
 const types = ["All", "Performance", "Place", "Street"];
 
-export default function Page() {
+const Page = () => {
   const [selectedType, setSelectedType] = useState<string>("All");
   const [selectedVideo, setSelectedVideo] = useState<Performance | null>(null);
 
-  const filteredPerformances =
-    selectedType === "All"
-      ? performances
-      : performances.filter((performance: Performance) => performance.type === selectedType);
+  const filteredPerformances = useMemo(
+    () =>
+      selectedType === "All"
+        ? performances
+        : performances.filter((item) => item.type === selectedType),
+    [selectedType]
+  );
 
   return (
-    <div className="min-h-screen w-full">
-      {/* Header */}
+    <div className="min-h-screen w-full scroll-hidden mb-8">
+      {/* Header Section */}
       <header className="relative w-full h-screen">
         <div
           className="h-full w-full bg-cover bg-center"
@@ -44,8 +48,9 @@ export default function Page() {
           </div>
         </div>
       </header>
+
       {/* Main Content */}
-      <main className="container mx-auto mt-16">
+      <main className="mx-auto mt-16 px-2">
         {/* Filter Chips */}
         <div className="flex overflow-x-auto mb-8 space-x-4 scrollbar-hide">
           {types.map((type) => (
@@ -63,57 +68,69 @@ export default function Page() {
           ))}
         </div>
 
-        {/* Video Player */}
-        {selectedVideo ? (
-          <div className="fixed inset-0 bg-black bg-opacity-90 flex justify-center items-center z-50">
-            <div className="relative w-full h-full">
+        {/* Grid Section */}
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          {filteredPerformances.map((performance, idx) => (
+            <motion.div
+              key={idx}
+              layout
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.3 }}
+              className="relative overflow-hidden cursor-pointer bg-gray-800 rounded-lg"
+              onClick={() => setSelectedVideo(performance)}
+            >
+              <Image
+                src={performance.thumbnail}
+                alt={performance.name}
+                className="w-full h-full object-cover"
+                width={300}
+                height={300}
+              />
+              <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300">
+                <p className="text-white text-sm text-center px-2">
+                  {performance.name}
+                </p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </main>
+
+      {/* Video Modal */}
+      <AnimatePresence>
+        {selectedVideo && (
+          <motion.div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-90"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <motion.div
+              className="relative w-full max-w-5xl h-3/4"
+              initial={{ scale: 0.8 }}
+              animate={{ scale: 1 }}
+              exit={{ scale: 0.8 }}
+            >
               <iframe
-                src={`${selectedVideo.videoUrl}?rel=0&modestbranding=1&autoplay=1&controls=0&showinfo=0&disablekb=1&fs=0`}
-                title={selectedVideo.name}
-                className="w-full h-full border-none"
+                src={`${selectedVideo.videoUrl}?autoplay=1`}
+                className="w-full h-full border-none rounded-lg"
                 allow="autoplay; encrypted-media"
                 allowFullScreen
+                title={selectedVideo.name}
               ></iframe>
-              <button
-                className="absolute top-4 right-4 text-white text-3xl focus:outline-none"
-                onClick={() => setSelectedVideo(null)}
-              >
-                &times;
-              </button>
-            </div>
-          </div>
-        ) : (
-          <div
-            className="grid gap-2 my-8"
-            style={{
-              gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
-            }}
-          >
-            {filteredPerformances.map((performance: Performance) => (
-                <div
-                key={performance.name}
-                className="relative bg-white shadow-md rounded-lg overflow-hidden cursor-pointer hover:shadow-lg transition-all"
-                onClick={() => setSelectedVideo(performance)}
-                >
-                <Image
-                  src={performance.thumbnail}
-                  alt={performance.name}
-                  width={500}
-                  height={500}
-                  className="object-cover"
-                />
-                <div className="absolute inset-0 bg-black bg-opacity-75 opacity-0 hover:opacity-100 transition-opacity p-4 flex flex-col justify-center">
-                  <h2 className="text-md font-semibold text-white mb-1">
-                  {performance.name}
-                  </h2>
-                  <p className="text-xs text-gray-300 mb-1">{performance.type}</p>
-                  <p className="text-xs text-gray-300">{performance.description}</p>
-                </div>
-                </div>
-            ))}
-          </div>
+            </motion.div>
+            <button
+              className="absolute top-8 right-8 text-white text-4xl p-2 bg-black bg-opacity-50 rounded-full hover:bg-opacity-75"
+              onClick={() => setSelectedVideo(null)}
+            >
+              ✕
+            </button>
+          </motion.div>
         )}
-      </main>
+      </AnimatePresence>
     </div>
   );
-}
+};
+
+export default Page;
