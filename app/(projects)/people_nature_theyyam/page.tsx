@@ -38,7 +38,7 @@ const photoSeries = [
   {
     title: "Kerala in Focus - 4 photo series",
     description: "Intimate portraits capturing the diverse faces and stories of Kerala's communities.",
-    coverImage: "/projects/people_nature_theyyam/cover2.jpg",
+    coverImage: "/projects/people_nature_theyyam/cover22.jpg",
     slug: "people-series"
   }
 ];
