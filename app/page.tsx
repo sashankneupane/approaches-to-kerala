@@ -1,15 +1,8 @@
 'use client';
 
-import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
-
-// Data
-const students = [
-  { name: 'Laakhay', dp: '/dp/laakhay.png' },
-  { name: 'Bipana', dp: '/dp/laakhay.png' },
-  { name: 'Soyuj', dp: '/dp/laakhay.png' },
-];
+import About from './about';
 
 const projects = [
   { 
@@ -95,6 +88,14 @@ export default function Home() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const breakpointColumnsObj = {
+    default: 6,
+    1100: 5,
+    900: 4,
+    700: 3,
+    500: 2
+  };
+
   return (
     <div className="w-full overflow-x-hidden">
       {/* Landing Section */}
@@ -158,31 +159,8 @@ export default function Home() {
         </div>
       </motion.section>
 
-      {/* Info Section */}
-      <motion.section
-        className="min-h-screen flex flex-col items-center bg-gradient-to-br from-gray-100 via-gray-200 to-gray-300 text-black px-6 py-12 md:px-12 md:py-20 transition-opacity duration-700"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: scrolled ? 1 : 0 }}
-      >
-        <p className="max-w-4xl text-lg md:text-xl leading-relaxed mb-10 text-left">
-          Discover Kerala's evolving cultural identity through an engaging journey of research, art, and heritage.
-        </p>
+      <About />
 
-        <div className="mb-12 text-left">
-          <p className="text-lg md:text-xl font-medium">Professor: <span className="font-semibold">Samuel Mark Anderson</span></p>
-          <p className="text-lg md:text-xl font-medium">Trip Advisor: <span className="font-semibold">Anna</span></p>
-        </div>
-
-        <div className="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-6 gap-6">
-          {students.map((student, index) => (
-            <div
-              key={index}
-              className="w-20 h-20 md:w-24 md:h-24 bg-gray-400 rounded-full shadow-md hover:scale-105 transition-transform"
-              style={{ backgroundImage: `url('${student.dp}')`, backgroundSize: 'cover', backgroundPosition: 'center' }}
-            ></div>
-          ))}
-        </div>
-      </motion.section>
     </div>
   );
 }
