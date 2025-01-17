@@ -1,5 +1,6 @@
 'use client';
 import React from "react";
+import Image from "next/image"; // Import the Image component
 
 export default function Home() {
   // Array of image data
@@ -38,9 +39,8 @@ export default function Home() {
     <div className="bg-gradient-to-b bg-black to-green-600 text-white min-h-screen">
       {/* Top Section */}
       <div className="flex flex-col items-center justify-center px-4 py-16 min-h-screen">
-        <h1 className="text-2xl md:text-4xl lg:text-5xl font-extrabold tracking-wider mb-6 text-center max-w-3xl"style={{ fontFamily: 'Impact' }}>
+        <h1 className="text-2xl md:text-4xl lg:text-5xl font-extrabold tracking-wider mb-6 text-center max-w-3xl" style={{ fontFamily: 'Impact' }}>
           Chromatic Narrative of Kerala: Exploring the Semiotics of Color in “God’s Own Country”
-
         </h1>
         <div className="mt-4 w-16 h-1 bg-white mx-auto rounded"></div>
         <p className="text-md md:text-lg lg:text-xl max-w-3xl text-center leading-relaxed mt-6 mx-auto">
@@ -57,13 +57,15 @@ export default function Home() {
               className="relative group rounded-lg shadow-lg overflow-hidden"
               style={{ aspectRatio: "6/4" }}
             >
-              <img
+              <Image
                 src={image.src}
                 alt={image.alt}
+                width={500}
+                height={500}
                 className="w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-black bg-opacity-70 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 px-4">
-                <p className="text-[100px] text-white text-lg font-bold mb-2"style={{ fontFamily: 'Impact' }}>
+                <p className="text-[100px] text-white text-lg font-bold mb-2" style={{ fontFamily: 'Impact' }}>
                   {image.caption}
                 </p>
                 <p className="text-[19px] text-white text-sm text-center">
@@ -78,28 +80,26 @@ export default function Home() {
       {/* Text Description Section without Images */}
       <div className="bg-white py-16 px-4">
         <div className="max-w-3xl mx-auto">
-    <h2 className="text-2xl md:text-4xl font-bold text-gray-800 mb-6 text-center" style={{ fontFamily: 'Impact' }}>
-        More Colors
-    </h2>
-  <div className="flex gap-6">
-    {/* White in Kerala Text Box */}
-    <div className="flex-1 border-2 border-black p-6 bg-opacity-10 border-gray-700">
-      <p className="text-md md:text-lg lg:text-xl text-gray-700 leading-relaxed ">
-        <span className="font-bold">Black in Kerala:</span> Black is generally associated with negativity, sadness, and mourning. It is not typically worn during festive occasions and is often avoided in everyday wear; during funerals, it’s not necessarily the ‘dress code’, but a black flag would be raised.
-      </p>
-    </div>
-    
+          <h2 className="text-2xl md:text-4xl font-bold text-gray-800 mb-6 text-center" style={{ fontFamily: 'Impact' }}>
+            More Colors
+          </h2>
+          <div className="flex gap-6">
+            {/* White in Kerala Text Box */}
+            <div className="flex-1 border-2 border-black p-6 bg-opacity-10 border-gray-700">
+              <p className="text-md md:text-lg lg:text-xl text-gray-700 leading-relaxed ">
+                <span className="font-bold">Black in Kerala:</span> Black is generally associated with negativity, sadness, and mourning. It is not typically worn during festive occasions and is often avoided in everyday wear; during funerals, it’s not necessarily the ‘dress code’, but a black flag would be raised.
+              </p>
+            </div>
 
-    {/* Black in Kerala Text Box */}
-    <div className="flex-1 border-2 border-black p-6 bg-opacity-10 border-gray-700">
-      <p className="text-md md:text-lg lg:text-xl text-gray-700 leading-relaxed mb-6">
-        <span className="font-bold">White in Kerala:</span> White is traditionally associated with purity, simplicity, and peace. It is often worn during auspicious occasions and is considered to be a color of ‘preciousness’.
-      </p>
-    </div>
-  </div>
-</div>
+            {/* Black in Kerala Text Box */}
+            <div className="flex-1 border-2 border-black p-6 bg-opacity-10 border-gray-700">
+              <p className="text-md md:text-lg lg:text-xl text-gray-700 leading-relaxed mb-6">
+                <span className="font-bold">White in Kerala:</span> White is traditionally associated with purity, simplicity, and peace. It is often worn during auspicious occasions and is considered to be a color of ‘preciousness’.
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
 }
-

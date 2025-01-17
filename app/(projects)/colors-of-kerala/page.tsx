@@ -128,7 +128,7 @@ export default function ColorsOfKeralaPage() {
       const scoreB = getColorScore(b, selectedColor);
       return scoreA - scoreB;
     });
-  }, [shuffledImages, selectedColor, threshold]);
+  }, [shuffledImages, selectedColor]);
 
   return (
     <div className="w-full">

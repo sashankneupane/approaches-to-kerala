@@ -47,6 +47,13 @@ export const projects: Project[] = [
     link: '/people-nature-theyyam',
     description: 'ok description.'
   },
+  { 
+    title: 'Chromatic Narrative of Kerala', 
+    author: 'Dinobi Ibegbu', 
+    mode: 'photo',
+    link: '/chromatic-narrative-of-kerala',
+    description: 'ok description.'
+  },
 ];
 
 export const featured_photos: string[] = [

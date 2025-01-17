@@ -1,5 +1,6 @@
 'use client';
 import React, { useState, useEffect } from "react";
+import Image from "next/image";
 
 const PortraitsOfKerala = () => {
   const [portraits] = useState([
@@ -172,7 +173,7 @@ const [showScrollTop, setShowScrollTop] = useState(false);
     }, 5000); // Change image every 5 seconds
 
     return () => clearInterval(interval); // Cleanup on unmount
-  }, []);
+  }, [images.length]);
 
   // Handle scroll to show/hide button
   useEffect(() => {
@@ -213,17 +214,17 @@ const [showScrollTop, setShowScrollTop] = useState(false);
     <h1 className="text-[100px] font-bold mb-4" style={{ fontFamily: 'Impact' }}>Portraits of Kerala</h1>
 
     <p className="text-xl font-light text-white mb-8">
-      This is a collection of personal stories from the diverse people of Kerala, offering a glimpse into the state's rich traditions and evolving culture. Through their responses to the questions, 
-      <span className="font-semibold">"How do you feel about Theyyam?"</span> and 
-      <span className="font-semibold"> "If you were to say things about Kerala to people, what would you say?"</span>, 
-      each individual shares their perspective on what makes Kerala so special.
-    </p>
-    <p className="text-xl font-light text-white mb-8">
-      This project invites you to explore Kerala through the stories of its people. Each portrait reveals the living culture of Kerala—the traditions, the beauty, and the spirit that makes it unique.
-    </p>
-    <p className="text-xl font-light text-white">
-      It’s a celebration of what makes Kerala, Kerala—its past, present, and future, as seen through the eyes of those who call it home.
-    </p>
+  This is a collection of personal stories from the diverse people of Kerala, offering a glimpse into the state&apos;s rich traditions and evolving culture. Through their responses to the questions, 
+  <span className="font-semibold">&quot;How do you feel about Theyyam?&quot;</span> and 
+  <span className="font-semibold">&quot;If you were to say things about Kerala to people, what would you say?&quot;</span>, 
+  each individual shares their perspective on what makes Kerala so special.
+</p>
+<p className="text-xl font-light text-white mb-8">
+  This project invites you to explore Kerala through the stories of its people. Each portrait reveals the living culture of Kerala—the traditions, the beauty, and the spirit that makes it unique.
+</p>
+<p className="text-xl font-light text-white">
+  It’s a celebration of what makes Kerala, Kerala—its past, present, and future, as seen through the eyes of those who call it home.
+</p>
 
     <a
       href="#portraits-section"
@@ -242,9 +243,11 @@ const [showScrollTop, setShowScrollTop] = useState(false);
               key={index}
               className="bg-white shadow-lg rounded-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
             >
-              <img
+              <Image
                 src={portrait.photo}
                 alt={portrait.name}
+                width={500}
+                height={500}
                 className="w-full h-64 object-cover"
               />
               <div className="p-6">
