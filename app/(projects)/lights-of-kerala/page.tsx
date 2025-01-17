@@ -19,7 +19,7 @@ export default function Page() {
             { cols: 2, rows: 2 }, // large
         ];
         const sizes = lamps.map((lamp) => ({
-            id: lamp.id,
+            id: Number(lamp.id), // Convert id to number
             size: sizeClasses[Math.floor(Math.random() * sizeClasses.length)],
         }));
         setLampSizes(sizes);
@@ -114,7 +114,7 @@ export default function Page() {
                             />
                             <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-60 transition-opacity duration-300 flex items-center justify-center text-center p-2">
                                 <p className="text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                    {lamps.find((lamp) => lamp.id === id)?.description}
+                                    {lamps.find((lamp) => lamp.id === String(id))?.description}
                                 </p>
                             </div>
                         </div>
@@ -128,7 +128,7 @@ export default function Page() {
             {selectedLamp !== null &&
                 renderFullScreenModal(
                     selectedLamp,
-                    lamps.find((lamp) => lamp.id === selectedLamp)?.description || ""
+                    lamps.find((lamp) => lamp.id === String(selectedLamp))?.description || ""
                 )}
         </div>
     );
