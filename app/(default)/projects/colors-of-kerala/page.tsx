@@ -1,7 +1,8 @@
 'use client';
 
 import React, { useState, useEffect, useMemo } from 'react';
-import { SketchPicker } from 'react-color';
+import Image from 'next/image';
+import { SketchPicker, ColorResult } from 'react-color';
 import { motion, AnimatePresence } from 'framer-motion';
 
 interface ColorEntry {
@@ -98,7 +99,6 @@ const FullScreenImage = ({ src, onClose }: { src: string; onClose: () => void })
 };
 
 export default function ColorsOfKeralaPage() {
-  const [colorInfo, setColorInfo] = useState<ColorEntry[]>([]);
   const [selectedColor, setSelectedColor] = useState<[number, number, number]>([255, 0, 0]);
   const [shuffledImages, setShuffledImages] = useState<ColorEntry[]>([]);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
@@ -110,14 +110,13 @@ export default function ColorsOfKeralaPage() {
     import('./colorInfo.json')
       .then((data) => {
         const info = data.default as ColorEntry[];
-        setColorInfo(info);
         setShuffledImages(shuffleArray(info));
       })
       .catch((err) => console.error(err));
   }, []);
 
   // As user picks color in SketchPicker, store it
-  const handleColorChange = (color: any) => {
+  const handleColorChange = (color: ColorResult) => {
     setSelectedColor([color.rgb.r, color.rgb.g, color.rgb.b]);
   };
 
@@ -136,7 +135,7 @@ export default function ColorsOfKeralaPage() {
       {/* Cover Section */}
       <section className="relative h-screen w-full flex flex-col items-center justify-center">
         <div className="absolute inset-0 -z-10">
-          <div className="w-full h-full bg-gradient-to-r from-purple-500 to-pink-500"></div>
+          <div className="w-full h-full"></div>
         </div>
         <motion.div
           className="text-center text-white p-8"
@@ -209,10 +208,12 @@ export default function ColorsOfKeralaPage() {
                 className="aspect-square relative overflow-hidden cursor-pointer bg-gray-800"
                 onClick={() => setSelectedImage(info.file_path)}
               >
-                <img
+                <Image
                   src={info.file_path}  
                   alt=""
                   className="absolute inset-0 w-full h-full object-cover"
+                  width={300}
+                  height={300}
                 />
               </motion.div>
             );

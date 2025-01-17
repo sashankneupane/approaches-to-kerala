@@ -1,35 +1,13 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useState, useEffect } from 'react';
-import About from './about';
+import { useState, useEffect, useRef } from 'react';
+import AboutPage from './about';
 
-const projects = [
-  { 
-    title: 'Power of Performances', 
-    author: 'Sashank Neupane', 
-    mode: 'video', 
-    link: '/projects/power-of-performances',
-    description: 'Performances are not just art and visual spectacle but they hold deeper culture signifance, heritage, and identity.'
-  },
-  { 
-    title: 'Potraits of Kerala', 
-    author: 'Bipana Bastola', 
-    mode: 'photo',
-    link: '/projects/potraits-of-kerala',
-    description: 'Potraits of Kerala'
-  },
-  { 
-    title: 'Colors of Kerala', 
-    author: 'Soyuj Jung Basnet', 
-    mode: 'photo',
-    link: '/projects/colors-of-kerala',
-    description: 'Colors of Kerala'
-  },
-];
+import { projects } from './data';
+import type { Project } from './types';
 
-// Helper Components
-const SectionTitle = ({ title }) => (
+const SectionTitle = ({ title } : { title: string }) => (
   <div className="p-8 text-center text-white rounded-lg shadow-lg">
     <motion.h1
       className="text-5xl md:text-7xl font-extrabold tracking-wider"
@@ -65,7 +43,7 @@ const ScrollHint = () => (
   </div>
 );
 
-const ProjectCard = ({ project }) => (
+const ProjectCard = ({ project } : {project: Project}) => (
   <div className="border-white border-2 cursor-pointer min-w-full bg-gray-400 bg-opacity-40 shadow-lg overflow-hidden flex flex-col transition-transform duration-300 hover:scale-105">
     {/* Project Details Section */}
     <a className="p-4" href={project.link}>
@@ -79,35 +57,44 @@ const ProjectCard = ({ project }) => (
 // Main Component
 export default function Home() {
   const [scrolled, setScrolled] = useState(false);
+  const landingRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > window.innerHeight * 0.2);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setScrolled(!entry.isIntersecting); // When the landing section is not in view
+      },
+      { threshold: 0.2 } // Trigger when 20% of the element is out of view
+    );
 
-  const breakpointColumnsObj = {
-    default: 6,
-    1100: 5,
-    900: 4,
-    700: 3,
-    500: 2
-  };
+    const currentRef = landingRef.current;
+    if (currentRef) {
+      observer.observe(currentRef);
+    }
+
+    return () => {
+      if (currentRef) {
+        observer.unobserve(currentRef);
+      }
+    };
+  }, []);
 
   return (
     <div className="w-full overflow-x-hidden">
       {/* Landing Section */}
       <motion.section
+        ref={landingRef}
         className="relative min-h-screen w-full flex flex-col items-center justify-center transition-opacity duration-700"
         animate={{ opacity: scrolled ? 0 : 1 }}
       >
-        <div className="absolute inset-0 -z-10">
-          <video autoPlay muted loop className="object-cover w-full h-full">
-            <source src="/videos/landing.mov" type="video/mp4" />
-          </video>
-        </div>
+        <video 
+          autoPlay 
+          muted 
+          loop 
+          className="absolute inset-0 -z-10 object-cover w-full h-full"
+        >
+          <source src="/videos/landing.mov" type="video/mp4" />
+        </video>
         <SectionTitle title="Approaches to Kerala" />
         <ScrollHint />
       </motion.section>
@@ -159,7 +146,7 @@ export default function Home() {
         </div>
       </motion.section>
 
-      <About />
+      <AboutPage />
 
     </div>
   );
