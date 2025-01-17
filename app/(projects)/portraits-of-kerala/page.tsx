@@ -10,12 +10,7 @@ const PortraitsOfKerala = () => {
       details:"15, Student",
       story: `"I feel pride in our tradition of Theyyam. This vibrant culture, deeply rooted in our village, especially in Kannur's kavus, brings me joy and makes me proud of our heritage."`,
     },
-    {
-      photo: "/projects/portraits-of-kerala/Dhanesh.jpg",
-      name: "Dhanesh",
-      details:"50, Chef",
-      story: `"-"`,
-    },
+  
     {
       photo: "/projects/portraits-of-kerala/Rabindran.jpg",
       name: "Rabindran",
@@ -46,12 +41,7 @@ const PortraitsOfKerala = () => {
         details: "12, Student",
         story: `"I really like Kerala. Kerala is a special to live with so many gods and goddesses, each representing something unique."`,
       },
-      {
-        photo: "/projects/portraits-of-kerala/Atish.jpg",
-        name: "Atish",
-        details: "7, Student",
-        story: `"-"`,
-      },
+      
       {
         photo: "/projects/portraits-of-kerala/AradhyaDevpriyaDeva.jpg",
         name: "Aradhya, Devpriya, Deva",
@@ -74,15 +64,10 @@ const PortraitsOfKerala = () => {
       {
         photo: "/projects/portraits-of-kerala/Sani.jpg",
         name: "Sani", 
-        details: "38, painter",
+        details: "38, Painter",
         story: `"I do not know much. I work here."`,
       },
-      {
-        photo: "/projects/portraits-of-kerala/Lalitha.jpg",
-        name: "Lalitha",
-        details: "55, screw pine craft",
-        story: `"-"`,
-      },
+      
       {
         photo: "/projects/portraits-of-kerala/Ajaya.jpg",
         name: "Ajaya Kumar",
@@ -98,13 +83,13 @@ const PortraitsOfKerala = () => {
       {
         photo: "/projects/portraits-of-kerala/Sejith.jpg",
         name: "Shejith",
-        details: "50, tax consultant",
+        details: "50, Tax Consultant",
         story: `"When you are in Kerala, visit the beaches, mosques, temples. The more you explore, the more amazing Kerala gets."`,
       },
       {
         photo: "/projects/portraits-of-kerala/Salim.jpg",
         name: "Salim",
-        details: "45, dhow constructor",
+        details: "45, Chow Constructor",
         story: `"I am from Gujrat. I am here in Kerala to work, and I like the place"`,
       },
       {
@@ -121,16 +106,11 @@ const PortraitsOfKerala = () => {
       },
       {
         photo: "/projects/portraits-of-kerala/Mohamud.jpg",
-        name: "Mohamud koya",
+        name: "Mohamud Koya",
         details: "80, Retired Government Worker",
         story: `"Uttichira is my home and it's the best. There are a lot of Muslims here"`,
       },
-      {
-        photo: "/projects/portraits-of-kerala/Sayed.jpg",
-        name: "Sayed Salih Jiffri",
-        details: "49, Jiffri Residence",
-        story: `"-"`,
-      },
+      
       {
         photo: "/projects/portraits-of-kerala/Badayakandy.JPG",
         name: "Badayakandy Basheer",
@@ -143,13 +123,38 @@ const PortraitsOfKerala = () => {
         details: "41, Practioner/Teacher of Kalari",
         story: `"Kalari is more than just a martial art—it’s a legacy of Kerala, passed down through generations, connecting us to our ancestors and preserving our rich traditions. I learned it from my father and now I teach it to my son."`,
       },
+      {
+        photo: "/projects/portraits-of-kerala/Dhanesh.jpg",
+        name: "Dhanesh",
+        details:"50, Chef",
+        story: ``,
+      },
+      {
+        photo: "/projects/portraits-of-kerala/Atish.jpg",
+        name: "Atish",
+        details: "7, Student",
+        story: ``,
+      },
+      {
+        photo: "/projects/portraits-of-kerala/Lalitha.jpg",
+        name: "Lalitha",
+        details: "55, Screw Pine Craft",
+        story: ``,
+      },
+      {
+        photo: "/projects/portraits-of-kerala/Sayed.jpg",
+        name: "Sayed Salih Jiffri",
+        details: "49, Jiffri Residence",
+        story: ``,
+      },
 
       {
         photo: "/projects/portraits-of-kerala/Wajid.JPG",
         name: "Wajid",
         details: "unknown",
-        story: `"-"`,
+        story: ``,
       },
+      
 
   ]);
 
@@ -213,16 +218,16 @@ const [showScrollTop, setShowScrollTop] = useState(false);
   <div className="relative text-center text-white px-6">
     <h1 className="text-[100px] font-bold mb-4" style={{ fontFamily: 'Impact' }}>Portraits of Kerala</h1>
 
-    <p className="text-xl font-light text-white mb-8">
+    <p className="w-4/5 mx-auto text-xl font-light text-white mb-8">
   This is a collection of personal stories from the diverse people of Kerala, offering a glimpse into the state&apos;s rich traditions and evolving culture. Through their responses to the questions, 
   <span className="font-semibold">&quot;How do you feel about Theyyam?&quot;</span> and 
   <span className="font-semibold">&quot;If you were to say things about Kerala to people, what would you say?&quot;</span>, 
   each individual shares their perspective on what makes Kerala so special.
 </p>
-<p className="text-xl font-light text-white mb-8">
+<p className="w-4/5 mx-auto text-xl font-light text-white mb-8">
   This project invites you to explore Kerala through the stories of its people. Each portrait reveals the living culture of Kerala—the traditions, the beauty, and the spirit that makes it unique.
 </p>
-<p className="text-xl font-light text-white">
+<p className="w-4/5 mx-auto text-xl font-light text-white">
   It’s a celebration of what makes Kerala, Kerala—its past, present, and future, as seen through the eyes of those who call it home.
 </p>
 
