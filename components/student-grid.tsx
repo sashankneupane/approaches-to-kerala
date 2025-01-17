@@ -13,41 +13,53 @@ interface StudentsGridProps {
 const StudentsGrid: React.FC<StudentsGridProps> = ({ students }) => {
   const [currentPage, setCurrentPage] = useState(0);
   const [isClient, setIsClient] = useState(false);
+  const [studentsPerPage, setStudentsPerPage] = useState(6);
 
   useEffect(() => {
     setIsClient(true);
+    const handleResize = () => {
+      if (window.innerWidth < 640) {
+        setStudentsPerPage(2);
+      } else if (window.innerWidth < 768) {
+        setStudentsPerPage(3);
+      } else if (window.innerWidth < 1024) {
+        setStudentsPerPage(4);
+      } else {
+        setStudentsPerPage(6);
+      }
+    };
+    window.addEventListener('resize', handleResize);
+    handleResize();
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   if (!isClient) {
     return null;
   }
 
-  const studentsPerPage = 6;
   const totalStudents = students.length;
   const totalPages = Math.ceil(totalStudents / studentsPerPage);
 
   const handleNext = () => {
-    if (currentPage < totalPages - 1) {
-      setCurrentPage(currentPage + 1);
-    }
+    setCurrentPage((prevPage) => (prevPage + 1) % totalPages);
   };
 
   const handlePrev = () => {
-    if (currentPage > 0) {
-      setCurrentPage(currentPage - 1);
-    }
+    setCurrentPage((prevPage) => (prevPage - 1 + totalPages) % totalPages);
   };
 
   const startIndex = currentPage * studentsPerPage;
-  const currentStudents = students.slice(startIndex, startIndex + studentsPerPage);
+  const currentStudents = [
+    ...students.slice(startIndex, startIndex + studentsPerPage),
+    ...students.slice(0, Math.max(0, startIndex + studentsPerPage - totalStudents)),
+  ];
 
   return (
     <div className="flex flex-col items-center w-full">
       <div className="flex items-center w-full">
         <button
           onClick={handlePrev}
-          disabled={currentPage === 0}
-          className={`px-4 py-2 bg-white text-black mr-2 rounded-lg ${currentPage === 0 ? 'cursor-not-allowed' : ''}`}
+          className="px-4 py-2 bg-white text-black mr-2 rounded-lg"
         >
           &lt;
         </button>
@@ -73,8 +85,7 @@ const StudentsGrid: React.FC<StudentsGridProps> = ({ students }) => {
         </div>
         <button
           onClick={handleNext}
-          disabled={currentPage === totalPages - 1}
-          className={`px-4 py-2 bg-white text-black mr-2 rounded-md ${currentPage === totalPages - 1 ? 'bg-gray-400 cursor-not-allowed' : ''}`}
+          className="px-4 py-2 bg-white text-black mr-2 rounded-md"
         >
           &gt;
         </button>

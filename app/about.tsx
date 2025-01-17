@@ -1,5 +1,3 @@
-// app/about/page.js
-
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import StudentsGrid from '@/components/student-grid';
@@ -38,7 +36,7 @@ const AboutPage: React.FC = () => {
         animate={{ opacity: 1 }}
       >
         <div className="flex flex-col md:flex-row w-11/12 ml-auto">
-          <div className="w-full w-3/5 mb-8 md:mb-0">
+          <div className="w-full md:w-3/5 mb-8 md:mb-0">
             <p className="text-3xl md:text-4xl font-bold mb-8 text-red-800">About</p>
             <p className="text-lg md:text-xl leading-relaxed mb-6 text-justify">
               <em>Approaches to Kerala</em> is a digital compilation of the vibrant culture, history, and traditions of Kerala, South India. This website brings together multimedia content collected during ethnographic fieldwork as part of a J-term class offered by NYU Abu Dhabi. It offers a glimpse into the people, places, and practices that make Kerala unique.
@@ -50,9 +48,12 @@ const AboutPage: React.FC = () => {
               <em>Approaches to Kerala</em> invites you to explore this rich tapestry of culture and tradition and to engage with the voices, histories, and practices of Kerala.
             </p>
           </div>
-          <div className="flex-1 h-full w-full ml-20 mt-20 my-auto">
+          <div className="hidden md:flex flex-1 h-full w-full md:w-2/5 ml-16 my-auto">
             <FeaturedPhoto />
           </div>
+        </div>
+        <div className="md:hidden w-full mt-8">
+          <FeaturedPhoto />
         </div>
         <hr className="my-8 border-t border-gray-300" />
 

@@ -1,0 +1,93 @@
+[
+  {
+    "name": "Theyyam Performance",
+    "type": "Performance",
+    "videoUrl": "https://www.youtube.com/embed/ZZyBG6UsvoQ?si=i5aGUSG3hAiR6MZe",
+    "thumbnail": "https://i.ytimg.com/vi/ZZyBG6UsvoQ/maxresdefault.jpg",
+    "description": "Experience the divine connection through Theyyam's fiery dances and sacred rituals."
+  },
+  {
+    "name": "Kalari Demonstration",
+    "type": "Performance",
+    "videoUrl": "https://www.youtube.com/embed/ZZyBG6UsvoQ?si=i5aGUSG3hAiR6MZe",
+    "thumbnail": "https://i.ytimg.com/vi/ZZyBG6UsvoQ/maxresdefault.jpg",
+    "description": "Witness the ancient martial art of Kalaripayattu, blending agility, strength, and tradition."
+  },
+  {
+    "name": "Kathakali Drama",
+    "type": "Place",
+    "videoUrl": "https://www.youtube.com/embed/ZZyBG6UsvoQ?si=i5aGUSG3hAiR6MZe",
+    "thumbnail": "https://i.ytimg.com/vi/ZZyBG6UsvoQ/maxresdefault.jpg",
+    "description": "Explore the vibrant storytelling through Kathakali's elaborate costumes and facial expressions."
+  },
+  {
+    "name": "Mohiniyattam Performance",
+    "type": "Place",
+    "videoUrl": "https://www.youtube.com/embed/ZZyBG6UsvoQ?si=i5aGUSG3hAiR6MZe",
+    "thumbnail": "https://i.ytimg.com/vi/ZZyBG6UsvoQ/maxresdefault.jpg",
+    "description": "Feel the grace and elegance of Mohiniyattam, Kerala's mesmerizing classical dance."
+  },
+  {
+    "name": "Onam Festival Parade",
+    "type": "Street",
+    "videoUrl": "https://www.youtube.com/embed/ZZyBG6UsvoQ?si=i5aGUSG3hAiR6MZe",
+    "thumbnail": "https://i.ytimg.com/vi/ZZyBG6UsvoQ/maxresdefault.jpg",
+    "description": "Celebrate Onam with vibrant parades and flower arrangements symbolizing joy and unity."
+  },
+  {
+    "name": "Snake Boat Race",
+    "type": "Sports Event",
+    "videoUrl": "https://www.youtube.com/embed/ZZyBG6UsvoQ?si=i5aGUSG3hAiR6MZe",
+    "thumbnail": "https://i.ytimg.com/vi/ZZyBG6UsvoQ/maxresdefault.jpg",
+    "description": "Feel the thrill of the traditional Snake Boat Race on Kerala's tranquil backwaters."
+  },
+  {
+    "name": "Aranmula Mirror Crafting",
+    "type": "Street",
+    "videoUrl": "https://www.youtube.com/embed/ZZyBG6UsvoQ?si=i5aGUSG3hAiR6MZe",
+    "thumbnail": "https://i.ytimg.com/vi/ZZyBG6UsvoQ/maxresdefault.jpg",
+    "description": "Discover the secrets of crafting the unique Aranmula metal mirrors."
+  },
+  {
+    "name": "Thrissur Pooram Festival",
+    "type": "Cultural Festival",
+    "videoUrl": "https://www.youtube.com/embed/ZZyBG6UsvoQ?si=i5aGUSG3hAiR6MZe",
+    "thumbnail": "https://i.ytimg.com/vi/ZZyBG6UsvoQ/maxresdefault.jpg",
+    "description": "Experience the grandeur of Thrissur Pooram, Kerala's iconic temple festival."
+  },
+  {
+    "name": "Pulikali Performance",
+    "type": "Folk Art",
+    "videoUrl": "https://www.youtube.com/embed/ZZyBG6UsvoQ?si=i5aGUSG3hAiR6MZe",
+    "thumbnail": "https://i.ytimg.com/vi/ZZyBG6UsvoQ/maxresdefault.jpg",
+    "description": "Enjoy the playful yet artistic Pulikali, where performers paint themselves as tigers."
+  },
+  {
+    "name": "Nettur Petti Making",
+    "type": "Artisan Craft",
+    "videoUrl": "https://www.youtube.com/embed/ZZyBG6UsvoQ?si=i5aGUSG3hAiR6MZe",
+    "thumbnail": "https://i.ytimg.com/vi/ZZyBG6UsvoQ/maxresdefault.jpg",
+    "description": "Learn about the intricate craftsmanship behind Kerala's Nettur Petti jewel boxes."
+  },
+  {
+    "name": "Vallam Kali Preparation",
+    "type": "Cultural Sport",
+    "videoUrl": "https://www.youtube.com/embed/ZZyBG6UsvoQ?si=i5aGUSG3hAiR6MZe",
+    "thumbnail": "https://i.ytimg.com/vi/ZZyBG6UsvoQ/maxresdefault.jpg",
+    "description": "Get an inside look at the rigorous preparation for Vallam Kali boat races."
+  },
+  {
+    "name": "Kathakali Makeup Artistry",
+    "type": "Artisan Craft",
+    "videoUrl": "https://www.youtube.com/embed/ZZyBG6UsvoQ?si=i5aGUSG3hAiR6MZe",
+    "thumbnail": "https://i.ytimg.com/vi/ZZyBG6UsvoQ/maxresdefault.jpg",
+    "description": "Explore the detailed process of Kathakali makeup, an art in itself."
+  },
+  {
+    "name": "Chenda Melam Performance",
+    "type": "Music",
+    "videoUrl": "https://www.youtube.com/embed/ZZyBG6UsvoQ?si=i5aGUSG3hAiR6MZe",
+    "thumbnail": "https://i.ytimg.com/vi/ZZyBG6UsvoQ/maxresdefault.jpg",
+    "description": "Feel the rhythm and power of Chenda Melam, Kerala's traditional percussion."
+  }
+]

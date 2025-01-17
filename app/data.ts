@@ -23,28 +23,28 @@ export const projects: Project[] = [
     title: 'Kerala in 360', 
     author: 'Sashank Neupane', 
     mode: 'video', 
-    link: '/projects/kerala-in-360',
+    link: '/kerala-in-360',
     description: 'Performances are not just art and visual spectacle but they hold deeper culture signifance, heritage, and identity.'
   },
   { 
     title: 'Potraits of Kerala', 
     author: 'Bipana Bastola', 
     mode: 'photo',
-    link: '/projects/portraits-of-kerala',
+    link: '/portraits-of-kerala',
     description: 'Potraits of Kerala'
   },
   { 
     title: 'Colors of Kerala', 
     author: 'Soyuj Jung Basnet', 
     mode: 'photo',
-    link: '/projects/colors-of-kerala',
+    link: '/colors-of-kerala',
     description: 'Colors of Kerala'
   },
   { 
     title: 'People, Nature, Thayyam', 
     author: 'Yumi Omori', 
     mode: 'photo',
-    link: '/projects/people-nature-theyyam',
+    link: '/people-nature-theyyam',
     description: 'ok description.'
   },
 ];
