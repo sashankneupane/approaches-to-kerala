@@ -68,10 +68,10 @@ const ScrollHint = () => (
 const ProjectCard = ({ project }) => (
   <div className="border-white border-2 cursor-pointer min-w-full bg-gray-400 bg-opacity-40 shadow-lg overflow-hidden flex flex-col transition-transform duration-300 hover:scale-105">
     {/* Project Details Section */}
-    <div className="p-4">
+    <a className="p-4" href={project.link}>
       <h2 className="text-lg font-bold text-white">{project.title}</h2>
       <p className="text-white font-bold text-sm mt-1">{project.author}</p>
-    </div>
+    </a>
   </div>
 );
 

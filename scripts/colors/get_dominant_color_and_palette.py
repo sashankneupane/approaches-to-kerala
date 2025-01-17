@@ -14,21 +14,34 @@ def collect_images(root_dir):
                 image_paths.append(Path(dirpath) / filename)
     return image_paths
 
+def load_existing_data(output_file):
+    if output_file.exists():
+        with open(output_file, "r", encoding="utf-8") as f:
+            return {item["file_path"]: item for item in json.load(f)}
+    return {}
+
 def main():
     root_dir = Path(__file__).parent.parent.parent
     public_dir = root_dir / "public"
-    output_file = root_dir / "app" / "projects" / "colors-of-kerala" / "colorInfo.json"
+    output_file = root_dir / "app" / "(default)" / "projects" / "colors-of-kerala" / "colorInfo.json"
     output_file.parent.mkdir(parents=True, exist_ok=True)
 
+    existing_data = load_existing_data(output_file)
     images = collect_images(root_dir / "public" / "projects")
     data = []
 
     for img_path in tqdm(images):
+        relative_path = '/' + str(img_path.relative_to(public_dir)).replace('\\', '/')
+        
+        if relative_path in existing_data:
+            data.append(existing_data[relative_path])
+            print(f"Skipped {img_path} (already processed)")
+            continue
+
         try:
             color_thief = ColorThief(img_path)
             dominant_color = color_thief.get_color(quality=1)
             palette = color_thief.get_palette(color_count=6)
-            relative_path = '/' + str(img_path.relative_to(public_dir)).replace('\\', '/')
             data.append({
                 "file_path": relative_path,
                 "dominant_color": dominant_color,
