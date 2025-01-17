@@ -1,14 +1,9 @@
 "use client";
 import React, { useRef, useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import Link from "next/link";
-import { Playfair_Display, Cinzel_Decorative } from 'next/font/google';
+import { Playfair_Display } from 'next/font/google';
+import Image from 'next/image';
 
 const playfair = Playfair_Display({ subsets: ['latin'] });
-const cinzel = Cinzel_Decorative({ 
-  weight: ['700'],
-  subsets: ['latin'] 
-});
 
 /**
  * An example array of image paths (relative to /public).
@@ -72,7 +67,7 @@ export default function AmazingScrollingGallery() {
   const [activeLetterIndex, setActiveLetterIndex] = useState(0);
 
   // Refs to each section so we can scroll them into view
-  const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const sectionRefs = useRef<Array<HTMLDivElement | null>>([]);
 
   // Use IntersectionObserver to detect which section is in view
   useEffect(() => {
@@ -184,19 +179,25 @@ export default function AmazingScrollingGallery() {
       {IMAGES.map((src, i) => (
         <section
           key={i}
-          ref={(el) => (sectionRefs.current[i] = el)}
+          ref={(el: HTMLDivElement | null) => {
+            if (sectionRefs.current) {
+              sectionRefs.current[i] = el;
+            }
+          }}
           data-index={i}
           style={{
             ...sectionStyle,
             ...(i === activeIndex ? activeSectionStyle : {}),
           }}
         >
-          <img
+          <Image
             src={src}
             alt={`Photo ${i + 1}`}
+            fill
             style={{
               ...imageStyle,
               ...getScaleStyle(i, activeIndex),
+              objectFit: 'cover',
             }}
           />
         </section>
