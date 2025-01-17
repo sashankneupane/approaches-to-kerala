@@ -5,7 +5,7 @@ export const students: Student[] = [
   { name: 'Bipana', dp: 'laakhay.png', project: 'potraits-of-kerala' },
   { name: 'Sungyun', dp: 'sungyun.png', project: 'lights-of-kerala' },
   { name: 'Soyuj', dp: 'laakhay.png', project: 'colors-of-kerala' },
-  { name: 'Alia', dp: 'alia.jpg', project: 'kerala-in-360' },
+  { name: 'Alia', dp: 'alia.jpg', project: 'echoes-across-the-indian-ocean' },
   { name: 'Carlota', dp: 'carlota.jpg', project: 'capturing-the-spirit' },
   { name: 'Yumi', dp: 'laakhay.png', project: 'people-nature-theyyam' },
   { name: 'Timothy', dp: 'laakhay.png', project: '' },
@@ -72,6 +72,12 @@ export const projects: Project[] = [
     mode: 'form',
     link: '/capturing-the-spirit',
     description: 'In Capturing the Spirit, I explore how artistic depictions of Theyyam in crafts differ from the garments and makeup used by actual Theyyam performers, and what these differences reveal about cultural preservation and commodification.'
+  }, {
+    title: 'Echoes Across the Indian Ocean',
+    author: 'Alia Almuhairi',
+    mode: 'video',
+    link: '/echoes-across-the-indian-ocean',
+    description: "This project explores the historical and cultural ties between the Gulf countries and India, with a focus on Kerala’s longstanding relationship with the Arabian Peninsula. These connections were first established through the spice trade, which brought Arab traders to Kerala and facilitated centuries of exchange in goods, culture, and traditions. I have chosen to explore this through a collection of videos taken in Kerala, with each clip from Kerala followed by a corresponding shot from the UAE. I used the background sounds from both locations along with interviews to give context to the visuals."
   }
 ];
 
