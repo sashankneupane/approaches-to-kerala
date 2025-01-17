@@ -5,12 +5,12 @@ import Image from "next/image";
 import lamps from "./data.json";
 
 export default function Page() {
-    const [selectedLamp, setSelectedLamp] = useState<number | null>(null);
-    const [lampSizes, setLampSizes] = useState<{ id: number; size: { cols: number; rows: number } }[]>(
+    const [selectedLamp, setSelectedLamp] = useState<string | null>(null);
+    const [lampSizes, setLampSizes] = useState<{ id: string; size: { cols: number; rows: number } }[]>(
         []
     );
 
-    // Precompute random sizes for each lamp
+    // Precompute sizes for each lamp
     useEffect(() => {
         const sizeClasses = [
             { cols: 1, rows: 1 }, // normal
@@ -18,9 +18,9 @@ export default function Page() {
             { cols: 1, rows: 2 }, // tall
             { cols: 2, rows: 2 }, // large
         ];
-        const sizes = lamps.map((lamp) => ({
-            id: Number(lamp.id), // Convert id to number
-            size: sizeClasses[Math.floor(Math.random() * sizeClasses.length)],
+        const sizes = lamps.map((lamp, index) => ({
+            id: lamp.id,
+            size: sizeClasses[index % sizeClasses.length], // Use a deterministic approach
         }));
         setLampSizes(sizes);
     }, []);
@@ -46,7 +46,7 @@ export default function Page() {
     });
 
     // Render full-screen modal for the selected image
-    const renderFullScreenModal = (lampId: number, description: string) => (
+    const renderFullScreenModal = (lampId: string, description: string) => (
         <div
             className="fixed inset-0 bg-black bg-opacity-80 flex justify-center items-center z-50"
             onClick={() => setSelectedLamp(null)} // Close modal on clicking outside the image
@@ -114,7 +114,7 @@ export default function Page() {
                             />
                             <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-60 transition-opacity duration-300 flex items-center justify-center text-center p-2">
                                 <p className="text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                    {lamps.find((lamp) => lamp.id === String(id))?.description}
+                                    {lamps.find((lamp) => lamp.id === id)?.description}
                                 </p>
                             </div>
                         </div>
@@ -128,7 +128,7 @@ export default function Page() {
             {selectedLamp !== null &&
                 renderFullScreenModal(
                     selectedLamp,
-                    lamps.find((lamp) => lamp.id === String(selectedLamp))?.description || ""
+                    lamps.find((lamp) => lamp.id === selectedLamp)?.description || ""
                 )}
         </div>
     );

@@ -3,19 +3,19 @@ import type { Student, Project } from './types';
 export const students: Student[] = [
   { name: 'Sashank', dp: 'laakhay.png', project: 'kerala-in-360' },
   { name: 'Bipana', dp: 'laakhay.png', project: 'potraits-of-kerala' },
-  { name: 'Sungyun', dp: 'sungyun.png', project: 'kerala-in-360' },
+  { name: 'Sungyun', dp: 'sungyun.png', project: 'lights-of-kerala' },
   { name: 'Soyuj', dp: 'laakhay.png', project: 'colors-of-kerala' },
   { name: 'Alia', dp: 'alia.jpg', project: 'kerala-in-360' },
-  { name: 'Carlota', dp: 'laakhay.png', project: 'kerala-in-360' },
+  { name: 'Carlota', dp: 'carlota.jpg', project: 'capturing-the-spirit' },
   { name: 'Yumi', dp: 'laakhay.png', project: 'people-nature-theyyam' },
-  { name: 'Timothy', dp: 'laakhay.png', project: 'kerala-in-360' },
-  { name: 'Didi', dp: 'didi.png', project: 'kerala-in-360' },
-  { name: 'Sayda', dp: 'laakhay.png', project: 'kerala-in-360' },
-  { name: 'Shahad', dp: 'laakhay.png', project: 'kerala-in-360' },
-  { name: 'Luca', dp: 'laakhay.png', project: 'kerala-in-360' },
-  { name: 'Khater', dp: 'laakhay.png', project: 'kerala-in-360' },
-  { name: 'Mustafa', dp: 'laakhay.png', project: 'kerala-in-360' },
-  { name: 'Noor', dp: 'laakhay.png', project: 'kerala-in-360' },
+  { name: 'Timothy', dp: 'laakhay.png', project: '' },
+  { name: 'Didi', dp: 'didi.png', project: 'chromatic-narrative-of-kerala' },
+  { name: 'Sayda', dp: 'laakhay.png', project: '' },
+  { name: 'Shahad', dp: 'laakhay.png', project: 'keralatography' },
+  { name: 'Luca', dp: 'laakhay.png', project: '' },
+  { name: 'Khater', dp: 'laakhay.png', project: '' },
+  { name: 'Mustafa', dp: 'laakhay.png', project: '' },
+  { name: 'Noor', dp: 'laakhay.png', project: '' },
 ];
 
 export const projects: Project[] = [
@@ -66,6 +66,12 @@ export const projects: Project[] = [
     mode: 'form',
     link: '/lights-of-kerala',
     description: 'A symbol of purity, divine presence and dispelling darkness.'
+  }, {
+    title: 'Capturing the Spirit',
+    author: 'Carlota Suarez Rochard',
+    mode: 'form',
+    link: '/capturing-the-spirit',
+    description: 'In Capturing the Spirit, I explore how artistic depictions of Theyyam in crafts differ from the garments and makeup used by actual Theyyam performers, and what these differences reveal about cultural preservation and commodification.'
   }
 ];
 
