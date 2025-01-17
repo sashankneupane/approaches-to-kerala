@@ -104,13 +104,12 @@ export default function ColorsOfKeralaPage() {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [threshold, setThreshold] = useState(150); // Move threshold to state
 
-  // Fetch or import colorInfo.json (client-side example)
+  // Fetch colorInfo.json from public directory
   useEffect(() => {
-    // In a real app, fetch from an API route or read from public
-    import('./colorInfo.json')
-      .then((data) => {
-        const info = data.default as ColorEntry[];
-        setShuffledImages(shuffleArray(info));
+    fetch('/colors-of-kerala/colorInfo.json')
+      .then((response) => response.json())
+      .then((data: ColorEntry[]) => {
+        setShuffledImages(shuffleArray(data));
       })
       .catch((err) => console.error(err));
   }, []);
