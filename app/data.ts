@@ -44,7 +44,7 @@ export const projects: Project[] = [
     title: 'People, Nature, Thayyam', 
     author: 'Yumi Omori', 
     mode: 'photo',
-    link: '/people-nature-theyyam',
+    link: '/people_nature_theyyam',
     description: 'ok description.'
   },
   { 
