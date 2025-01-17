@@ -11,6 +11,7 @@ const SectionTitle = ({ title } : { title: string }) => (
   <div className="p-8 text-center text-white rounded-lg shadow-lg">
     <motion.h1
       className="text-5xl md:text-7xl font-extrabold tracking-wider"
+      style={{ fontFamily: 'Impact' }}
       initial={{ opacity: 0, scale: 0.8 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 1.5, ease: 'easeOut' }}
@@ -25,6 +26,7 @@ const ScrollHint = () => (
   <div className="absolute bottom-4 w-full text-center text-white">
     <motion.p
       className="text-lg font-semibold mb-10"
+      style={{ fontFamily: 'Impact' }}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ delay: 1.5, duration: 1 }}
@@ -38,7 +40,9 @@ const ScrollHint = () => (
       transition={{ delay: 1.5, duration: 1 }}
     >
       <div className="animate-bounce w-6 h-6 border-t-2 border-r-2 border-white rounded-full rotate-45 transform mb-1"></div>
-      <p className="text-sm font-light">Scroll</p>
+      <p className="text-sm font-light"
+      style={{ fontFamily: 'Impact' }}>
+        Scroll</p>
     </motion.div>
   </div>
 );
@@ -47,8 +51,10 @@ const ProjectCard = ({ project } : {project: Project}) => (
   <div className="border-white border-2 cursor-pointer min-w-full bg-gray-400 bg-opacity-40 shadow-lg overflow-hidden flex flex-col transition-transform duration-300 hover:scale-105">
     {/* Project Details Section */}
     <a className="p-4" href={project.link}>
-      <h2 className="text-lg font-bold text-white">{project.title}</h2>
-      <p className="text-white font-bold text-sm mt-1">{project.author}</p>
+      <h2 className="text-lg font-bold text-white"
+      style={{ fontFamily: 'Impact' }}>{project.title}</h2>
+      <p className="text-white font-bold text-sm mt-1"
+      >{project.author}</p>
     </a>
   </div>
 );
@@ -91,7 +97,7 @@ export default function Home() {
           autoPlay 
           muted 
           loop 
-          className="absolute inset-0 -z-10 object-cover w-full h-full"
+          className="absolute inset-0 -z-10 object-cover w-full h-full bg-opacity-70"
         >
           <source src="/videos/landing.mov" type="video/mp4" />
         </video>
@@ -122,6 +128,7 @@ export default function Home() {
               <p
                 className="absolute text-4xl md:text-5xl font-custom capitalize text-white tracking-wider z-20 group-hover:opacity-0 duration-300"
                 style={{
+                  fontFamily:'Impact',
                   textShadow: "2px 2px 4px rgba(0, 0, 0, 0.8)",
                   transform: "translate(-50%, -50%)",
                   top: "50%",

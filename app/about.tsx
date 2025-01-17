@@ -37,7 +37,7 @@ const AboutPage: React.FC = () => {
       >
         <div className="flex flex-col md:flex-row w-11/12 ml-auto">
           <div className="w-full md:w-3/5 mb-8 md:mb-0">
-            <p className="text-3xl md:text-4xl font-bold mb-8 text-red-800">About</p>
+            <p className="text-3xl md:text-4xl font-bold mb-8 text-red-800"style={{ fontFamily: 'Impact' }}>About</p>
             <p className="text-lg md:text-xl leading-relaxed mb-6 text-justify">
               <em>Approaches to Kerala</em> is a digital compilation of the vibrant culture, history, and traditions of Kerala, South India. This website brings together multimedia content collected during ethnographic fieldwork as part of a J-term class offered by NYU Abu Dhabi. It offers a glimpse into the people, places, and practices that make Kerala unique.
             </p>
