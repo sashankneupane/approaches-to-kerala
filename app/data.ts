@@ -41,7 +41,7 @@ export const projects: Project[] = [
     description: 'Colors of Kerala'
   },
   { 
-    title: 'People, Nature, Thayyam', 
+    title: 'People, Nature, Theyyam', 
     author: 'Yumi Omori', 
     mode: 'photo',
     link: '/people-nature-theyyam',
