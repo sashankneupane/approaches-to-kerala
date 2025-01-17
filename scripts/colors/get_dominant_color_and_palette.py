@@ -23,7 +23,7 @@ def load_existing_data(output_file):
 def main():
     root_dir = Path(__file__).parent.parent.parent
     public_dir = root_dir / "public"
-    output_file = root_dir / "app" / "(projects)" / "colors-of-kerala" / "colorInfo.json"
+    output_file = public_dir / "colors-of-kerala" / "colorInfo.json"
     output_file.parent.mkdir(parents=True, exist_ok=True)
 
     existing_data = load_existing_data(output_file)
