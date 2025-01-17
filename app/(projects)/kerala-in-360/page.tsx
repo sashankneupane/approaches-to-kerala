@@ -89,7 +89,7 @@ const Page = () => {
               />
               <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300">
                 <p className="text-white text-sm text-center px-2">
-                  {performance.name}
+                  {performance.description}
                 </p>
               </div>
             </motion.div>

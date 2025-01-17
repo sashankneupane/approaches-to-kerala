@@ -60,7 +60,13 @@ export const projects: Project[] = [
     mode: 'video',
     link: '/keralatography',
     description: 'ok description.'
-  },
+  }, {
+    title: 'Lights of Kerala',
+    author: 'Sungyun Sohn',
+    mode: 'form',
+    link: '/lights-of-kerala',
+    description: 'A symbol of purity, divine presence and dispelling darkness.'
+  }
 ];
 
 export const featured_photos: string[] = [
