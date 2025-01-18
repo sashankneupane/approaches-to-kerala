@@ -11,6 +11,7 @@ export default function LightsOfKerala() {
     src: lamp.src,
     alt: lamp.alt,
     title: lamp.title,
+    subtitle: lamp.location,
     width: 800,
     height: 800
   }));

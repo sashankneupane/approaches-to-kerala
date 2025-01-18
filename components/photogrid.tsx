@@ -7,6 +7,7 @@ interface ImageData {
   src: string;
   alt?: string;
   title?: string;
+  subtitle?: string;  // Added subtitle
   description?: string;
   width?: number;
   height?: number;
@@ -23,38 +24,57 @@ interface PhotoGridProps {
   showTitle?: boolean;
 }
 
-const FullScreenImage = ({ src, alt, description, onClose }: { 
+const FullScreenImage = ({ src, alt, title, subtitle, description, onClose }: { 
   src: string; 
-  alt?: string; 
+  alt?: string;
+  title?: string;
+  subtitle?: string;
   description?: string;
   onClose: () => void 
 }) => {
+  const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/90"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/95"
       onClick={onClose}
     >
       <motion.div
-        className="relative max-w-7xl mx-auto px-4"
-        initial={{ scale: 0.9 }}
-        animate={{ scale: 1 }}
-        exit={{ scale: 0.9 }}
+        className="relative w-full h-full max-h-screen flex items-center justify-center p-4"
+        initial={{ scale: 0.9, y: 20 }}
+        animate={{ scale: 1, y: 0 }}
+        exit={{ scale: 0.9, y: 20 }}
       >
-        <Image
-          src={src}
-          alt={alt || ""}
-          className="max-h-[90vh] w-auto object-contain"
-          width={1200}
-          height={800}
-        />
-        {description && (
-          <p className="text-white/80 text-center mt-4 text-sm">
-            {description}
-          </p>
-        )}
+        <div className="relative group max-w-full max-h-full">
+          <Image
+            src={src}
+            alt={alt || ""}
+            className="w-auto h-auto max-w-full max-h-[85vh] object-contain rounded-lg"
+            width={1200}
+            height={800}
+            priority
+            onLoadingComplete={({ naturalWidth, naturalHeight }) => 
+              setDimensions({ width: naturalWidth, height: naturalHeight })}
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent rounded-lg" />
+          {(title || subtitle || description) && (
+            <motion.div 
+              className="absolute bottom-0 left-0 right-0 p-4 md:p-6 lg:p-8 rounded-b-lg"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 }}
+            >
+              <div className="max-w-full">
+          {title && <h2 className="text-lg md:text-xl lg:text-2xl font-semibold text-white mb-1 md:mb-2">{title}</h2>}
+          {subtitle && <h3 className="text-sm md:text-base lg:text-lg text-white/80 mb-1 md:mb-2">{subtitle}</h3>}
+          {description && <p className="text-xs md:text-sm lg:text-base text-white/70 leading-relaxed line-clamp-3">{description}</p>}
+              </div>
+            </motion.div>
+          )}
+        </div>
       </motion.div>
     </motion.div>
   );
@@ -155,7 +175,7 @@ export default function PhotoGrid({
             transition={{ duration: 0.4, delay: idx * 0.1 }}
           >
             <div 
-              className="relative overflow-hidden rounded-lg cursor-pointer"
+              className="relative h-full overflow-hidden rounded-lg cursor-pointer"
               onClick={() => enableFullScreen && setSelectedImage(image)}
             >
               <Image
@@ -163,22 +183,27 @@ export default function PhotoGrid({
                 alt={image.alt || ""}
                 width={800}
                 height={800}
-                className={`w-full object-cover ${layout !== 'M' ? 'aspect-square' : ''}`}
+                className={`w-full h-full object-cover ${layout !== 'M' ? 'aspect-square' : ''}`}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent">
                 <div className="absolute bottom-0 left-0 right-0 p-4">
                   <div className="transform transition-all duration-300 group-hover:translate-y-[-8px]">
                     {image.title && (
-                      <h3 className={`text-white/70 font-medium text-lg mb-2 transition-opacity duration-300
-                        ${!showTitle && !image.description ? 'opacity-0 group-hover:opacity-100' : ''}
-                        ${!showTitle && image.description ? 'opacity-0 group-hover:opacity-100' : ''}
-                        ${showTitle ? 'opacity-70' : ''}`}
-                      >
+                      <h3 className={`text-white/80 font-medium text-lg mb-1 transition-all duration-300
+                        ${!showTitle ? 'opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0' : 'opacity-80'}
+                      `}>
                         {image.title}
                       </h3>
                     )}
+                    {image.subtitle && (
+                      <h4 className={`text-white/60 text-sm mb-3 transition-all duration-300
+                        ${!showTitle ? 'opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0' : 'opacity-60'}
+                      `}>
+                        {image.subtitle}
+                      </h4>
+                    )}
                     {image.description && (
-                      <p className="text-white/60 text-sm transform transition-all duration-300 
+                      <p className="text-white/70 text-sm transform transition-all duration-300 
                         opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0">
                         {image.description}
                       </p>
@@ -196,6 +221,8 @@ export default function PhotoGrid({
           <FullScreenImage
             src={selectedImage.src}
             alt={selectedImage.alt}
+            title={selectedImage.title}
+            subtitle={selectedImage.subtitle}
             description={selectedImage.description}
             onClose={() => setSelectedImage(null)}
           />
