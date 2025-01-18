@@ -20,7 +20,7 @@ for (let i = 0; i <= 26; i++) {
 const AUTO_SCROLL_INTERVAL = 4000;
 
 // Split the title so each letter can animate individually
-const TITLE = "PHOTO GALLERY".split("");
+const TITLE = "Kerala in Focus".split("");
 
 // The background behind the title
 const titleBackgroundStyle: React.CSSProperties = {
@@ -163,7 +163,7 @@ export default function AmazingScrollingGallery() {
           {/* Portrait */}
           <div style={portraitContainerStyle}>
             <Image
-              src="/dp/yumi.jpg"
+              src="/dp/Timothy.jpeg"
               alt="Author Portrait"
               width={300}
               height={300}
@@ -178,13 +178,9 @@ export default function AmazingScrollingGallery() {
 
           {/* Description */}
           <div style={authorTextContainerStyle}>
-            <h2 style={authorNameStyle}>By: Yumi Omori</h2>
+            <h2 style={authorNameStyle}>By: Timothy Chiu</h2>
             <p style={authorDescriptionStyle}>
-              Yumi Omori is a passionate photographer and explorer who captures
-              the vibrant cultures and awe-inspiring landscapes of Kerala. Her
-              lens reveals the heartbeat of local communities, weaving stories
-              of rituals like Theyyam, and the harmonious coexistence between
-              people and nature.
+              Timothy Chiu is a hobbyist street photographer that enjoys capturing the stories of everyday life in his travels. In Kerala, his photo project aims to record the intimate moments of people and activity and the rich colors and textures found everywhere in India.
             </p>
           </div>
         </div>
@@ -233,6 +229,22 @@ export default function AmazingScrollingGallery() {
               style={{ marginLeft: '8px' }}
             >
               <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </button>
+        </Link>
+        <Link href="/people-nature-theyyam">
+          <button style={returnToGalleryButtonStyle}>
+            <span>Return to Gallery</span>
+            <svg 
+              width="24" 
+              height="24" 
+              viewBox="0 0 24 24" 
+              fill="none" 
+              stroke="currentColor" 
+              strokeWidth="2"
+              style={{ marginLeft: '8px' }}
+            >
+              <path d="M19 12H5M12 19l-7-7 7-7"/>
             </svg>
           </button>
         </Link>
@@ -418,4 +430,21 @@ const centeredNextStoryButtonStyle: React.CSSProperties = {
   fontFamily: playfair.style.fontFamily,
   letterSpacing: '1px',
   textTransform: 'uppercase',
+};
+const returnToGalleryButtonStyle: React.CSSProperties = {
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  padding: '1rem 2rem',
+  fontSize: '1.2rem',
+  cursor: 'pointer',
+  border: '2px solid #666',
+  backgroundColor: 'transparent',
+  color: '#666',
+  borderRadius: '40px',
+  transition: 'all 0.3s ease',
+  fontFamily: playfair.style.fontFamily,
+  letterSpacing: '1px',
+  textTransform: 'uppercase',
+
 };

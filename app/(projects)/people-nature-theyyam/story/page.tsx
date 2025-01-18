@@ -20,7 +20,7 @@ for (let i = 1; i <= 26; i++) {
 const AUTO_SCROLL_INTERVAL = 4000;
 
 // Split the title so each letter can animate individually
-const TITLE = "PHOTO GALLERY".split("");
+const TITLE = "People,Nature,Theyyam".split("");
 
 // The background behind the title
 const titleBackgroundStyle: React.CSSProperties = {
@@ -236,6 +236,22 @@ export default function AmazingScrollingGallery() {
             </svg>
           </button>
         </Link>
+        <Link href="/people-nature-theyyam">
+          <button style={returnToGalleryButtonStyle}>
+            <span>Return to Gallery</span>
+            <svg 
+              width="24" 
+              height="24" 
+              viewBox="0 0 24 24" 
+              fill="none" 
+              stroke="currentColor" 
+              strokeWidth="2"
+              style={{ marginLeft: '8px' }}
+            >
+              <path d="M19 12H5M12 19l-7-7 7-7"/>
+            </svg>
+          </button>
+        </Link>
       </section>
 
       <style jsx>{`
@@ -418,4 +434,22 @@ const centeredNextStoryButtonStyle: React.CSSProperties = {
   fontFamily: playfair.style.fontFamily,
   letterSpacing: '1px',
   textTransform: 'uppercase',
+};
+
+const returnToGalleryButtonStyle: React.CSSProperties = {
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  padding: '1rem 2rem',
+  fontSize: '1.2rem',
+  cursor: 'pointer',
+  border: '2px solid #666',
+  backgroundColor: 'transparent',
+  color: '#666',
+  borderRadius: '40px',
+  transition: 'all 0.3s ease',
+  fontFamily: playfair.style.fontFamily,
+  letterSpacing: '1px',
+  textTransform: 'uppercase',
+
 };

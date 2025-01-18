@@ -7,8 +7,8 @@ export const students: Student[] = [
   { name: 'Soyuj', dp: 'laakhay.png', project: 'colors-of-kerala' },
   { name: 'Alia', dp: 'alia.jpg', project: 'echoes-across-the-indian-ocean' },
   { name: 'Carlota', dp: 'carlota.jpg', project: 'capturing-the-spirit' },
-  { name: 'Yumi', dp: 'laakhay.png', project: 'people-nature-theyyam' },
-  { name: 'Timothy', dp: 'laakhay.png', project: '' },
+  { name: 'Yumi', dp: 'yumi.jpg', project: 'people-nature-theyyam' },
+  { name: 'Timothy', dp: 'Timothy.jpeg', project: 'people-nature-theyyam' },
   { name: 'Didi', dp: 'didi.png', project: 'chromatic-narrative-of-kerala' },
   { name: 'Sayda', dp: 'sayda.jpg', project: 'legends-and-myths-of-kerala' },
   { name: 'Shahad', dp: 'laakhay.png', project: 'keralatography' },
@@ -41,8 +41,8 @@ export const projects: Project[] = [
     description: 'Colors of Kerala'
   },
   { 
-    title: 'People, Nature, Theyyam', 
-    author: 'Yumi Omori', 
+    title: 'Photography Series in Kerala', 
+    author: 'Yumi Omori, Timothy Chiu', 
     mode: 'photo',
     link: '/people-nature-theyyam',
     description: 'ok description.'

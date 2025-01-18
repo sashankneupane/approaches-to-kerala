@@ -9,7 +9,7 @@ import Head from 'next/head'; // Re-added import
  * Adjust or replace with your actual image paths.
  */
 const IMAGES: string[] = [];
-for (let i = 1; i <= 10; i++) {
+for (let i = 1; i <= 20; i++) {
   IMAGES.push(`/images/${i}-min.jpg`);
 }
 
