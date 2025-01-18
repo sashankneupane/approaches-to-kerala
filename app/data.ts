@@ -1,97 +1,170 @@
-import type { Student, Project } from './types';
+import type { Student } from './types';
 
 export const students: Student[] = [
-  { name: 'Sashank', dp: 'sashank.jpg', project: 'kerala-in-360' },
-  { name: 'Bipana', dp: 'bipana.jpg', project: 'potraits-of-kerala' },
-  { name: 'Sungyun', dp: 'sungyun.png', project: 'lights-of-kerala' },
-  { name: 'Soyuj', dp: 'laakhay.png', project: 'colors-of-kerala' },
-  { name: 'Alia', dp: 'alia.jpg', project: 'echoes-across-the-indian-ocean' },
-  { name: 'Carlota', dp: 'carlota.jpg', project: 'capturing-the-spirit' },
-  { name: 'Yumi', dp: 'yumi.jpg', project: 'people-nature-theyyam' },
-  { name: 'Timothy', dp: 'Timothy.jpeg', project: 'people-nature-theyyam' },
-  { name: 'Didi', dp: 'didi.png', project: 'chromatic-narrative-of-kerala' },
-  { name: 'Sayda', dp: 'sayda.jpg', project: 'legends-and-myths-of-kerala' },
-  { name: 'Shahad', dp: 'laakhay.png', project: 'keralatography' },
-  { name: 'Luca', dp: 'laakhay.png', project: '' },
-  { name: 'Khater', dp: 'laakhay.png', project: '' },
-  { name: 'Mustafa', dp: 'mustafa.jpg', project: 'symbols-and-theyyam' },
-  { name: 'Noor', dp: 'laakhay.png', project: '' },
-];
-
-export const projects: Project[] = [
   { 
-    title: 'Kerala in 360', 
-    author: 'Sashank Neupane', 
-    mode: 'video', 
-    link: '/kerala-in-360',
-    description: 'Performances are not just art and visual spectacle but they hold deeper culture signifance, heritage, and identity.'
+    name: 'Sashank',
+    fullName: 'Sashank Neupane',
+    featuredImg: 'sashank.jpg',
+    project: {
+      title: 'Kerala in 360',
+      slug: 'kerala-in-360',
+      mode: 'video',
+      description: 'Performances are not just art and visual spectacle but they hold deeper culture signifance, heritage, and identity.'
+    }
   },
   { 
-    title: 'Portraits of Kerala', 
-    author: 'Bipana Bastola', 
-    mode: 'photo',
-    link: '/portraits-of-kerala',
-    description: 'Potraits of Kerala'
+    name: 'Bipana',
+    fullName: 'Bipana Bastola',
+    featuredImg: 'bipana.jpg',
+    project: {
+      title: 'Portraits of Kerala',
+      slug: 'portraits-of-kerala',
+      mode: 'photo',
+      description: 'Portraits of Kerala'
+    }
   },
   { 
-    title: 'Colors of Kerala', 
-    author: 'Soyuj Jung Basnet', 
-    mode: 'photo',
-    link: '/colors-of-kerala',
-    description: 'Colors of Kerala'
+    name: 'Sungyun',
+    fullName: 'Sungyun Sohn',
+    featuredImg: 'sungyun.png',
+    project: {
+      title: 'Lights of Kerala',
+      slug: 'lights-of-kerala',
+        mode: 'photo',
+      description: 'A symbol of purity, divine presence and dispelling darkness.'
+    }
   },
   { 
-    title: 'Photography Series in Kerala', 
-    author: 'Yumi Omori, Timothy Chiu', 
-    mode: 'photo',
-    link: '/people-nature-theyyam',
-    description: 'ok description.'
+    name: 'Soyuj',
+    fullName: 'Soyuj Jung Basnet',
+    featuredImg: 'soyuj.jpg',
+    project: {
+      title: 'Colors of Kerala',
+      slug: 'colors-of-kerala',
+        mode: 'photo',
+      description: 'Experience the vibrant palette of Kerala through a collection of images that showcase the rich and diverse colors that define this beautiful region.'
+    }
   },
   { 
-    title: 'Chromatic Narrative of Kerala', 
-    author: 'Dinobi Ibegbu', 
-    mode: 'photo',
-    link: '/chromatic-narrative-of-kerala',
-    description: 'ok description.'
+    name: 'Alia',
+    fullName: 'Alia Almuhairi',
+    featuredImg: 'alia.jpg',
+    project: {
+      title: 'Echoes Across the Indian Ocean',
+      slug: 'echoes-across-the-indian-ocean',
+      mode: 'video',
+      description: "This project explores the historical and cultural ties between the Gulf countries and India, with a focus on Kerala's longstanding relationship with the Arabian Peninsula. These connections were first established through the spice trade, which brought Arab traders to Kerala and facilitated centuries of exchange in goods, culture, and traditions. I have chosen to explore this through a collection of videos taken in Kerala, with each clip from Kerala followed by a corresponding shot from the UAE. I used the background sounds from both locations along with interviews to give context to the visuals."
+    }
   },
   { 
-    title: 'Keralatography', 
-    author: 'Shahad Alsaqqaf', 
-    mode: 'video',
-    link: '/keralatography',
-    description: 'ok description.'
-  }, {
-    title: 'Lights of Kerala',
-    author: 'Sungyun Sohn',
-    mode: 'form',
-    link: '/lights-of-kerala',
-    description: 'A symbol of purity, divine presence and dispelling darkness.'
-  }, {
-    title: 'Capturing the Spirit',
-    author: 'Carlota Suarez Rochard',
-    mode: 'form',
-    link: '/capturing-the-spirit',
-    description: 'In Capturing the Spirit, I explore how artistic depictions of Theyyam in crafts differ from the garments and makeup used by actual Theyyam performers, and what these differences reveal about cultural preservation and commodification.'
-  }, {
-    title: 'Echoes Across the Indian Ocean',
-    author: 'Alia Almuhairi',
-    mode: 'video',
-    link: '/echoes-across-the-indian-ocean',
-    description: "This project explores the historical and cultural ties between the Gulf countries and India, with a focus on Kerala’s longstanding relationship with the Arabian Peninsula. These connections were first established through the spice trade, which brought Arab traders to Kerala and facilitated centuries of exchange in goods, culture, and traditions. I have chosen to explore this through a collection of videos taken in Kerala, with each clip from Kerala followed by a corresponding shot from the UAE. I used the background sounds from both locations along with interviews to give context to the visuals."
+    name: 'Carlota',
+    fullName: 'Carlota Suarez Rochard',
+    featuredImg: 'carlota.jpg',
+    project: {
+      title: 'Capturing the Spirit',
+      slug: 'capturing-the-spirit',
+      mode: 'form',
+      description: 'In Capturing the Spirit, I explore how artistic depictions of Theyyam in crafts differ from the garments and makeup used by actual Theyyam performers, and what these differences reveal about cultural preservation and commodification.'
+    }
   },
-  {
-    title: 'Symbols and Theyyam',
-    author: 'Mustafa Diri',
-    mode: 'form',
-    link: '/symbols-and-theyyam',
-    description: 'This project explores the rich symbolism of the Theyyam ritual in Northern Kerala, weaving poetry, video, and reflections to capture its cultural and multisensory depth.'
+  { 
+    name: 'Yumi',
+    fullName: 'Yumi Omori',
+    featuredImg: 'yumi.jpg',
+    project: {
+      title: 'Photography Series in Kerala',
+      slug: 'people-nature-theyyam',
+      mode: 'photo',
+      description: 'ok description.'
+    }
   },
-  {
-    title: 'Legends and Myths of Kerala',
-    author: 'Sayda Abusalih',
-    mode: 'audio',
-    link: '/legends-and-myths-of-kerala',
-    description: 'Legends and Myths of Kerala'
+  { 
+    name: 'Timothy',
+    fullName: 'Timothy Chiu',
+    featuredImg: 'timothy.jpg',
+    project: {
+      title: 'Photography Series in Kerala',
+      slug: 'people-nature-theyyam',
+      mode: 'photo',
+      description: 'ok description.'
+    }
+  },
+  { 
+    name: 'Didi',
+    fullName: 'Dinobi Ibegbu',
+    featuredImg: 'didi.png',
+    project: {
+      title: 'Chromatic Narrative of Kerala',
+      slug: 'chromatic-narrative-of-kerala',
+      mode: 'form',
+      description: 'ok description.'
+    }
+  },
+  { 
+    name: 'Sayda',
+    fullName: 'Sayda Abusalih',
+    featuredImg: 'sayda.jpg',
+    project: {
+      title: 'Legends and Myths of Kerala',
+      slug: 'legends-and-myths-of-kerala',
+      mode: 'audio',
+      description: 'Legends and Myths of Kerala'
+    }
+  },
+  { 
+    name: 'Shahad',
+    fullName: 'Shahad Alsaqqaf',
+    featuredImg: 'shahad.jpg',
+    project: {
+      title: 'Keralatography',
+      slug: 'keralatography',
+      mode: 'video',
+      description: 'ok description.'
+    }
+  },
+  { 
+    name: 'Luca',
+    fullName: 'Luca',
+    featuredImg: 'luca.jpg',
+    project: {
+      title: 'Lorem ipsum',
+      slug: 'lorem-ipsum',
+      mode: 'audio',
+      description: 'Lorem ipsum is great ipsum.'
+    }
+  },
+  { 
+    name: 'Khater',
+    fullName: 'Khater',
+    featuredImg: 'khater.jpg',
+    project: {
+      title: 'Lorem ipsum 2',
+      slug: 'lorem-ipsum-2',
+      mode: 'photo',
+      description: 'Lorem ipsum is great ipsum.'
+    }
+  },
+  { 
+    name: 'Mustafa',
+    fullName: 'Mustafa Diri',
+    featuredImg: 'mustafa.jpg',
+    project: {
+      title: 'Symbols and Theyyam',
+      slug: 'symbols-and-theyyam',
+      mode: 'form',
+      description: 'This project explores the rich symbolism of the Theyyam ritual in Northern Kerala, weaving poetry, video, and reflections to capture its cultural and multisensory depth.'
+    }
+  },
+  { 
+    name: 'Noor',
+    fullName: 'Noor',
+    featuredImg: 'noor.jpg',
+    project: {
+      title: 'lorem ipsum 3',
+      slug: 'lorem-ipsum-3',
+      mode: 'audio',
+      description: 'Lorem ipsum is great ipsum.'
+    }
   },
 ];
 

@@ -1,15 +1,14 @@
 interface Student {
     name: string;
-    dp: string;
-    project: string;
-  }
-  
-  interface Project {
-    title: string;
-    author: string;
-    mode: string;
-    link: string;
-    description: string;
+    fullName: string;
+    featuredImg: string;
+    project: {
+      title: string;
+      slug: string;
+      mode: string;
+      description: string;
+      coverImg?: string
+    }
   }
 
-  export type { Student, Project };
+  export type { Student };
