@@ -29,11 +29,11 @@ function colorDistance(c1: [number, number, number], c2: [number, number, number
 }
 
 // Update the color distance calculation to include palette
-function getColorScore(info: ColorEntry, targetColor: [number, number, number]) {
-  // Dominant color gets higher weight (0.6)
-  const dominantDist = colorDistance(info.dominant_color, targetColor) * 0.7;
+// Update getColorScore to handle null color
+function getColorScore(info: ColorEntry, targetColor: [number, number, number] | null) {
+  if (!targetColor) return Infinity;
   
-  // Find closest palette color (0.4 weight)
+  const dominantDist = colorDistance(info.dominant_color, targetColor) * 0.7;
   const closestPaletteDist = Math.min(
     ...info.palette.map(color => colorDistance(color, targetColor))
   ) * 0.5;
@@ -98,12 +98,140 @@ const FullScreenImage = ({ src, onClose }: { src: string; onClose: () => void })
   );
 };
 
+const ViewMode = {
+  GRID: 'grid',
+  MASONRY: 'masonry',
+  FLOW: 'flow'  // Changed from SPIRAL to FLOW
+} as const;
+
+type ViewModeType = typeof ViewMode[keyof typeof ViewMode];
+
+// Update the TutorialPopup component to handle different types
+const TutorialPopup = ({ type, onClose }: { type: 'color' | 'threshold'; onClose: () => void }) => {
+  const content = {
+    color: {
+      title: "Choose Your Color!",
+      description: "Click the color button in the bottom right to pick a color and see matching images from Kerala.",
+      icon: (
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
+      )
+    },
+    threshold: {
+      title: "Adjust Match Threshold",
+      description: "Use the slider to control how closely images need to match your selected color. Lower values mean closer matches.",
+      icon: (
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
+      )
+    }
+  };
+
+  // Ensure we have valid content for the current type
+  const currentContent = content[type];
+  if (!currentContent) return null;
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -20 }}
+      className="fixed bottom-32 right-32 z-50 bg-white/10 backdrop-blur-md rounded-lg p-6 text-white max-w-xs"
+    >
+      <div className="flex items-start gap-4">
+        <div className="p-3 bg-white/20 rounded-full">
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            {currentContent.icon}
+          </svg>
+        </div>
+        <div>
+          <h3 className="font-bold text-lg mb-2">{currentContent.title}</h3>
+          <p className="text-white/80 text-sm">
+            {currentContent.description}
+          </p>
+        </div>
+      </div>
+      <motion.div
+        className="absolute -right-12 bottom-8 w-12 h-12"
+        animate={{ x: [0, 10, 0] }}
+        transition={{ repeat: Infinity, duration: 1.5 }}
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-full w-full" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+        </svg>
+      </motion.div>
+      <button
+        className="absolute top-2 right-2 text-white hover:bg-white/10 rounded-full p-1"
+        onClick={onClose}
+      >
+        Close
+      </button>
+    </motion.div>
+  );
+};
+
+// Add this helper function for the flow layout
+const getFlowPosition = (
+  index: number, 
+  total: number, 
+  colorScore: number,
+  viewportWidth: number,
+  viewportHeight: number
+) => {
+  const golden_ratio = 1.618033988749895;
+  const angle = index * golden_ratio * Math.PI * 2;
+  
+  const normalizedScore = Math.min(colorScore / 400, 1);
+  // Smaller base radius but higher spread based on score
+  const baseRadius = Math.min(viewportWidth, viewportHeight) * 0.3;
+  const radius = baseRadius * (1 - normalizedScore * 0.4);
+
+  let x = Math.cos(angle) * radius;
+  let y = Math.sin(angle) * radius;
+
+  const noise = Math.sin(index * golden_ratio) * 20;
+  x += noise;
+  y += noise;
+
+  x += viewportWidth / 2;
+  y += viewportHeight / 2;
+
+  return { x, y, scale: 1 - normalizedScore * 0.3 };
+};
+
+interface ImageSize {
+  height: string;
+  orientation: 'vertical' | 'horizontal';
+}
+
+// Add NoResults component near other component definitions
+const NoResults = () => (
+  <motion.div
+    initial={{ opacity: 0, y: 20 }}
+    animate={{ opacity: 1, y: 0 }}
+    exit={{ opacity: 0, y: -20 }}
+    className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20 text-center p-8"
+  >
+    <div className="bg-white/10 backdrop-blur-md rounded-lg p-8 max-w-md">
+      <h3 className="text-white text-xl font-bold mb-3">No matching images found</h3>
+      <p className="text-white/80">
+        Try adjusting the threshold slider to find more similar matches. Higher values will include more images that are less exact matches.
+      </p>
+    </div>
+  </motion.div>
+);
+
 export default function ColorsOfKeralaPage() {
-  const [selectedColor, setSelectedColor] = useState<[number, number, number]>([255, 0, 0]);
+  const [selectedColor, setSelectedColor] = useState<[number, number, number] | null>(null);
   const [shuffledImages, setShuffledImages] = useState<ColorEntry[]>([]);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  const [threshold, setThreshold] = useState(150); // Move threshold to state
-
+  const [threshold, setThreshold] = useState(150);
+  const [viewMode, setViewMode] = useState<ViewModeType>(ViewMode.MASONRY);
+  const [showColorPicker, setShowColorPicker] = useState(false);
+  const scrollTimerRef = React.useRef<NodeJS.Timeout | null>(null);
+  const [viewport, setViewport] = useState({ width: 0, height: 0 });
+  const [currentTutorial, setCurrentTutorial] = useState<'color' | 'threshold' | null>(null);
+  const DEFAULT_THRESHOLD = 150;
+  const [shownTutorials, setShownTutorials] = useState<Set<string>>(new Set());
+  
   // Fetch colorInfo.json from public directory
   useEffect(() => {
     fetch('/projects/colors-of-kerala/colorInfo.json')
@@ -114,14 +242,59 @@ export default function ColorsOfKeralaPage() {
       .catch((err) => console.error(err));
   }, []);
 
+  useEffect(() => {
+    // Show the tutorial on load
+    setCurrentTutorial('color');
+  }, []);
+
+  useEffect(() => {
+    // Show color tutorial first
+    if (!shownTutorials.has('color')) {
+      setCurrentTutorial('color');
+    }
+  }, [shownTutorials]);
+
+  useEffect(() => {
+    // Show threshold tutorial after color tutorial closes
+    if (currentTutorial === null && selectedColor && !shownTutorials.has('threshold')) {
+      const timer = setTimeout(() => {
+        setCurrentTutorial('threshold');
+      }, 500);
+      return () => clearTimeout(timer);
+    }
+  }, [currentTutorial, selectedColor, shownTutorials]);
+
+  const handleCloseTutorial = () => {
+    if (currentTutorial) {
+      setShownTutorials(prev => new Set([...prev, currentTutorial]));
+    }
+    setCurrentTutorial(null);
+    if (scrollTimerRef.current) clearTimeout(scrollTimerRef.current);
+  };
+
   // As user picks color in SketchPicker, store it
   const handleColorChange = (color: ColorResult) => {
     setSelectedColor([color.rgb.r, color.rgb.g, color.rgb.b]);
   };
 
+  // Add viewport measurement
+  useEffect(() => {
+    const updateViewport = () => {
+      setViewport({
+        width: window.innerWidth,
+        height: window.innerHeight
+      });
+    };
+    updateViewport();
+    window.addEventListener('resize', updateViewport);
+    return () => window.removeEventListener('resize', updateViewport);
+  }, []);
+
   // For each image, check if it's within threshold of selected color
   // You could also compare all palette colors for a better match
   const sortedImages = useMemo(() => {
+    if (!selectedColor) return shuffledImages;
+    
     return [...shuffledImages].sort((a, b) => {
       const scoreA = getColorScore(a, selectedColor);
       const scoreB = getColorScore(b, selectedColor);
@@ -129,11 +302,253 @@ export default function ColorsOfKeralaPage() {
     });
   }, [shuffledImages, selectedColor]);
 
+  const getImageSize = (index: number): ImageSize => {
+    // Create varying sizes with orientations
+    const patterns: ImageSize[] = [
+      { height: 'h-64', orientation: 'horizontal' },  // medium horizontal
+      { height: 'h-96', orientation: 'vertical' },    // tall vertical
+      { height: 'h-48', orientation: 'horizontal' },  // small horizontal
+      { height: 'h-80', orientation: 'vertical' },    // medium vertical
+      { height: 'h-72', orientation: 'horizontal' },  // large horizontal
+      { height: 'h-108', orientation: 'vertical' },   // extra tall vertical
+    ];
+    return patterns[index % patterns.length];
+  };
+
+  const renderControls = () => (
+    <motion.div
+      className="fixed bottom-8 right-8 z-40 flex flex-col gap-4"
+      initial={{ y: 100 }}
+      animate={{ y: 0 }}
+    >
+      <div className="bg-gray-800/90 backdrop-blur-sm rounded-2xl shadow-lg p-4 flex flex-col gap-3">
+        <div className="flex items-center gap-3 pb-3 border-b border-gray-700">
+          <div
+            className="w-8 h-8 rounded-full shadow-inner cursor-pointer hover:ring-2 hover:ring-white/50"
+            style={{
+              backgroundColor: selectedColor ? 
+                `rgb(${selectedColor[0]},${selectedColor[1]},${selectedColor[2]})` : 
+                '#666'
+            }}
+            onClick={() => setShowColorPicker(!showColorPicker)}
+          />
+          <label className="text-gray-300 text-sm font-medium">
+            {selectedColor ? 'Selected Color' : 'Choose Color'}
+          </label>
+        </div>
+
+        <div>
+          <label className="block text-gray-300 text-sm font-medium mb-2">
+            Match Threshold: {threshold}
+          </label>
+          <input
+            type="range"
+            min="50"
+            max="250"
+            value={threshold}
+            onChange={(e) => setThreshold(Number(e.target.value))}
+            className="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer"
+          />
+        </div>
+
+        <div className="pt-3 border-t border-gray-700">
+          <label className="block text-gray-300 text-sm font-medium mb-2">
+            View Mode
+          </label>
+          <div className="flex gap-2">
+            {Object.values(ViewMode).map(mode => (
+              <button
+                key={mode}
+                className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors
+                  ${viewMode === mode 
+                    ? 'bg-white/20 text-white' 
+                    : 'bg-gray-700/50 text-gray-300 hover:bg-gray-700'
+                  }`}
+                onClick={() => setViewMode(mode)}
+              >
+                {mode}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {selectedColor && (
+          <motion.button
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 10 }}
+            className="mt-2 w-full py-2 px-4 rounded-lg bg-red-500/20 text-red-300 hover:bg-red-500/30 transition-colors text-sm font-medium border border-red-500/20"
+            onClick={() => {
+              setSelectedColor(null);
+              setShowColorPicker(false);
+              setThreshold(DEFAULT_THRESHOLD);
+            }}
+          >
+            Reset All
+          </motion.button>
+        )}
+      </div>
+    </motion.div>
+  );
+
+  // Update color picker position
+  const renderColorPicker = () => (
+    <motion.div
+      className="fixed bottom-[320px] right-8 z-40" // Changed position to appear above controls
+      initial={{ opacity: 0, scale: 0.8, y: 50 }} // Changed x to y for vertical animation
+      animate={{ opacity: 1, scale: 1, y: 0 }}
+      exit={{ opacity: 0, scale: 0.8, y: 50 }}
+    >
+      <SketchPicker
+        color={selectedColor ? {
+          r: selectedColor[0],
+          g: selectedColor[1],
+          b: selectedColor[2],
+        } : undefined}
+        onChangeComplete={handleColorChange}
+        styles={pickerStyles}
+      />
+    </motion.div>
+  );
+
+  const renderGallery = () => {
+    const backgroundStyle = selectedColor ? {
+      backgroundColor: `rgba(${selectedColor[0]}, ${selectedColor[1]}, ${selectedColor[2]}, 0.3)`,
+    } : undefined;
+
+    // Get filtered images first
+    const filteredImages = sortedImages.filter(info => {
+      if (!selectedColor) return true;
+      const colorScore = getColorScore(info, selectedColor);
+      return colorScore < threshold;
+    });
+
+    const hasNoResults = selectedColor && filteredImages.length === 0;
+
+    switch (viewMode) {
+      case ViewMode.FLOW:
+        return (
+          <div 
+            className="relative h-[100vh] overflow-hidden bg-gradient-to-br from-gray-900 to-black p-20"
+            style={backgroundStyle}
+          >
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,black_100%)] z-10" />
+            <div className="relative w-full h-full">
+              <AnimatePresence>
+                {filteredImages.map((info, idx) => {
+                  const colorScore = selectedColor ? getColorScore(info, selectedColor) : Infinity;
+                  const isMatch = selectedColor && colorScore < threshold;
+                  
+                  if (selectedColor && !isMatch) return null;
+
+                  const { x, y, scale } = getFlowPosition(
+                    idx, 
+                    sortedImages.length, 
+                    colorScore,
+                    viewport.width,
+                    viewport.height
+                  );
+                  
+                  return (
+                    <motion.div
+                      key={idx}
+                      initial={{ opacity: 0, scale: 0 }}
+                      animate={{
+                        opacity: 1,
+                        x,
+                        y,
+                        scale: scale * 1.2,
+                        rotate: Math.sin(idx) * 15,
+                        filter: selectedColor ? 'grayscale(0%)' : 'grayscale(100%)'
+                      }}
+                      exit={{ opacity: 0, scale: 0 }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 50,
+                        damping: 20,
+                        mass: 1
+                      }}
+                      className="absolute w-28 h-28 -translate-x-1/2 -translate-y-1/2 cursor-pointer hover:z-20"
+                      onClick={() => setSelectedImage(info.file_path)}
+                    >
+                      <Image
+                        src={info.file_path}
+                        alt=""
+                        className="w-full h-full object-cover rounded-lg hover:scale-125 transition-all duration-300"
+                        width={150}
+                        height={150}
+                      />
+                    </motion.div>
+                  );
+                })}
+              </AnimatePresence>
+              {hasNoResults && <NoResults />}
+            </div>
+          </div>
+        );
+
+      case ViewMode.MASONRY:
+      case ViewMode.GRID:
+        const Container = viewMode === ViewMode.MASONRY 
+          ? "columns-2 md:columns-3 lg:columns-4 gap-4"
+          : "grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4";
+
+        return (
+          <div 
+            className={`relative min-h-[80vh] p-8 rounded-lg ${Container}`}
+            style={backgroundStyle}
+          >
+            <AnimatePresence>
+              {filteredImages.map((info, idx) => {
+                const colorScore = selectedColor ? getColorScore(info, selectedColor) : Infinity;
+                const isMatch = selectedColor && colorScore < threshold;
+                const imageSize = viewMode === ViewMode.MASONRY ? getImageSize(idx) : null;
+                
+                if (selectedColor && !isMatch) return null;
+
+                return (
+                  <motion.div
+                    key={idx}
+                    layout
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ 
+                      opacity: 1, 
+                      scale: 1,
+                      filter: selectedColor ? 'grayscale(0%)' : 'grayscale(100%)'
+                    }}
+                    exit={{ opacity: 0, scale: 0.8 }}
+                    transition={{ duration: 0.3 }}
+                    className={`${
+                      viewMode === ViewMode.MASONRY
+                        ? `mb-4 break-inside-avoid cursor-pointer ${imageSize?.height}`
+                        : 'aspect-square'
+                    } cursor-pointer relative overflow-hidden rounded-lg`}
+                    onClick={() => setSelectedImage(info.file_path)}
+                  >
+                    <Image
+                      src={info.file_path}
+                      alt=""
+                      className={`w-full h-full object-cover hover:scale-105 transition-transform ${
+                        imageSize?.orientation === 'vertical' ? 'object-[center_20%]' : ''
+                      }`}
+                      width={400}
+                      height={400}
+                    />
+                  </motion.div>
+                );
+              })}
+            </AnimatePresence>
+            {hasNoResults && <NoResults />}
+          </div>
+        );
+    }
+  };
+
   return (
-    <div className="bg-black">
+    <div className="bg-black min-h-screen">
       <section
         className="relative h-screen bg-cover bg-center flex items-center justify-center"
-        style={{ backgroundImage: "url('/laterite.jpg')" }}
+        style={{ backgroundImage: "url('/projects/colors-of-kerala/IMG_3819.JPG')" }}
       >
         <div className="absolute inset-0 bg-black bg-opacity-70"></div>
           <motion.div
@@ -160,78 +575,30 @@ export default function ColorsOfKeralaPage() {
         </motion.div>
       </section>
 
-      {/* Color Picker and Gallery Section */}
       <div className="p-8" id="colors">
-        <div className="flex flex-col md:flex-row gap-6 justify-center items-start mb-6">
-          <div className="rounded-lg overflow-hidden shadow-2xl">
-            <SketchPicker
-              color={{
-                r: selectedColor[0],
-                g: selectedColor[1],
-                b: selectedColor[2],
-              }}
-              onChangeComplete={handleColorChange}
-              styles={pickerStyles}
-            />
-          </div>
-          
-          <div className="bg-gray-800 p-6 rounded-lg shadow-2xl min-w-[250px]">
-            <label className="block text-gray-300 text-sm font-medium mb-2">
-              Color Match Threshold: {threshold}
-            </label>
-            <input
-              type="range"
-              min="50"
-              max="250"
-              value={threshold}
-              onChange={(e) => setThreshold(Number(e.target.value))}
-              className="w-full h-2 bg-gray-600 rounded-lg appearance-none cursor-pointer"
-            />
-            <div className="flex justify-between text-xs text-gray-400 mt-1">
-              <span>Strict</span>
-              <span>Loose</span>
-            </div>
-          </div>
-        </div>
+        {/* Floating controls */}
+        {renderControls()}
 
-        <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-          {sortedImages.map((info, idx) => {
-            const dist = getColorScore(info, selectedColor);
-            const isMatch = dist < threshold;
-            return (
-              <motion.div
-                key={idx}
-                layout
-                initial={{ opacity: 0 }}
-                animate={{ 
-                  opacity: 1,
-                  filter: isMatch ? 'grayscale(0%)' : 'grayscale(100%)'
-                }}
-                transition={{
-                  opacity: { duration: 0.5 },
-                  filter: { duration: 0.3 },
-                  layout: { duration: 0.3 }
-                }}
-                className="aspect-square relative overflow-hidden cursor-pointer bg-gray-800"
-                onClick={() => setSelectedImage(info.file_path)}
-              >
-                <Image
-                  src={info.file_path}  
-                  alt=""
-                  className="absolute inset-0 w-full h-full object-cover"
-                  width={300}
-                  height={300}
-                />
-              </motion.div>
-            );
-          })}
-        </div>
+        <AnimatePresence>
+          {showColorPicker && renderColorPicker()}
+        </AnimatePresence>
+
+        {renderGallery()}
 
         <AnimatePresence>
           {selectedImage && (
             <FullScreenImage
               src={selectedImage}
               onClose={() => setSelectedImage(null)}
+            />
+          )}
+        </AnimatePresence>
+
+        <AnimatePresence>
+          {currentTutorial && (
+            <TutorialPopup
+              type={currentTutorial}
+              onClose={handleCloseTutorial}
             />
           )}
         </AnimatePresence>
