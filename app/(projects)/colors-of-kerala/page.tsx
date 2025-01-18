@@ -405,7 +405,7 @@ export default function ColorsOfKeralaPage() {
           g: selectedColor[1],
           b: selectedColor[2],
         } : undefined}
-        onChangeComplete={handleColorChange}
+        onChange={handleColorChange}  // Switched from onChangeComplete
         styles={pickerStyles}
       />
     </motion.div>
