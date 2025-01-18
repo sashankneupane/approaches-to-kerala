@@ -130,6 +130,35 @@ export default function Project2Page() {
           <h1 style={titleStyle}>Project Gallery</h1>
         </section>
 
+      {/* New Author / Description Section */}
+      <section style={authorSectionStyle}>
+        <div style={authorContainerStyle}>
+          {/* Portrait */}
+          <div style={portraitContainerStyle}>
+            <Image
+              src="/dp/Timothy.jpeg"
+              alt="Author Portrait"
+              width={300}
+              height={300}
+              style={{
+                borderRadius: "50%",
+                objectFit: "cover",
+                width: "100%",
+                height: "100%",
+              }}
+            />
+          </div>
+
+          {/* Description */}
+          <div style={authorTextContainerStyle}>
+            <h2 style={authorNameStyle}>By: Timothy Chiu</h2>
+            <p style={authorDescriptionStyle}>
+              Timothy Chiu is a hobbyist street photographer that enjoys capturing the stories of everyday life in his travels. In Kerala, his photo project aims to record the intimate moments of people and activity and the rich colors and textures found everywhere in India.
+            </p>
+          </div>
+        </div>
+      </section>
+      
         {/* Photo Collage */}
         <section style={gallerySectionStyle}>
           <div style={galleryGridStyle}>
@@ -267,3 +296,47 @@ const heroSectionStyle: React.CSSProperties = {
   textAlign: "center",
   backgroundColor: "rgba(0,0,0,0.3)",
 };
+// Author / Description Section
+const authorSectionStyle: React.CSSProperties = {
+    minHeight: "70vh",
+    background: "#f8f8f8",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: "2rem",
+  };
+  
+  const authorContainerStyle: React.CSSProperties = {
+    maxWidth: "1000px",
+    width: "100%",
+    display: "flex",
+    flexDirection: "row",
+    gap: "2rem",
+    alignItems: "center",
+    justifyContent: "center",
+  };
+  
+  const portraitContainerStyle: React.CSSProperties = {
+    width: "300px",
+    height: "300px",
+    borderRadius: "50%",
+    overflow: "hidden",
+    flexShrink: 0,
+  };
+  
+  const authorTextContainerStyle: React.CSSProperties = {
+    flex: 1,
+  };
+  
+  const authorNameStyle: React.CSSProperties = {
+    fontSize: "2rem",
+    marginBottom: "1rem",
+    fontFamily: playfair.style.fontFamily,
+  };
+  
+  const authorDescriptionStyle: React.CSSProperties = {
+    fontSize: "1.1rem",
+    lineHeight: 1.6,
+    color: "#333",
+    fontFamily: playfair.style.fontFamily,
+  };
