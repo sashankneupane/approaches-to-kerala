@@ -4,7 +4,6 @@ import Image from "next/image";
 
 export default function SymbolsAndTheyyam() {
   const projectDirectory = "/projects/symbols-and-theyyam";
-  const [videoIndex, setVideoIndex] = useState(0);
   const theyyamVideos = [
     "https://www.youtube.com/embed/lROnAXKDUko",
     "https://www.youtube.com/embed/dVFR84Gvhk0"
@@ -34,10 +33,14 @@ export default function SymbolsAndTheyyam() {
     <div className="bg-black">
       <section
         className="relative h-screen bg-cover bg-center flex items-center justify-center"
+        style={{ backgroundImage: "url('/laterite.png')" }}
       >
         <div className="absolute inset-0 bg-black bg-opacity-70"></div>
         <div className="relative text-center text-white px-6">
           <h1 className="text-[100px] font-bold mb-4" style={{ fontFamily: 'Impact' }}>Symbols and Theyyam</h1>
+          
+          <p className="w-4/5 mx-auto text-xl font-light text-white mb-8">
+          This project explores the rich symbolism of the Theyyam ritual in Northern Kerala, weaving poetry, video, and reflections to capture its cultural and multisensory depth.</p>
           <a
             href="#theyyam"
             className="mt-8 inline-block text-white border-2 border-white hover:bg-white hover:text-black font-bold py-3 px-6 transition-all"
@@ -68,7 +71,7 @@ export default function SymbolsAndTheyyam() {
             {/* Left Memo */}
             <div className="min-w-[800px] bg-zinc-900 p-8 rounded-lg shadow-2xl border border-zinc-800 h-[600px] flex items-center">
               <p className="text-2xl font-light">
-                On the way, my eyes come across several hammer and sickle flags. I think of the red and I think of Theyyam. I think of Theyyam and I think of the red. It was the will of the people to choose the red, and it is the deities that embody a vivid red. I feel there&apos;s much to ponder here, (…).
+              &#8220;On the way, my eyes come across several hammer and sickle flags. I think of the red and I think of Theyyam. I think of Theyyam and I think of the red. It was the will of the people to choose the red, and it is the deities that embody a vivid red. I feel there&apos;s much to ponder here, (…).&#8221; <br /> - field notes, day 1
               </p>
             </div>
             {/* Images */}
@@ -87,7 +90,7 @@ export default function SymbolsAndTheyyam() {
         </div>
       </section>
 
-      {/* Section 2 (PDF + YouTube switcher) */}
+      {/* Section 2 (PDF + Both YouTube Videos) */}
       <section className="py-8 bg-black">
         <div className="text-white px-6 flex gap-8 w-full justify-center items-start max-w-[2000px] mx-auto">
           <div className="flex-1 bg-zinc-900 p-4 rounded-lg shadow-2xl">
@@ -97,19 +100,19 @@ export default function SymbolsAndTheyyam() {
               className="rounded-lg"
             />
           </div>
-          <div className="flex-1 bg-zinc-900 p-4 rounded-lg shadow-2xl">
+          <div className="flex-1 bg-zinc-900 p-4 rounded-lg shadow-2xl flex flex-col gap-4">
             <iframe
-              src={theyyamVideos[videoIndex]}
-              style={{ width: '100%', height: '800px' }}
-              title="Theyyam"
+              src={theyyamVideos[0]}
+              style={{ width: '100%', height: '400px' }}
+              title="Theyyam Fast Rhythm"
               className="rounded-lg"
             />
-            <button
-              onClick={() => setVideoIndex((videoIndex + 1) % 2)}
-              className="mt-6 inline-block text-white border-2 border-white hover:bg-white hover:text-black font-bold py-3 px-6 transition-all"
-            >
-              {`Theyyam - ${videoIndex === 0 ? "Fast" : "Slow"} Rhythm`}
-            </button>
+            <iframe
+              src={theyyamVideos[1]}
+              style={{ width: '100%', height: '400px' }}
+              title="Theyyam Slow Rhythm"
+              className="rounded-lg"
+            />
           </div>
         </div>
       </section>

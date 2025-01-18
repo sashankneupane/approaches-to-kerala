@@ -164,8 +164,8 @@ const [showScrollTop, setShowScrollTop] = useState(false);
 
   // Array of background images
   const images = [
-    '/projects/portraits-of-kerala/unknown.JPG',
-    '/projects/portraits-of-kerala/unknown2.JPG',
+    '/projects/portraits-of-kerala/Unknown.JPG',
+    '/projects/portraits-of-kerala/Unknown2.JPG',
     '/projects/portraits-of-kerala/MuraliPanicker.JPG',
     '/projects/portraits-of-kerala/TheyyamPerformer.JPG',
     

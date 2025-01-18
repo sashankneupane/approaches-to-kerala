@@ -48,20 +48,20 @@ const ScrollHint = () => (
 );
 
 const ProjectCard = ({ project }: { project: Project }) => (
-  <div className="border-white border-2 cursor-pointer min-w-full text-white bg-opacity-40 shadow-lg overflow-hidden flex flex-col transition-transform duration-300 hover:scale-105 hover:bg-white hover:text-black">
-    {/* Project Details Section */}
-    <a className="p-4 text-inherit no-underline" href={project.link}>
-      <h2
-        className="text-lg"
-        style={{ fontFamily: 'Impact' }}
-      >
-        {project.title}
-      </h2>
-      <p className="font-bold text-sm mt-1">{project.author}</p>
-    </a>
-  </div>
+  <a href={project.link} className="text-inherit no-underline">
+    <div className="border-white border-2 cursor-pointer min-w-full text-white bg-opacity-40 shadow-lg overflow-hidden flex flex-col transition-transform duration-300 hover:scale-105 hover:bg-white hover:text-black">
+      <div className="p-4">
+        <h2
+          className="text-lg"
+          style={{ fontFamily: 'Impact' }}
+        >
+          {project.title}
+        </h2>
+        <p className="font-bold text-sm mt-1">{project.author}</p>
+      </div>
+    </div>
+  </a>
 );
-
 
 // Main Component
 export default function Home() {

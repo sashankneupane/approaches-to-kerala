@@ -79,7 +79,9 @@ This legend is often cited as the origin of Kerala's modern nickname "God's Own 
   return (
     <div className="bg-black h-screen overflow-y-scroll snap-y snap-mandatory scroll-smooth">
       {/* Hero Section */}
-      <section className="relative h-screen bg-cover bg-center flex items-center justify-center snap-start">
+      <section className="relative h-screen bg-cover bg-center flex items-center justify-center snap-start"
+      style={{ backgroundImage: "url('/dp/sayda.jpg')" }}
+      >
         <div className="absolute inset-0 bg-black bg-opacity-70"></div>
         <div className="relative text-center text-white px-6">
           <h1 className="text-[100px] font-bold mb-4" style={{ fontFamily: 'Impact' }}>Legends and Myths of Kerala</h1>
