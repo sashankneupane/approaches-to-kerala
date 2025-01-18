@@ -1,34 +1,69 @@
+'use client';
 import React from 'react';
-// import Image from 'next/image';
+import Hero from '@/components/hero';
+import { motion } from 'framer-motion';
 
-const EchoesAcrossTheIndianOcean: React.FC = () => {
+const EchoesAcrossTheIndianOcean = () => {
     return (
-        <div className="min-h-screen w-full scroll-hidden mb-8">
-      {/* Header Section */}
-      <header className="relative w-full h-screen">
-        <div
-          className="h-full w-full bg-cover bg-center"
-          style={{ backgroundImage: `url(/projects/echoes-across-the-indian-ocean/cover.jpg)` }}
-        >
-          <div className="h-full w-full bg-black bg-opacity-60 flex flex-col justify-center items-center text-center px-4">
-            <h1 className="text-4xl md:text-6xl font-bold text-white mb-4">
-              Echoes Across the Indian Ocean
-            </h1>
-            <p className="text-lg w-4/5 mx-auto md:text-xl text-gray-300 text-left">
-            This project explores the historical and cultural ties between the 
-            Gulf countries and India, with a focus on Kerala’s longstanding relationship with the Arabian Peninsula. These connections were first established through the spice trade, which brought Arab traders to Kerala and facilitated centuries of exchange in goods, culture, and traditions. I have chosen to explore this through a collection of videos taken in Kerala, with each clip from Kerala followed by a corresponding shot from the UAE. I used the background sounds from both locations along with interviews to give context to the visuals.
-            </p>
-            <div className="mt-12 animate-bounce">
-              <span className="text-white text-2xl">↓ Scroll to explore</span>
-            </div>
-          </div>
-        </div>
-      </header>
+        <div className="min-h-screen w-full">
+            <Hero 
+                images={['/projects/echoes-across-the-indian-ocean/cover.jpg']}
+                title="Echoes Across the Indian Ocean"
+                description="This project explores the historical and cultural ties between the Gulf countries and India, with a focus on Kerala's longstanding relationship with the Arabian Peninsula."
+                imageInterval={5000}
+            />
 
-      {/* Main Content */}
-      <main className="mx-auto mt-16 px-2">
-      </main>
-    </div>
+            <div className="max-w-7xl mx-auto px-4 py-24">
+                {/* Project Description */}
+                <motion.div 
+                    className="max-w-3xl mx-auto mb-24"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8 }}
+                >
+                    <p className="text-lg md:text-xl text-gray-300 leading-relaxed tracking-wide space-y-6">
+                        <span className="block mb-6">
+                            This project explores the historical and cultural ties between the Gulf countries 
+                            and India, with a focus on Kerala's longstanding relationship with the Arabian Peninsula.
+                        </span>
+                        <span className="block mb-6">
+                            These connections were first established through the spice trade, which brought 
+                            Arab traders to Kerala and facilitated centuries of exchange in goods, culture, 
+                            and traditions.
+                        </span>
+                        <span className="block">
+                            I have chosen to explore this through a collection of videos taken in Kerala, 
+                            with each clip from Kerala followed by a corresponding shot from the UAE. 
+                            I used the background sounds from both locations along with interviews to 
+                            give context to the visuals.
+                        </span>
+                    </p>
+                </motion.div>
+
+                {/* Video Section */}
+                <motion.div 
+                    className="max-w-5xl mx-auto"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, delay: 0.2 }}
+                >
+                    <div className="relative aspect-video rounded-xl overflow-hidden shadow-2xl">
+                        <iframe
+                            className="w-full h-full"
+                            src="https://www.youtube-nocookie.com/embed/YOUR_VIDEO_ID?autoplay=0&rel=0&modestbranding=1"
+                            title="Echoes Across the Indian Ocean"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowFullScreen
+                        />
+                    </div>
+                    <div className="mt-8">
+                        <p className="text-gray-400 text-center italic text-lg">
+                            "A visual journey exploring the parallel narratives between Kerala and the UAE"
+                        </p>
+                    </div>
+                </motion.div>
+            </div>
+        </div>
     );
 };
 

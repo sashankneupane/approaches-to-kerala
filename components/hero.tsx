@@ -1,24 +1,27 @@
 'use client';
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { featured_photos } from '@/app/data';
 
-export default function Hero() {
+interface HeroProps {
+  images: string[];
+  title: string;
+  description: string;
+  imageInterval?: number;
+}
+
+export default function Hero({ images, title, description, imageInterval = 3000 }: HeroProps) {
   const [currentPhotoIndex, setCurrentPhotoIndex] = useState(0);
   const [isVisible, setIsVisible] = useState(true);
   const [scrollProgress, setScrollProgress] = useState(0);
 
   useEffect(() => {
-    // Image carousel
     const interval = setInterval(() => {
-      setCurrentPhotoIndex((prev) => (prev + 1) % featured_photos.length);
-    }, 3000); // Change image every 5 seconds
+      setCurrentPhotoIndex((prev) => (prev + 1) % images.length);
+    }, imageInterval);
 
-    // Enhanced scroll handler with progress
     const handleScroll = () => {
       const scrolled = window.scrollY;
       const windowHeight = window.innerHeight;
-      // Smoother progress calculation
       const progress = Math.min((scrolled / (windowHeight * 0.8)), 1);
       
       setScrollProgress(progress);
@@ -30,25 +33,24 @@ export default function Hero() {
       clearInterval(interval);
       window.removeEventListener('scroll', handleScroll);
     };
-  }, []);
+  }, [images.length, imageInterval]);
 
   return (
     <motion.section 
       className="relative h-screen w-full flex flex-col items-center justify-center overflow-hidden"
       animate={{ 
         opacity: 1,
-        backgroundColor: `rgba(0, 0, 0, ${scrollProgress * 0.8})` // Smoother background transition
+        backgroundColor: `rgba(0, 0, 0, ${scrollProgress * 0.8})`
       }}
       transition={{ duration: 0.8, ease: "easeOut" }}
     >
-      {/* Background Image Carousel with Fixed Position and Fade */}
       <AnimatePresence mode='wait'>
         <motion.div
           key={currentPhotoIndex}
           className="fixed inset-0 w-full h-full"
           initial={{ opacity: 0 }}
           animate={{ 
-            opacity: Math.max(1 - scrollProgress * 1.5, 0) // Fade out faster than scroll
+            opacity: Math.max(1 - scrollProgress * 1.5, 0)
           }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.5 }}
@@ -56,7 +58,7 @@ export default function Hero() {
           <div 
             className="absolute inset-0 bg-cover bg-center bg-fixed"
             style={{ 
-              backgroundImage: `url(/photos/${featured_photos[currentPhotoIndex]}.jpg)`,
+              backgroundImage: `url(${images[currentPhotoIndex]})`,
               filter: 'brightness(0.7) saturate(1.2)'
             }}
           />
@@ -64,7 +66,6 @@ export default function Hero() {
         </motion.div>
       </AnimatePresence>
 
-      {/* Fixed Gradient Overlays with Dynamic Opacity */}
       <div 
         className="fixed inset-0 bg-gradient-to-b from-black/40 via-transparent to-black"
         style={{ 
@@ -78,12 +79,11 @@ export default function Hero() {
         }} 
       />
 
-      {/* Main Content with Fade Out */}
       <motion.div
         className="relative z-10 text-center px-4 max-w-5xl"
         animate={{ 
           opacity: Math.max(1 - scrollProgress * 2, 0),
-          y: scrollProgress * -50 // Slight upward movement while fading
+          y: scrollProgress * -50
         }}
         transition={{ duration: 0.2 }}
       >
@@ -92,11 +92,10 @@ export default function Hero() {
           animate={{ opacity: isVisible ? 1 : 0 }}
         >
           <span className="inline-block">
-            Approaches to Kerala
+            {title}
           </span>
         </motion.h1>
 
-        {/* Animated Line */}
         <motion.div
           initial={{ width: 0 }}
           animate={{ width: "100%" }}
@@ -108,15 +107,14 @@ export default function Hero() {
           className="text-white/80 text-xl md:text-2xl mt-8 font-light tracking-wide"
           animate={{ opacity: isVisible ? 1 : 0 }}
         >
-          Exploring the cultural essence through different mediums
+          {description}
         </motion.p>
       </motion.div>
 
-      {/* Simple Scroll Indicator with Quick Fade */}
       <motion.div
         className="absolute bottom-16 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 z-20"
         animate={{ 
-          opacity: Math.max(1 - scrollProgress * 3, 0) // Fade out quickly
+          opacity: Math.max(1 - scrollProgress * 3, 0)
         }}
       >
         <motion.div
@@ -124,7 +122,6 @@ export default function Hero() {
           whileHover={{ y: 2 }}
           transition={{ duration: 0.2 }}
         >
-          {/* Simple animated arrow */}
           <motion.svg 
             width="24" 
             height="24" 
@@ -149,7 +146,6 @@ export default function Hero() {
           </motion.svg>
         </motion.div>
 
-        {/* Scroll text */}
         <motion.span
           className="text-white/70 text-sm tracking-[0.3em] uppercase font-light"
           animate={{
@@ -165,7 +161,6 @@ export default function Hero() {
         </motion.span>
       </motion.div>
 
-      {/* Image Counter with Quick Fade */}
       <motion.div 
         className="absolute bottom-12 right-12 z-20"
         animate={{ 
@@ -173,7 +168,7 @@ export default function Hero() {
         }}
       >
         <div className="flex gap-2">
-          {featured_photos.map((_, index) => (
+          {images.map((_, index) => (
             <div
               key={index}
               className={`w-1.5 h-1.5 rounded-full transition-all duration-500 ${
