@@ -18,7 +18,7 @@ export default function Keralatography() {
           muted
           loop
         >
-          <source src="/projects/keralatography/keralatography.mov" type="video/mp4" />
+          <source src="/projects/keralatography/keralatography.MOV" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
       </div>
