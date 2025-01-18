@@ -34,7 +34,7 @@ const StudentsGrid: React.FC<StudentsGridProps> = ({ students }) => {
   if (!isClient) return null;
 
   return (
-    <div className="w-full">
+    <div className="w-full bg-black">
                 <motion.div
                     className="py-24 text-center"
                     initial={{ opacity: 0, y: 20 }}

@@ -4,12 +4,13 @@ import Hero from '@/components/hero';
 import PhotoGrid from '@/components/photogrid';
 import lamps from './data.json';
 import { motion } from 'framer-motion';
+import ModelViewer from '@/components/model-viewer';
 
 export default function LightsOfKerala() {
   const gridImages = lamps.map(lamp => ({
     src: lamp.src,
     alt: lamp.alt,
-    description: lamp.description,
+    title: lamp.title,
     width: 800,
     height: 800
   }));
@@ -46,9 +47,34 @@ export default function LightsOfKerala() {
           <PhotoGrid 
             images={gridImages}
             enableFullScreen={true}
-            defaultLayout="masonry"
+            type='M'
+            showLayoutToggle={true}
+            showTitle={false}
             className="px-4"
           />
+        </motion.div>
+
+        {/* Section Divider */}
+        <motion.div 
+          className="my-32 max-w-4xl mx-auto text-center"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+        >
+          <div className="w-full h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+          <h2 className="text-3xl text-white/90 font-light my-24">3D Experience</h2>
+        </motion.div>
+
+        {/* 3D Experience Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          className='w-4/5 mx-auto'
+        >
+          <ModelViewer className="w-full" />
         </motion.div>
       </main>
     </div>

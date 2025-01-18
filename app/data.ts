@@ -30,7 +30,7 @@ export const students: Student[] = [
     project: {
       title: 'Lights of Kerala',
       slug: 'lights-of-kerala',
-        mode: 'photo',
+        mode: 'form',
       description: 'A symbol of purity, divine presence and dispelling darkness.'
     }
   },

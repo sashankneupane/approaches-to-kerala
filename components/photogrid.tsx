@@ -6,17 +6,21 @@ import { motion, AnimatePresence } from 'framer-motion';
 interface ImageData {
   src: string;
   alt?: string;
+  title?: string;
   description?: string;
   width?: number;
   height?: number;
 }
 
+type LayoutType = 'B' | 'S' | 'M';
+
 interface PhotoGridProps {
   images: ImageData[];
   className?: string;
   enableFullScreen?: boolean;
-  defaultLayout?: 'grid' | 'masonry';
+  type?: LayoutType;
   showLayoutToggle?: boolean;
+  showTitle?: boolean;
 }
 
 const FullScreenImage = ({ src, alt, description, onClose }: { 
@@ -60,140 +64,133 @@ export default function PhotoGrid({
   images,
   className = "",
   enableFullScreen = true,
-  defaultLayout = 'grid',
-  showLayoutToggle = true
+  type,
+  showLayoutToggle,
+  showTitle = true  // Default to true for backward compatibility
 }: PhotoGridProps) {
-  const [layout, setLayout] = useState(defaultLayout);
+  const [layout, setLayout] = useState<LayoutType>(type || 'M');
   const [selectedImage, setSelectedImage] = useState<ImageData | null>(null);
-  const [isInView, setIsInView] = useState(false);
+  const [isInView, setIsInView] = useState(true); // Changed default to true
   const gridRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        setIsInView(entry.isIntersecting);
+        // Only update isInView when element leaves viewport completely
+        if (!entry.isIntersecting) {
+          setIsInView(false);
+        } else {
+          setIsInView(true);
+        }
       },
       {
-        threshold: 0.1 // Toggle will appear when 10% of the grid is visible
+        threshold: 0,
+        rootMargin: '0px'
       }
     );
 
-    if (gridRef.current) {
-      observer.observe(gridRef.current);
+    const currentRef = gridRef.current;
+    if (currentRef) {
+      observer.observe(currentRef);
     }
 
-    return () => observer.disconnect();
-  }, []);
+    return () => {
+      if (currentRef) {
+        observer.unobserve(currentRef);
+      }
+    };
+  }, [layout]); // Add layout as dependency to re-observe after layout changes
 
-  const LayoutToggle = () => (
-    <AnimatePresence>
-      {isInView && (
-        <motion.div 
-          className="fixed bottom-4 right-4 z-40"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: 20 }}
-          transition={{ duration: 0.3 }}
-        >
-          <div className="bg-black/40 hover:bg-black/60 rounded-full p-1 backdrop-blur-sm transition-all duration-300 group flex flex-col">
-            {['grid', 'masonry'].map((l) => (
-              <button
-                key={l}
-                onClick={() => setLayout(l as 'grid' | 'masonry')}
-                className={`px-2 py-1 rounded-full text-sm font-medium transition-all duration-300 ${
+  const getGridClass = () => {
+    switch(layout) {
+      case 'B':
+        return 'grid grid-cols-1 md:grid-cols-2 gap-6';
+      case 'S':
+        return 'grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4';
+      case 'M':
+      default:
+        return 'columns-1 md:columns-2 lg:columns-3 gap-4';
+    }
+  };
+
+  return (
+    <div ref={gridRef} className="relative min-h-[200px]"> {/* Added min-height to ensure visibility */}
+      <AnimatePresence>
+        {isInView && showLayoutToggle && (
+          <motion.div 
+            className="fixed bottom-4 right-4 z-40"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
+            transition={{ duration: 0.3 }}
+          >
+            <div className="bg-black/40 hover:bg-black/60 rounded-full p-1 backdrop-blur-sm">
+              <div className="flex flex-col gap-2">
+                {['B', 'S', 'M'].map((l) => (
+                <button
+                  key={l}
+                  onClick={() => setLayout(l as LayoutType)}
+                  className={`px-2 py-1 rounded-full text-sm font-medium ${
                   layout === l 
                     ? 'bg-white/20 text-white' 
                     : 'text-white/40 hover:text-white'
-                }`}
-              >
-                <span>
-                  {l.charAt(0).toUpperCase()}
-                </span>
-              </button>
-            ))}
-          </div>
-        </motion.div>
-      )}
-    </AnimatePresence>
-  );
+                  }`}
+                >
+                  {l}
+                </button>
+                ))}
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
-  const renderGrid = () => (
-    <div className={`grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 ${className}`}>
-      {images.map((image, idx) => (
-        <motion.div
-          key={image.src}
-          className="relative aspect-square group"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.4, delay: idx * 0.1 }}
-        >
-          <div 
-            className="relative w-full h-full overflow-hidden rounded-lg cursor-pointer"
-            onClick={() => enableFullScreen && setSelectedImage(image)}
+      <div className={`${getGridClass()} ${className}`}>
+        {images.map((image, idx) => (
+          <motion.div
+            key={image.src}
+            className={`relative ${layout !== 'M' ? 'aspect-square' : 'mb-4'} group`}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.4, delay: idx * 0.1 }}
           >
-            <Image
-              src={image.src}
-              alt={image.alt || ""}
-              fill
-              className="object-cover transition-transform duration-500 group-hover:scale-105"
-              sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
-            />
-            {image.description && (
-              <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 to-transparent">
-                  <p className="text-white text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    {image.description}
-                  </p>
+            <div 
+              className="relative overflow-hidden rounded-lg cursor-pointer"
+              onClick={() => enableFullScreen && setSelectedImage(image)}
+            >
+              <Image
+                src={image.src}
+                alt={image.alt || ""}
+                width={800}
+                height={800}
+                className={`w-full object-cover ${layout !== 'M' ? 'aspect-square' : ''}`}
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent">
+                <div className="absolute bottom-0 left-0 right-0 p-4">
+                  <div className="transform transition-all duration-300 group-hover:translate-y-[-8px]">
+                    {image.title && (
+                      <h3 className={`text-white/70 font-medium text-lg mb-2 transition-opacity duration-300
+                        ${!showTitle && !image.description ? 'opacity-0 group-hover:opacity-100' : ''}
+                        ${!showTitle && image.description ? 'opacity-0 group-hover:opacity-100' : ''}
+                        ${showTitle ? 'opacity-70' : ''}`}
+                      >
+                        {image.title}
+                      </h3>
+                    )}
+                    {image.description && (
+                      <p className="text-white/60 text-sm transform transition-all duration-300 
+                        opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0">
+                        {image.description}
+                      </p>
+                    )}
+                  </div>
                 </div>
               </div>
-            )}
-          </div>
-        </motion.div>
-      ))}
-    </div>
-  );
+            </div>
+          </motion.div>
+        ))}
+      </div>
 
-  const renderMasonry = () => (
-    <div className={`columns-2 md:columns-3 lg:columns-4 gap-4 ${className}`}>
-      {images.map((image, idx) => (
-        <motion.div
-          key={image.src}
-          className="relative mb-4 break-inside-avoid group"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.4, delay: idx * 0.1 }}
-        >
-          <div 
-            className="relative overflow-hidden rounded-lg cursor-pointer"
-            onClick={() => enableFullScreen && setSelectedImage(image)}
-          >
-            <Image
-              src={image.src}
-              alt={image.alt || ""}
-              width={800}
-              height={800}
-              className="w-full object-cover transition-transform duration-500 group-hover:scale-105"
-            />
-            {image.description && (
-              <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 to-transparent">
-                  <p className="text-white text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    {image.description}
-                  </p>
-                </div>
-              </div>
-            )}
-          </div>
-        </motion.div>
-      ))}
-    </div>
-  );
-
-  return (
-    <div ref={gridRef}>
-      {showLayoutToggle && <LayoutToggle />}
-      {layout === 'grid' ? renderGrid() : renderMasonry()}
-      
       <AnimatePresence>
         {selectedImage && (
           <FullScreenImage

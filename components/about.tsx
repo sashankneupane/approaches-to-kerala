@@ -18,8 +18,32 @@ const HighlightNumber = ({ number, label }: { number: string, label: string }) =
 
 const AboutPage: React.FC = () => {
   return (
-    <div className="relative min-h-screen bg-gradient-to-b from-black via-black to-gray-900">
-      <div className="max-w-7xl mx-auto px-4 pt-24 pb-32">
+    <div className="relative min-h-screen">
+      {/* Hero Title Section */}
+      <div className="relative h-[40vh] flex items-center justify-center text-center px-4">
+        <div className="absolute inset-0" />
+        <div className="relative z-10 max-w-4xl mx-auto space-y-4">
+          <p className="text-sm uppercase tracking-widest text-white/40 mb-8">Overview</p>
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-5xl md:text-7xl font-light text-white/90"
+          >
+            About the Project
+          </motion.h1>
+          <div className="h-px w-32 mx-auto" />
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="text-lg md:text-xl text-white/60 max-w-5xl mx-auto"
+          >
+            Understanding Kerala's cultural heritage through multisensory research and documentation
+          </motion.p>
+        </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 py-24">
         {/* Introduction Section */}
         <motion.div 
           className="grid grid-cols-1 md:grid-cols-2 gap-16 mb-32"
@@ -79,55 +103,7 @@ const AboutPage: React.FC = () => {
             </motion.div>
           ))}
         </div>
-
-        {/* Kerala Focus Section */}
-        <motion.div 
-          className="relative rounded-2xl overflow-hidden"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-        >
-          <div className="absolute inset-0 bg-gradient-to-r from-purple-900/20 to-blue-900/20 backdrop-blur-sm" />
-          <div className="relative z-10 p-12 md:p-16">
-            <h2 className="text-3xl md:text-4xl font-light text-white/90 mb-8">
-              Kerala: A Global Laboratory
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-              <div className="space-y-6">
-                <p className="text-lg text-white/80">
-                  Our fieldwork explores Kerala&apos;s role as a crucible of global influences, 
-                  from ancient trade routes to contemporary artistic expressions.
-                </p>
-                <ul className="space-y-4 text-white/70">
-                  <li className="flex items-center gap-3">
-                    <span className="text-white/40">◆</span>
-                    Architecture connecting to UAE through religious networks
-                  </li>
-                  <li className="flex items-center gap-3">
-                    <span className="text-white/40">◆</span>
-                    Spectacular Theyyam ceremonies
-                  </li>
-                  <li className="flex items-center gap-3">
-                    <span className="text-white/40">◆</span>
-                    Contemporary art addressing sociopolitical challenges
-                  </li>
-                </ul>
-              </div>
-              <div className="space-y-6">
-                <h3 className="text-xl font-light text-white/90">Our Approach</h3>
-                <p className="text-white/70">
-                  Students explore the politics of heritage and ethics of representation 
-                  through diverse mediums, creating a virtual exhibition that captures 
-                  Kerala&apos;s cultural dynamism.
-                </p>
-              </div>
-            </div>
-          </div>
-        </motion.div>
       </div>
-      
-      {/* Bottom Gradient Transition */}
-      <div className="absolute bottom-0 left-0 right-0 h-64 bg-gradient-to-t from-gray-900 via-gray-900/50 to-transparent" />
     </div>
   );
 };

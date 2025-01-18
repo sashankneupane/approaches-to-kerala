@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import performances from "./data.json";
@@ -13,89 +13,75 @@ interface Performance {
   description: string;
 }
 
-const types = ["All", "Performance", "Place", "Street"];
-
 const Page = () => {
-  const [selectedType, setSelectedType] = useState<string>("All");
   const [selectedVideo, setSelectedVideo] = useState<Performance | null>(null);
 
-  const filteredPerformances = useMemo(
-    () =>
-      selectedType === "All"
-        ? performances
-        : performances.filter((item) => item.type === selectedType),
-    [selectedType]
-  );
-
   return (
-    <div className="min-h-screen w-full scroll-hidden mb-8">
-      {/* Header Section */}
-      <header className="relative w-full h-screen">
-        <div
-          className="h-full w-full bg-cover bg-center"
-          style={{ backgroundImage: `url(/projects/kerala-in-360/cover.jpg)` }}
-        >
-          <div className="h-full w-full bg-black bg-opacity-60 flex flex-col justify-center items-center text-center px-4">
-            <h1 className="text-4xl md:text-6xl font-bold text-white mb-4">
-              Kerala in 360
-            </h1>
-            <p className="text-lg md:text-xl text-gray-300">
-              Dive into the rich cultural tapestry of Kerala&apos;s art forms.
-            </p>
-            <div className="mt-12 animate-bounce">
-              <span className="text-white text-2xl">↓ Scroll to explore</span>
-            </div>
-          </div>
+    <div className="min-h-screen w-full">
+      {/* Hero Section */}
+      <div className="relative h-screen w-full">
+        <Image
+          src="/projects/kerala-in-360/cover.jpg"
+          alt="Kerala in 360 Cover"
+          fill
+          className="object-cover"
+          priority
+        />
+        <div className="absolute inset-0 bg-black/60 flex flex-col items-center justify-center text-center p-4">
+          <motion.h1 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-5xl md:text-7xl font-bold text-white mb-6"
+          >
+            Kerala in 360°
+          </motion.h1>
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="text-xl md:text-2xl text-white/80 max-w-2xl"
+          >
+            Experience the vibrant culture and traditions of Kerala through immersive 360° videos
+          </motion.p>
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.4 }}
+            className="absolute bottom-10 animate-bounce"
+          >
+            <span className="text-white/60 text-sm tracking-widest uppercase">Scroll to explore</span>
+          </motion.div>
         </div>
-      </header>
+      </div>
 
-      {/* Main Content */}
-      <main className="mx-auto mt-16 px-2">
-        {/* Filter Chips */}
-        <div className="flex overflow-x-auto mb-8 space-x-4 scrollbar-hide">
-          {types.map((type) => (
-            <button
-              key={type}
-              className={`px-4 py-2 rounded-full text-sm font-medium shadow-md whitespace-nowrap transition-all ${
-                selectedType === type
-                  ? "bg-blue-600 text-white"
-                  : "bg-gray-200 text-gray-800 hover:bg-gray-300"
-              }`}
-              onClick={() => setSelectedType(type)}
-            >
-              {type}
-            </button>
-          ))}
-        </div>
-
-        {/* Grid Section */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {filteredPerformances.map((performance, idx) => (
+      {/* Video Grid */}
+      <div className="max-w-7xl mx-auto px-4 py-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {performances.map((performance, idx) => (
             <motion.div
               key={idx}
-              layout
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.3 }}
-              className="relative overflow-hidden cursor-pointer bg-gray-800 rounded-lg"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: idx * 0.1 }}
+              className="relative aspect-video cursor-pointer rounded-xl overflow-hidden"
               onClick={() => setSelectedVideo(performance)}
             >
               <Image
                 src={performance.thumbnail}
                 alt={performance.name}
-                className="w-full h-full object-cover"
-                width={300}
-                height={300}
+                fill
+                className="object-cover transition-transform duration-500 hover:scale-105"
               />
-              <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300">
-                <p className="text-white text-sm text-center px-2">
-                  {performance.description}
+              <div className="absolute inset-0 bg-black/40 opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-center justify-center p-4">
+                <p className="text-white text-center font-medium">
+                  {performance.name}
                 </p>
               </div>
             </motion.div>
           ))}
         </div>
-      </main>
+      </div>
 
       {/* Video Modal */}
       <AnimatePresence>
