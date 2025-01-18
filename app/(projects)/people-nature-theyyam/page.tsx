@@ -9,8 +9,8 @@ import Head from 'next/head'; // Re-added import
  * Adjust or replace with your actual image paths.
  */
 const IMAGES: string[] = [];
-for (let i = 1; i <= 26; i++) {
-  IMAGES.push(`/images/photo${i}.jpeg`);
+for (let i = 1; i <= 10; i++) {
+  IMAGES.push(`/images/${i}-min.jpg`);
 }
 
 const TITLE = "PHOTO GALLERY".split("");
@@ -50,6 +50,9 @@ export default function PhotoGalleryPage() {
   const [scrollY, setScrollY] = useState(0);
   const [activeLetterIndex, setActiveLetterIndex] = useState(0);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [visibleImages, setVisibleImages] = useState<ImageItem[]>([]);
+  const [page, setPage] = useState(1);
+  const imagesPerPage = 12;
 
   // Initialize randomized images on component mount
   useEffect(() => {
@@ -66,7 +69,29 @@ export default function PhotoGalleryPage() {
       .sort(() => Math.random() - 0.5);
     
     setImages(shuffled);
+    setVisibleImages(shuffled.slice(0, imagesPerPage));
   }, []); // Empty dependency array means this runs once on mount
+
+  // Add intersection observer for infinite scroll
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setPage(prev => prev + 1);
+          setVisibleImages(prev => [
+            ...prev,
+            ...images.slice(prev.length, prev.length + imagesPerPage)
+          ]);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    const sentinel = document.getElementById('sentinel');
+    if (sentinel) observer.observe(sentinel);
+
+    return () => observer.disconnect();
+  }, [images]);
 
   useEffect(() => {
     function handleScroll() {
@@ -179,7 +204,7 @@ export default function PhotoGalleryPage() {
         {/* Photo Gallery */}
         <section style={gallerySectionStyle}>
           <div style={galleryGridStyle}>
-            {images.map((image, idx) => (
+            {visibleImages.map((image, idx) => (
               <div 
                 style={getGalleryItemStyle(image.size)} 
                 key={idx}
@@ -200,6 +225,7 @@ export default function PhotoGalleryPage() {
                 />
               </div>
             ))}
+            <div id="sentinel" style={{ height: "20px" }} />
           </div>
         </section>
 
