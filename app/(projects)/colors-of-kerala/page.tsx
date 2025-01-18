@@ -130,30 +130,38 @@ export default function ColorsOfKeralaPage() {
   }, [shuffledImages, selectedColor]);
 
   return (
-    <div className="w-full">
-      {/* Cover Section */}
-      <section className="relative h-screen w-full flex flex-col items-center justify-center">
-        <div className="absolute inset-0 -z-10">
-          <div className="w-full h-full"></div>
-        </div>
-        <motion.div
-          className="text-center text-white p-8"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1 }}
-        >
-          <h1 className="text-5xl md:text-7xl font-extrabold tracking-wider mb-6">
-            Colors of Kerala
-          </h1>
-          <p className="text-xl md:text-2xl max-w-2xl mx-auto">
+    <div className="bg-black">
+      <section
+        className="relative h-screen bg-cover bg-center flex items-center justify-center"
+        style={{ backgroundImage: "url('/laterite.jpg')" }}
+      >
+        <div className="absolute inset-0 bg-black bg-opacity-70"></div>
+          <motion.div
+            className="text-center text-white p-8"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1 }}
+          >
+                    <div className="relative text-center text-white px-6">
+
+          <h1 className="text-[100px] font-bold mb-4" style={{ fontFamily: 'Impact' }}>Colors of Kerala</h1>
+          
+          <p className="w-4/5 mx-auto text-xl font-light text-white mb-8">
             Experience the vibrant palette of Kerala through a collection of images that showcase the rich and diverse colors that define this beautiful region.
           </p>
-          <div className="mt-4 w-20 h-1 bg-white mx-auto rounded"></div>
+          <a
+            href="#colors"
+            className="mt-8 inline-block text-white border-2 border-white hover:bg-white hover:text-black font-bold py-3 px-6 transition-all"
+          >
+            Explore
+          </a>
+        </div>
+        <div className="mt-4 w-20 h-1 bg-white mx-auto rounded"></div>
         </motion.div>
       </section>
 
       {/* Color Picker and Gallery Section */}
-      <div className="p-8">
+      <div className="p-8" id="colors">
         <div className="flex flex-col md:flex-row gap-6 justify-center items-start mb-6">
           <div className="rounded-lg overflow-hidden shadow-2xl">
             <SketchPicker

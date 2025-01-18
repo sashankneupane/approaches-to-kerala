@@ -33,7 +33,7 @@ export default function SymbolsAndTheyyam() {
     <div className="bg-black">
       <section
         className="relative h-screen bg-cover bg-center flex items-center justify-center"
-        style={{ backgroundImage: "url('/laterite.png')" }}
+        style={{ backgroundImage: "url('/laterite.jpg')" }}
       >
         <div className="absolute inset-0 bg-black bg-opacity-70"></div>
         <div className="relative text-center text-white px-6">

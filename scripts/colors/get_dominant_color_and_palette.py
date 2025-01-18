@@ -6,7 +6,7 @@ from tqdm import tqdm
 
 
 def collect_images(root_dir):
-    image_extensions = (".png", ".jpg", ".jpeg", ".webp")
+    image_extensions = (".png", ".JPG", ".jpg", ".jpeg", ".webp")
     image_paths = []
     for dirpath, _, filenames in os.walk(root_dir):
         for filename in filenames:
@@ -23,11 +23,12 @@ def load_existing_data(output_file):
 def main():
     root_dir = Path(__file__).parent.parent.parent
     public_dir = root_dir / "public"
-    output_file = public_dir / "colors-of-kerala" / "colorInfo.json"
-    output_file.parent.mkdir(parents=True, exist_ok=True)
+    colors_of_kerala_dir = public_dir / "projects" / "colors-of-kerala"
+    output_file = colors_of_kerala_dir / "colorInfo.json"
+    colors_of_kerala_dir.mkdir(parents=True, exist_ok=True)
 
     existing_data = load_existing_data(output_file)
-    images = collect_images(root_dir / "public" / "projects")
+    images = collect_images(colors_of_kerala_dir)
     data = []
 
     for img_path in tqdm(images):
