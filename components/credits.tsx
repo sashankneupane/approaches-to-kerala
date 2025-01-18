@@ -1,3 +1,4 @@
+'use client';
 import { motion } from 'framer-motion';
 
 interface CreditSection {
@@ -53,7 +54,7 @@ const CreditSection = ({ title, names }: CreditSection) => (
 
 export default function Credits() {
   return (
-    <section className="relative min-h-screen">
+    <section className="relative min-h-screen bg-gradient-to-b from-black via-black to-gray-950">
       {/* Top gradient transition */}
       <div className="absolute top-0 left-0 right-0 h-64 to-transparent" />
 

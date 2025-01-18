@@ -16,7 +16,7 @@ export default function MethodsIntro() {
               Four Distinct Approaches
             </h2>
             <p className="text-xl text-white/70 leading-relaxed">
-              Our research employs multiple methods to capture the richness of Kerala's cultural landscape,
+              Our research employs multiple methods to capture Kerala&apos;s cultural landscape,
               each offering a unique lens into tradition and transformation.
             </p>
             <div className="h-px w-32 bg-gradient-to-r from-purple-500 to-blue-500" />

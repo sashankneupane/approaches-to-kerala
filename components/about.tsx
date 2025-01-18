@@ -95,7 +95,7 @@ const AboutPage: React.FC = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
               <div className="space-y-6">
                 <p className="text-lg text-white/80">
-                  Our fieldwork explores Kerala's role as a crucible of global influences, 
+                  Our fieldwork explores Kerala&apos;s role as a crucible of global influences, 
                   from ancient trade routes to contemporary artistic expressions.
                 </p>
                 <ul className="space-y-4 text-white/70">
@@ -118,7 +118,7 @@ const AboutPage: React.FC = () => {
                 <p className="text-white/70">
                   Students explore the politics of heritage and ethics of representation 
                   through diverse mediums, creating a virtual exhibition that captures 
-                  Kerala's cultural dynamism.
+                  Kerala&apos;s cultural dynamism.
                 </p>
               </div>
             </div>
