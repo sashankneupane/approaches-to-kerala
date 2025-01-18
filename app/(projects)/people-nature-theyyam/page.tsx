@@ -1,7 +1,8 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import Head from "next/head";
 import Link from "next/link";
+import Image from "next/image"; // Added import
+import Head from 'next/head'; // Re-added import
 
 /**
  * Example images in /public/images
@@ -32,13 +33,13 @@ const photoSeries = [
   {
     title: "People, Nature, Theyyam",
     description: "Explore the natural beauty of Kerala through a collection of landscape and wildlife photography.",
-    coverImage: "/projects/people_nature_theyyam/cover1.jpg",
+    coverImage: "/projects/people-nature-theyyam/cover1.jpg",
     slug: "people,nature,theyyams"
   },
   {
     title: "Kerala in Focus - 4 photo series",
     description: "Intimate portraits capturing the diverse faces and stories of Kerala's communities.",
-    coverImage: "/projects/people_nature_theyyam/cover22.jpg",
+    coverImage: "/projects/people-nature-theyyam/cover22.jpg",
     slug: "people-series"
   }
 ];
@@ -120,7 +121,6 @@ export default function PhotoGalleryPage() {
   return (
     <>
       <Head>
-        {/* Load a custom font (Major Mono Display) from Google Fonts */}
         <link
           rel="preconnect"
           href="https://fonts.googleapis.com"
@@ -135,7 +135,6 @@ export default function PhotoGalleryPage() {
           rel="stylesheet"
         />
       </Head>
-
       <div style={pageContainerStyle}>
         {/* Dark overlay that increases with scroll */}
         <div
@@ -171,7 +170,7 @@ export default function PhotoGalleryPage() {
           </h1>
 
           <div style={buttonsContainerStyle}>
-            <Link href="/people_nature_theyyam/story">
+            <Link href="/people-nature-theyyam/story">
               <button style={storyButtonStyle}>Story Mode</button>
             </Link>
           </div>
@@ -187,9 +186,11 @@ export default function PhotoGalleryPage() {
                 className="gallery-item"
                 onClick={() => setSelectedImage(image.src)}
               >
-                <img
+                <Image
                   src={image.src}
                   alt={`Gallery ${idx}`}
+                  width={500}
+                  height={500}
                   style={{
                     ...galleryImageStyle,
                     objectFit: "cover",
@@ -207,14 +208,16 @@ export default function PhotoGalleryPage() {
           <div style={seriesGridStyle}>
             {photoSeries.map((series) => (
               <Link 
-                href={`/people_nature_theyyam/${series.slug}`} 
+                href={`/people-nature-theyyam/${series.slug}`} 
                 key={series.title}
                 style={coverContainerStyle}
               >
                 <div style={coverImageContainerStyle}>
-                  <img
+                  <Image
                     src={series.coverImage}
                     alt={series.title}
+                    width={1200}
+                    height={675}
                     style={coverImageStyle}
                   />
                   <div style={coverOverlayStyle}>
@@ -233,9 +236,11 @@ export default function PhotoGalleryPage() {
             style={modalOverlayStyle}
             onClick={() => setSelectedImage(null)}
           >
-            <img 
+            <Image 
               src={selectedImage} 
               alt="Full screen view"
+              width={1200}
+              height={900}
               style={modalImageStyle}
             />
           </div>

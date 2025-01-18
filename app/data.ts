@@ -10,7 +10,7 @@ export const students: Student[] = [
   { name: 'Yumi', dp: 'laakhay.png', project: 'people-nature-theyyam' },
   { name: 'Timothy', dp: 'laakhay.png', project: '' },
   { name: 'Didi', dp: 'didi.png', project: 'chromatic-narrative-of-kerala' },
-  { name: 'Sayda', dp: 'laakhay.png', project: '' },
+  { name: 'Sayda', dp: 'laakhay.png', project: 'legends-and-myths-of-kerala' },
   { name: 'Shahad', dp: 'laakhay.png', project: 'keralatography' },
   { name: 'Luca', dp: 'laakhay.png', project: '' },
   { name: 'Khater', dp: 'laakhay.png', project: '' },
@@ -84,6 +84,13 @@ export const projects: Project[] = [
     author: 'Mustafa Diri',
     mode: 'form',
     link: '/symbols-and-theyyam',
+    description: 'N/A'
+  },
+  {
+    title: 'Legends and Myths of Kerala',
+    author: 'Sayda Abusalih',
+    mode: 'audio',
+    link: '/legends-and-myths-of-kerala',
     description: 'N/A'
   },
 ];
