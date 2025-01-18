@@ -47,7 +47,7 @@ const pickerStyles = {
       background: '#1f2937',
       boxShadow: 'none',
       borderRadius: '0.5rem',
-      width: '320px !important', // Force wider width
+      width: '280px !important', // Reduced from 320px to 280px
     },
     saturation: {
       borderRadius: '0.5rem 0.5rem 0 0',
@@ -394,9 +394,9 @@ export default function ColorsOfKeralaPage() {
   // Update color picker position
   const renderColorPicker = () => (
     <motion.div
-      className="fixed bottom-[320px] right-8 z-40" // Changed position to appear above controls
+      className="fixed bottom-[280px] right-8 z-40 scale-90 origin-bottom-right" // Added scale-90 and origin-bottom-right
       initial={{ opacity: 0, scale: 0.8, y: 50 }} // Changed x to y for vertical animation
-      animate={{ opacity: 1, scale: 1, y: 0 }}
+      animate={{ opacity: 1, scale: 0.9, y: 0 }} // Updated scale in animation
       exit={{ opacity: 0, scale: 0.8, y: 50 }}
     >
       <SketchPicker
