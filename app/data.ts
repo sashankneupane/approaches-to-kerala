@@ -1,8 +1,8 @@
 import type { Student, Project } from './types';
 
 export const students: Student[] = [
-  { name: 'Sashank', dp: 'laakhay.png', project: 'kerala-in-360' },
-  { name: 'Bipana', dp: 'laakhay.png', project: 'potraits-of-kerala' },
+  { name: 'Sashank', dp: 'sashank.jpg', project: 'kerala-in-360' },
+  { name: 'Bipana', dp: 'bipana.jpg', project: 'potraits-of-kerala' },
   { name: 'Sungyun', dp: 'sungyun.png', project: 'lights-of-kerala' },
   { name: 'Soyuj', dp: 'laakhay.png', project: 'colors-of-kerala' },
   { name: 'Alia', dp: 'alia.jpg', project: 'echoes-across-the-indian-ocean' },
