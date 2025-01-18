@@ -7,7 +7,7 @@ import Head from 'next/head';
 const playfair = Playfair_Display({ subsets: ["latin"] });
 
 const IMAGES: string[] = [];
-for (let i = 1; i <= 68; i++) {
+for (let i = 1; i <= 64; i++) {
   IMAGES.push(`/images/project1/${i}.jpg`);
 }
 

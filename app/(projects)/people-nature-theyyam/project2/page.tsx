@@ -8,7 +8,7 @@ const playfair = Playfair_Display({ subsets: ["latin"] });
 
 const IMAGES: string[] = [];
 for (let i = 1; i <= 68; i++) {
-  IMAGES.push(`/images/project1/${i}.jpg`);
+  IMAGES.push(`/images/project2/${i}.jpg`);
 }
 
 // Different size options for grid items

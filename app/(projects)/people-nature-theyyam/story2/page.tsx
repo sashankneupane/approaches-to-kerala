@@ -150,9 +150,9 @@ export default function AmazingScrollingGallery() {
           ))}
         </h1>
         {/* Fixed position Next Story button */}
-        <Link href="/people-nature-theyyam/story2">
+        <Link href="/people-nature-theyyam/story">
           <button style={nextStoryButtonStyle}>
-            Next Story
+            Previous Story
           </button>
         </Link>
       </section>
@@ -220,9 +220,9 @@ export default function AmazingScrollingGallery() {
 
       {/* Add new centered Next Story button after all images */}
       <section style={centeredNextStorySectionStyle}>
-        <Link href="/people-nature-theyyam/story2">
+        <Link href="/people-nature-theyyam/story">
           <button style={centeredNextStoryButtonStyle}>
-            <span>Next Story</span>
+            <span>Previous Story</span>
             <svg 
               width="24" 
               height="24" 
