@@ -1,17 +1,18 @@
 'use client';
 import React from "react";
+import Hero from '@/components/hero';
 
 export default function Keralatography() {
   return (
-    <div className="bg-gradient-to-b from-white-900 via-black to-gray-900 text-white min-h-screen flex flex-col items-center py-12 px-4">
-      {/* Title Section */}
-      <h1 className="text-4xl md:text-6xl font-extrabold mb-6 tracking-wide text-center" style={{ fontFamily: 'Impact' }}>
-        Keralatography
-      </h1>
-      <div className="mt-4 w-24 h-1 bg-white mx-auto rounded mb-8"></div>
-
+    <div className="bg-black min-h-screen">
+      <Hero
+        images={["/dp/shahad.jpg"]}
+        title="Keralatography"
+        description="A Visual Journey Through Kerala"
+      />
+      
       {/* Video Section */}
-      <div className="w-full max-w-4xl">
+      <div className="w-4/5 mx-auto px-4 py-16">
         <video
           className="w-full h-auto rounded-lg shadow-lg focus:outline-none"
           controls
