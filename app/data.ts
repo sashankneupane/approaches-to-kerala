@@ -14,7 +14,7 @@ export const students: Student[] = [
   { name: 'Shahad', dp: 'laakhay.png', project: 'keralatography' },
   { name: 'Luca', dp: 'laakhay.png', project: '' },
   { name: 'Khater', dp: 'laakhay.png', project: '' },
-  { name: 'Mustafa', dp: 'laakhay.png', project: '' },
+  { name: 'Mustafa', dp: 'mustafa.jpg', project: 'symbols-and-theyyam' },
   { name: 'Noor', dp: 'laakhay.png', project: '' },
 ];
 
@@ -78,7 +78,14 @@ export const projects: Project[] = [
     mode: 'video',
     link: '/echoes-across-the-indian-ocean',
     description: "This project explores the historical and cultural ties between the Gulf countries and India, with a focus on Kerala’s longstanding relationship with the Arabian Peninsula. These connections were first established through the spice trade, which brought Arab traders to Kerala and facilitated centuries of exchange in goods, culture, and traditions. I have chosen to explore this through a collection of videos taken in Kerala, with each clip from Kerala followed by a corresponding shot from the UAE. I used the background sounds from both locations along with interviews to give context to the visuals."
-  }
+  },
+  {
+    title: 'Symbols and Theyyam',
+    author: 'Mustafa Diri',
+    mode: 'form',
+    link: '/symbols-and-theyyam',
+    description: 'N/A'
+  },
 ];
 
 export const featured_photos: string[] = [

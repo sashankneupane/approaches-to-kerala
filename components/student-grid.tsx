@@ -58,7 +58,7 @@ const StudentsGrid: React.FC<StudentsGridProps> = ({ students }) => {
   ];
 
   return (
-    <div className="flex flex-col items-center w-full">
+    <div className="flex flex-col items-center w-full overflow-hidden">
       <div className="flex items-center w-full">
         <button
           onClick={handlePrev}
@@ -66,7 +66,7 @@ const StudentsGrid: React.FC<StudentsGridProps> = ({ students }) => {
         >
           ⇤
         </button>
-        <div className="flex overflow-x-auto w-full justify-center">
+        <div className="flex overflow-x-auto w-full justify-center overflow-hidden">
           {currentStudents.map((student, index) => (
             <div
               key={index}
