@@ -1,6 +1,7 @@
 'use client';
 import React, { useRef } from "react";
 import Image from "next/image";
+import Hero from "@/components/hero";
 
 export default function SymbolsAndTheyyam() {
   const projectDirectory = "/projects/symbols-and-theyyam";
@@ -31,27 +32,14 @@ export default function SymbolsAndTheyyam() {
 
   return (
     <div className="bg-black">
-      <section
-        className="relative h-screen bg-cover bg-center flex items-center justify-center"
-        style={{ backgroundImage: "url('/laterite.jpg')" }}
-      >
-        <div className="absolute inset-0 bg-black bg-opacity-70"></div>
-        <div className="relative text-center text-white px-6">
-          <h1 className="text-[100px] font-bold mb-4" style={{ fontFamily: 'Impact' }}>Symbols and Theyyam</h1>
-          
-          <p className="w-4/5 mx-auto text-xl font-light text-white mb-8">
-          This project explores the rich symbolism of the Theyyam ritual in Northern Kerala, weaving poetry, video, and reflections to capture its cultural and multisensory depth.</p>
-          <a
-            href="#theyyam"
-            className="mt-8 inline-block text-white border-2 border-white hover:bg-white hover:text-black font-bold py-3 px-6 transition-all"
-          >
-            Explore
-          </a>
-        </div>
-      </section>
+      <Hero 
+        images={["/laterite.jpg"]}
+        title="Symbols and Theyyam"
+        description="This project explores the rich symbolism of the Theyyam ritual in Northern Kerala, weaving poetry, video, and reflections to capture its cultural and multisensory depth."
+      />
 
       {/* Section 1 (Horizontal scroll with memo notes) */}
-      <section className="relative py-8 bg-black" id="theyyam">
+      <section className="relative py-24 bg-black" id="theyyam">
         <div className="relative text-white px-6">
           {/* Scroll Buttons */}
           <button 
