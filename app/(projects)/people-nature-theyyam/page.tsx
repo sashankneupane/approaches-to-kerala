@@ -33,25 +33,26 @@ const photoSeries = [
   {
     title: "People, Nature, Theyyam",
     description: "Explore the natural beauty of Kerala through a collection of landscape and wildlife photography.",
-    coverImage: "/projects/people-nature-theyyam/cover1.jpg",
-    slug: "people,nature,theyyams"
+    author: "Photographer: Yumi Omori", // Add author
+    coverImage: "/projects/people-nature-theyyam/photo1.jpeg",
+    slug: "project1"
   },
   {
     title: "Kerala in Focus - 4 photo series",
     description: "Intimate portraits capturing the diverse faces and stories of Kerala's communities.",
-    coverImage: "/projects/people-nature-theyyam/cover22.jpg",
-    slug: "people-series"
+    author: "Photographer: Timothy Chiu", // Add author
+    coverImage: "/images/project2/22.jpg",
+    slug: "project2"
   }
 ];
 
-export default function PhotoGalleryPage() {
+export default function PeopleNatureTheyyamPage() {
   // Modify the state to store image objects instead of just strings
   const [images, setImages] = useState<ImageItem[]>([]);
   const [scrollY, setScrollY] = useState(0);
   const [activeLetterIndex, setActiveLetterIndex] = useState(0);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [visibleImages, setVisibleImages] = useState<ImageItem[]>([]);
-  const [page, setPage] = useState(1);
   const imagesPerPage = 12;
 
   // Initialize randomized images on component mount
@@ -77,7 +78,6 @@ export default function PhotoGalleryPage() {
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries[0].isIntersecting) {
-          setPage(prev => prev + 1);
           setVisibleImages(prev => [
             ...prev,
             ...images.slice(prev.length, prev.length + imagesPerPage)
@@ -91,7 +91,7 @@ export default function PhotoGalleryPage() {
     if (sentinel) observer.observe(sentinel);
 
     return () => observer.disconnect();
-  }, [images]);
+  }, [images, imagesPerPage]);
 
   useEffect(() => {
     function handleScroll() {
@@ -142,6 +142,8 @@ export default function PhotoGalleryPage() {
     opacity: 1, // You can still use your existing opacity calculation here
     height: "100%",
   });
+
+  const SECTION_TITLE = "PHOTOGRAPHY SERIES".split("");
 
   return (
     <>
@@ -231,11 +233,26 @@ export default function PhotoGalleryPage() {
 
         {/* Photo Series Covers Section */}
         <section style={seriesCoversSectionStyle}>
+          <h2 style={sectionTitleStyle}>
+            {SECTION_TITLE.map((letter, i) => (
+              <span
+                key={i}
+                style={{
+                  color: letter === 'Y' ? "#ff4444" : "#fff",
+                  textShadow: "0 0 5px rgba(255,255,255,0.8)",
+                  display: "inline-block",
+                }}
+              >
+                {letter}
+              </span>
+            ))}
+          </h2>
           <div style={seriesGridStyle}>
             {photoSeries.map((series) => (
               <Link 
                 href={`/people-nature-theyyam/${series.slug}`} 
                 key={series.title}
+                className="cover-link"
                 style={coverContainerStyle}
               >
                 <div style={coverImageContainerStyle}>
@@ -246,9 +263,10 @@ export default function PhotoGalleryPage() {
                     height={675}
                     style={coverImageStyle}
                   />
-                  <div style={coverOverlayStyle}>
+                  <div className="cover-overlay" style={coverOverlayStyle}>
                     <h3 style={coverTitleStyle}>{series.title}</h3>
                     <p style={coverDescriptionStyle}>{series.description}</p>
+                    <p style={authorStyle}>{series.author}</p>
                   </div>
                 </div>
               </Link>
@@ -295,12 +313,55 @@ export default function PhotoGalleryPage() {
             transform: scale(0.85);
           }
 
-          div[style*="coverImageContainerStyle"]:hover img {
+          div[style*="coverImageContainerStyle"]:hover {
             transform: scale(1.05);
+          }
+
+          div[style*="coverImageContainerStyle"]:hover img {
+            filter: brightness(0.3);
           }
 
           div[style*="coverImageContainerStyle"]:hover div[style*="coverOverlayStyle"] {
             opacity: 1;
+          }
+        `}</style>
+
+        <style jsx global>{`
+          .cover-link {
+            display: block;
+            transform: scale(1);
+            transition: transform 0.5s ease;
+            z-index: 2;
+            cursor: none;
+          }
+
+          .cover-link:hover {
+            transform: scale(1.02);
+          }
+
+          .cover-link:hover img {
+            filter: brightness(0.3) !important;
+          }
+
+          .cover-link:hover .cover-overlay {
+            opacity: 1 !important;
+          }
+
+          .cover-link::after {
+            content: "📸";
+            position: fixed;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            z-index: 9999;
+          }
+
+          @keyframes pulse {
+            0% {
+              text-shadow: 0 0 2px rgba(255,255,255,0.5);
+            }
+            100% {
+              text-shadow: 0 0 15px rgba(255,255,255,1);
+            }
           }
         `}</style>
       </div>
@@ -406,8 +467,10 @@ const modalImageStyle: React.CSSProperties = {
 };
 
 const seriesCoversSectionStyle: React.CSSProperties = {
+  position: "relative",
   padding: "4rem 2rem",
-  background: "#000",
+  background: "transparent",
+  zIndex: 2,
 };
 
 const seriesGridStyle: React.CSSProperties = {
@@ -420,22 +483,25 @@ const seriesGridStyle: React.CSSProperties = {
 
 const coverContainerStyle: React.CSSProperties = {
   position: "relative",
-  cursor: "pointer",
+  cursor: "none",
   overflow: "hidden",
   aspectRatio: "16/9",
+  backgroundColor: "#000",
 };
 
 const coverImageContainerStyle: React.CSSProperties = {
   position: "relative",
   width: "100%",
   height: "100%",
+  transition: "transform 0.5s ease",
 };
 
 const coverImageStyle: React.CSSProperties = {
   width: "100%",
   height: "100%",
   objectFit: "cover",
-  transition: "transform 0.3s ease-in-out",
+  transition: "filter 0.5s ease",
+  filter: "brightness(1)",
 };
 
 const coverOverlayStyle: React.CSSProperties = {
@@ -444,27 +510,46 @@ const coverOverlayStyle: React.CSSProperties = {
   left: 0,
   width: "100%",
   height: "100%",
-  background: "rgba(0, 0, 0, 0.7)",
   display: "flex",
   flexDirection: "column",
   justifyContent: "center",
   alignItems: "center",
   padding: "2rem",
   opacity: 0,
-  transition: "opacity 0.3s ease-in-out",
+  transition: "opacity 0.5s ease",
+  background: "rgba(0, 0, 0, 0.7)",
+  pointerEvents: "none",
 };
 
 const coverTitleStyle: React.CSSProperties = {
   color: "#fff",
-  fontSize: "1.5rem",
+  fontSize: "2rem",
   fontWeight: "bold",
   marginBottom: "1rem",
   textAlign: "center",
+  zIndex: 2,
 };
 
 const coverDescriptionStyle: React.CSSProperties = {
   color: "#fff",
-  fontSize: "1rem",
+  fontSize: "1.2rem",
   textAlign: "center",
   lineHeight: 1.5,
+  zIndex: 2,
+};
+
+const sectionTitleStyle: React.CSSProperties = {
+  color: "#fff",
+  fontSize: "2.5rem",
+  fontWeight: "bold",
+  textAlign: "center",
+  marginBottom: "3rem",
+  fontFamily: "'Major Mono Display', monospace",
+};
+
+const authorStyle: React.CSSProperties = {
+  color: "#fff",
+  fontSize: "1rem",
+  marginTop: "0.5rem",
+  opacity: 0.9,
 };

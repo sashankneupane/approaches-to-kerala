@@ -11,8 +11,8 @@ const playfair = Playfair_Display({ subsets: ["latin"] });
  * Replace these with your actual images in /public/portfolio.
  */
 const IMAGES: string[] = [];
-for (let i = 1; i <= 26; i++) {
-  IMAGES.push(`/projects/people-nature-theyyam/project1/photo${i}.jpeg`);
+for (let i = 0; i <= 26; i++) {
+  IMAGES.push(`/projects/people-nature-theyyam/project2/${i}.jpg`);
 }
 
 
