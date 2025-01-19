@@ -1,7 +1,7 @@
 'use client';
-import React, { useRef, useEffect, useCallback } from 'react';
+import React, { useRef, useEffect, useCallback} from 'react';
 import Image from 'next/image';
-import { motion, useAnimation } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 interface AudioVisualGalleryProps {
   isPlaying: boolean;
@@ -11,7 +11,7 @@ interface AudioVisualGalleryProps {
 
 export default function AudioVisualGallery({ isPlaying, images, progress }: AudioVisualGalleryProps) {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
-  const animationFrameRef = useRef<number>();
+  const animationFrameRef = useRef<number | undefined>(undefined);
   const lastScrollRef = useRef<number>(0);
 
   const smoothScroll = useCallback((targetScroll: number) => {

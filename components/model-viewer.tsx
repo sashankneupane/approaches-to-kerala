@@ -1,38 +1,14 @@
 'use client';
 import React, { useState, useEffect } from 'react';
-import Image from 'next/image';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
+import '@google/model-viewer';
 
-type ModelSize = '50cm' | '150cm';
-type ViewType = 'real' | 'front' | 'isometric' | 'drawing';
-
-interface ModelViewerProps {
-  className?: string;
-}
-
-const ViewTypeButton = ({ type, active, onClick }: { 
-  type: ViewType; 
-  active: boolean; 
-  onClick: () => void;
-}) => (
-  <button
-    onClick={onClick}
-    className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${
-      active 
-        ? 'bg-white/20 text-white' 
-        : 'text-white/60 hover:text-white hover:bg-white/10'
-    }`}
-  >
-    {type.charAt(0).toUpperCase() + type.slice(1)}
-  </button>
-);
-
-const ThreeDViewer = ({ src, size }: { src: string; size: string }) => {
+const ThreeDViewer = ({ src }: { src: string }) => {
   const [modelViewerLoaded, setModelViewerLoaded] = useState(false);
-  const [isHovering, setIsHovering] = useState(false);
+
+  console.log('src', src);
 
   useEffect(() => {
-    // Check if model-viewer is already defined
     if (!customElements.get('model-viewer')) {
       import('@google/model-viewer')
         .then(() => setModelViewerLoaded(true))
@@ -51,138 +27,31 @@ const ThreeDViewer = ({ src, size }: { src: string; size: string }) => {
   }
 
   return (
-    <div 
-      className="relative w-full h-full rounded-xl overflow-hidden"
-      onMouseEnter={() => setIsHovering(true)}
-      onMouseLeave={() => setIsHovering(false)}
-    >
-      <model-viewer
+    <div className="relative w-full h-full rounded-xl overflow-hidden">
+      {/* <model-viewer
         src={src}
-        alt={`${size} Nilavilakku 3D Model`}
+        alt="3D Model"
         camera-controls
         auto-rotate
         rotation-per-second="30deg"
-        auto-rotate-delay={0}
-        orbit-sensitivity={1}
-        min-camera-orbit="auto auto 100%"
-        max-camera-orbit="auto auto 250%"
-        camera-orbit="0deg 60deg 220%"
-        field-of-view="45deg"
-        interaction-prompt="none"
+        orbit-sensitivity="1"
+        auto-rotate-delay="0"
         touch-action="pan-y"
-        disable-zoom={false}
-        disable-tap={false}
-        enable-pan={true}
-        shadow-intensity="1"
-        environment-image="neutral"
-        exposure="1"
-        class="rounded-xl"
         style={{ width: '100%', height: '100%', backgroundColor: 'transparent' }}
-      />
-    <motion.div 
-      className="absolute bottom-4 left-0 right-0 pointer-events-none flex justify-center"
-      transition={{ duration: 0.2 }}
-    >
-      <p className="text-white/40 text-xs font-light tracking-wide">
-        ↻ Rotate by dragging • ⇧ Zoom with scroll • ⇔ Pan with right-click
-      </p>
-    </motion.div>
+      >
+      </model-viewer> */}
+
+      {/* Overlay */}
+      <motion.div 
+        className="absolute bottom-4 left-0 right-0 pointer-events-none flex justify-center"
+        transition={{ duration: 0.2 }}
+      >
+        <p className="text-white/40 text-xs font-light tracking-wide">
+          ↻ Rotate by dragging • ⇧ Zoom with scroll • ⇔ Pan with right-click
+        </p>
+      </motion.div>
     </div>
   );
 };
 
-export default function ModelViewer({ className = "" }: ModelViewerProps) {
-  const [selectedSize, setSelectedSize] = useState<ModelSize>('50cm');
-  const [viewType, setViewType] = useState<ViewType>('real');
-
-  const getModelSource = () => {
-    const baseUrl = `/projects/lights-of-kerala/${selectedSize}`;
-    return {
-      model: `${baseUrl}/${selectedSize}.gltf`,
-      image: `${baseUrl}/${viewType}.png`
-    };
-  };
-
-  const getImageSizeClass = (type: ViewType) => {
-    switch (type) {
-      case 'front':
-      case 'isometric':
-        return 'scale-75';
-      default:
-        return 'scale-100';
-    }
-  };
-
-  const sources = getModelSource();
-
-  return (
-    <div className={`space-y-6 ${className}`}>
-      {/* Controls Container */}
-      <div className="flex items-center justify-between gap-4 px-4">
-        {/* Size Selector */}
-        <div className="bg-black/40 backdrop-blur-sm rounded-lg p-1 flex gap-2">
-          {['50cm', '150cm'].map((size) => (
-            <button
-              key={size}
-              onClick={() => setSelectedSize(size as ModelSize)}
-              className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${
-                selectedSize === size 
-                  ? 'bg-white text-black' 
-                  : 'text-white/60 hover:text-white'
-              }`}
-            >
-              {size}
-            </button>
-          ))}
-        </div>
-
-        {/* View Type Selector */}
-        <div className="bg-black/40 backdrop-blur-sm rounded-lg p-1 flex gap-2">
-          {(['real', 'front', 'isometric', 'drawing'] as ViewType[]).map((type) => (
-            <ViewTypeButton
-              key={type}
-              type={type}
-              active={viewType === type}
-              onClick={() => setViewType(type)}
-            />
-          ))}
-        </div>
-      </div>
-
-      {/* Split View Container */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {/* 3D Model View - Left Side */}
-        <div className="h-[600px] bg-transparent rounded-xl overflow-hidden relative">
-          <ThreeDViewer src={sources.model} size={selectedSize} />
-        </div>
-
-        {/* 2D View - Right Side */}
-        <div className="h-[600px] bg-transparent rounded-xl overflow-hidden relative">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={`${selectedSize}-${viewType}`}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
-              className="w-full h-full rounded-xl overflow-hidden"
-            >
-              <Image
-                src={sources.image}
-                alt={`${selectedSize} Nilavilakku ${viewType} view`}
-                fill
-                className={`object-contain rounded-xl transition-transform duration-300 ${getImageSizeClass(viewType)}`}
-                style={{ backgroundColor: 'transparent' }}
-              />
-            </motion.div>
-          </AnimatePresence>
-          <div className="absolute bottom-4 left-0 right-0 text-center">
-            <p className="text-white/40 text-xs font-light tracking-wide">
-              {viewType.charAt(0).toUpperCase() + viewType.slice(1)} view
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
+export default ThreeDViewer;

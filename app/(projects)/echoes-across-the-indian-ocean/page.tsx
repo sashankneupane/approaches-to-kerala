@@ -24,7 +24,7 @@ const EchoesAcrossTheIndianOcean = () => {
                     <p className="text-lg md:text-xl text-gray-300 leading-relaxed tracking-wide space-y-6">
                         <span className="block mb-6">
                             This project explores the historical and cultural ties between the Gulf countries 
-                            and India, with a focus on Kerala's longstanding relationship with the Arabian Peninsula.
+                            and India, with a focus on Kerala&apos;s longstanding relationship with the Arabian Peninsula.
                         </span>
                         <span className="block mb-6">
                             These connections were first established through the spice trade, which brought 
@@ -58,7 +58,7 @@ const EchoesAcrossTheIndianOcean = () => {
                     </div>
                     <div className="mt-8">
                         <p className="text-gray-400 text-center italic text-lg">
-                            "A visual journey exploring the parallel narratives between Kerala and the UAE"
+                            &quot;A visual journey exploring the parallel narratives between Kerala and the UAE&quot;
                         </p>
                     </div>
                 </motion.div>

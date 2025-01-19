@@ -1,6 +1,7 @@
 'use client';
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import Image from 'next/image';
 
 interface AudioPlayerProps {
   src: string;
@@ -148,9 +149,11 @@ export default function AudioPlayer({
                 ease: "easeInOut"
               }}
             >
-              <img 
+              <Image 
                 src={coverImage} 
                 alt="Audio visualizer"
+                width={80}
+                height={80}
                 className="w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-red-500/20 to-transparent" />

@@ -47,7 +47,7 @@ export default function SilhouettesOfKerala() {
             the generosity and warmth of the people—the way they connect, share, and welcome 
             others into their lives. At the same time, it reflects on the spaces they inhabit, 
             showing how the design of homes, buildings, and public areas tells a story of 
-            Kerala's place in the world.
+            Kerala&apos;s place in the world.
           </p>
         </motion.section>
 
@@ -84,10 +84,12 @@ export default function SilhouettesOfKerala() {
           
           {/* Main Image with full width */}
           <div className="relative w-full">
-            <img
+            <Image
               src="/projects/silhouettes-of-kerala/info.png"
               alt="Silhouettes of Kerala"
               className="w-full h-auto"
+              width={2000}
+              height={2000}
               style={{
                 maxWidth: '100%',
                 display: 'block'
@@ -117,9 +119,9 @@ export default function SilhouettesOfKerala() {
           viewport={{ once: true }}
         >
           <blockquote className="text-2xl font-light text-gray-300/90 italic max-w-2xl mx-auto">
-            "Through the lens of architecture and human connection, 
+            &quot;Through the lens of architecture and human connection, 
             we discover the soul of Kerala—a place where tradition 
-            and hospitality shape every corner of life."
+            and hospitality shape every corner of life.&quot;
           </blockquote>
           <p className="mt-4 text-gray-400">— Abdelrahman Khater</p>
         </motion.section>

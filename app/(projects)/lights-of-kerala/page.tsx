@@ -4,7 +4,7 @@ import Hero from '@/components/hero';
 import PhotoGrid from '@/components/photogrid';
 import lamps from './data.json';
 import { motion } from 'framer-motion';
-import ModelViewer from '@/components/model-viewer';
+import ModelViewer from '@/components/modelviewer';
 
 export default function LightsOfKerala() {
   const gridImages = lamps.map(lamp => ({
@@ -34,8 +34,8 @@ export default function LightsOfKerala() {
         >
           <h2 className="text-3xl text-white/90 font-light mb-6">Nilavilakku</h2>
           <p className="text-gray-300 text-lg leading-relaxed">
-            Traditional lamps, known as 'Nilavilakku', have been an integral part of 
-            Kerala's cultural and spiritual heritage. This collection showcases various 
+            Traditional lamps, known as &apos;Nilavilakku&apos;, have been an integral part of 
+            Kerala&apos;s cultural and spiritual heritage. This collection showcases various 
             forms of these sacred illuminations found across different locations in Kerala.
           </p>
         </motion.div>

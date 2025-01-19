@@ -122,17 +122,6 @@ export default function Kerala360Page() {
                 ))}
               </motion.div>
             )}
-
-            {viewMode === 'journeys' && (
-              <motion.div
-                key="journeys"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0 }}
-                className="grid grid-cols-1 md:grid-cols-2 gap-8"
-              >
-              </motion.div>
-            )}
           </AnimatePresence>
         </div>
       </main>
@@ -178,8 +167,13 @@ export default function Kerala360Page() {
   );
 }
 
+interface VideoCardProps {
+  video: typeof performances[0];
+  onClick: () => void;
+}
+
 // Video Card Component
-const VideoCard = ({ video, onClick }) => (
+const VideoCard = ({ video, onClick }: VideoCardProps) => (
   <motion.div
     className="relative aspect-video rounded-xl overflow-hidden group cursor-pointer"
     whileHover={{ scale: 1.02 }}
@@ -233,8 +227,13 @@ const VideoCard = ({ video, onClick }) => (
   </motion.div>
 );
 
+interface VideoModalProps {
+  video: typeof performances[0];
+  onClose: () => void;
+}
+
 // Video Modal Component
-const VideoModal = ({ video, onClose }) => (
+const VideoModal = ({ video, onClose }: VideoModalProps) => (
   <motion.div
     className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 backdrop-blur-lg"
     initial={{ opacity: 0 }}

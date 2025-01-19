@@ -7,8 +7,8 @@ interface ImageData {
   src: string;
   alt?: string;
   title?: string;
-  subtitle?: string;  // Added subtitle
-  description?: string;
+  subtitle?: string;
+  description?: string;  // Updated to allow null
   width?: number;
   height?: number;
 }
@@ -22,6 +22,7 @@ interface PhotoGridProps {
   type?: LayoutType;
   showLayoutToggle?: boolean;
   showTitle?: boolean;
+  showSubtitle?: boolean;  // Added showSubtitle prop
 }
 
 const FullScreenImage = ({ src, alt, title, subtitle, description, onClose }: { 
@@ -32,7 +33,7 @@ const FullScreenImage = ({ src, alt, title, subtitle, description, onClose }: {
   description?: string;
   onClose: () => void 
 }) => {
-  const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
+  const [, setDimensions] = useState({ width: 0, height: 0 });
 
   return (
     <motion.div

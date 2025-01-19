@@ -153,7 +153,7 @@ const MethodsSection: React.FC<MethodsSectionProps> = ({ students }) => {
             transition={{ delay: 0.2 }}
             className="text-lg md:text-xl text-white/60 max-w-3xl mx-auto"
           >
-            Documenting Kerala's cultural heritage through diverse mediums and perspectives
+            Documenting Kerala&apos;s cultural heritage through diverse mediums and perspectives
           </motion.p>
         </div>
       </div>

@@ -25,8 +25,8 @@ export default function PortraitsOfKerala() {
             transition={{ duration: 0.8 }}
           >
             <p className="text-lg leading-relaxed">
-              Through their responses to the questions, "How do you feel about Theyyam?" and 
-              "If you were to say things about Kerala to people, what would you say?", 
+              Through their responses to the questions, &quot;How do you feel about Theyyam?&quot; and 
+              &quot;If you were to say things about Kerala to people, what would you say?&quot;, 
               each individual shares their perspective on what makes Kerala so special.
             </p>
             <p className="text-lg leading-relaxed">

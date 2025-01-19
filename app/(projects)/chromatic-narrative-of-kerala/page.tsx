@@ -69,15 +69,15 @@ export default function Home() {
           <h3 className="text-xl font-bold mb-4">Black in Kerala</h3>
           <p className="text-gray-300">
             Black is generally associated with negativity, sadness, and mourning. It is not typically worn during 
-            festive occasions and is often avoided in everyday wear; during funerals, it's not necessarily the 
-            'dress code', but a black flag would be raised.
+            festive occasions and is often avoided in everyday wear; during funerals, it&apos;s not necessarily the 
+            &apos;dress code&apos;, but a black flag would be raised.
           </p>
         </div>
         <div className="border border-zinc-800 p-6 rounded-lg bg-white text-black">
           <h3 className="text-xl font-bold mb-4">White in Kerala</h3>
           <p className="text-gray-700">
             White is traditionally associated with purity, simplicity, and peace. It is often worn during 
-            auspicious occasions and is considered to be a color of 'preciousness'.
+            auspicious occasions and is considered to be a color of &apos;preciousness&apos;.
           </p>
         </div>
           </div>

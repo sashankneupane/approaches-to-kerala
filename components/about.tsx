@@ -38,7 +38,7 @@ const AboutPage: React.FC = () => {
             transition={{ delay: 0.2 }}
             className="text-lg md:text-xl text-white/60 max-w-5xl mx-auto"
           >
-            Understanding Kerala's cultural heritage through multisensory research and documentation
+            Understanding Kerala&apos;s cultural heritage through multisensory research and documentation
           </motion.p>
         </div>
       </div>

@@ -8,12 +8,10 @@ export default function LucaAudioPage() {
   const [activeAudio, setActiveAudio] = useState<HTMLAudioElement | null>(null);
   const [playingIndex, setPlayingIndex] = useState<number | null>(null);
 
-  const images = Array.from({ length: 24 }, (_, i) => ({
-    src: `/projects/sounds-and-sights-of-everyday-kerala/luca${(i + 1).toString().padStart(2, '0')}.jpg`,
-    alt: `Kerala Scene ${i + 1}`,
-    title: `Scene ${i + 1}`,
-    className: playingIndex !== null ? 'animate-subtle-pulse' : ''
-  }));
+  // for i in 1 to 24, padd lucaXX to the array
+  const imagePaths = Array.from({ length: 24 }, (_, i) => `/projects/sounds-and-sights-of-everyday-kerala/luca${String(i + 1).padStart(2, '0')}.jpg`);
+  const images = imagePaths.map((path) => ({ src: path, alt: "Luca", width: 800, height: 800 }));
+
 
   const audioFiles = [
     { title: "Folk Song at Calicut", file: "Calicut_girl_singing.mp4" },
@@ -34,7 +32,7 @@ export default function LucaAudioPage() {
     audio.play();
     setActiveAudio(audio);
     setPlayingIndex(index);
-  }, [activeAudio]);
+  }, [activeAudio, audioFiles]);
 
   const stopAudio = useCallback(() => {
     if (activeAudio) {
@@ -43,6 +41,7 @@ export default function LucaAudioPage() {
       setPlayingIndex(null);
     }
   }, [activeAudio]);
+
 
   return (
     <main className="min-h-screen w-full bg-black text-white">
