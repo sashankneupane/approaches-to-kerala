@@ -65,7 +65,7 @@ export default function PhotoGalleryPage() {
             className="text-lg md:text-xl text-white/60 max-w-5xl mx-auto"
           >
             A curated collection of moments capturing the vibrant culture, breathtaking landscapes, 
-            and intimate stories of Kerala's people and traditions.
+            and intimate stories of Kerala&apos;s people and traditions.
           </motion.p>
         </div>
       </section>
