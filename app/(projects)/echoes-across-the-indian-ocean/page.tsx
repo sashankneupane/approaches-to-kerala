@@ -13,10 +13,10 @@ const EchoesAcrossTheIndianOcean = () => {
                 imageInterval={5000}
             />
 
-            <div className="max-w-7xl mx-auto px-4 py-24">
+            <div className="w-full px-4 py-24">
                 {/* Project Description */}
                 <motion.div 
-                    className="max-w-3xl mx-auto mb-24"
+                    className="w-3/4 mx-auto mb-24"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8 }}
@@ -42,7 +42,7 @@ const EchoesAcrossTheIndianOcean = () => {
 
                 {/* Video Section */}
                 <motion.div 
-                    className="max-w-5xl mx-auto"
+                    className="w-3/4 mx-auto"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 0.2 }}
@@ -50,11 +50,11 @@ const EchoesAcrossTheIndianOcean = () => {
                     <div className="relative aspect-video rounded-xl overflow-hidden shadow-2xl">
                         <iframe
                             className="w-full h-full"
-                            src="https://www.youtube-nocookie.com/embed/YOUR_VIDEO_ID?autoplay=0&rel=0&modestbranding=1"
+                            src="https://www.youtube.com/embed/pe9wB8AQy_I?rel=0&branding=0&showinfo=0&autohide=1&modestbranding=1&loop=1"
                             title="Echoes Across the Indian Ocean"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allow="accelerometer; autoplay; autoloop; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                             allowFullScreen
-                        />
+                        ></iframe>
                     </div>
                     <div className="mt-8">
                         <p className="text-gray-400 text-center italic text-lg">
