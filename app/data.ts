@@ -124,24 +124,24 @@ export const students: Student[] = [
   },
   { 
     name: 'Luca',
-    fullName: 'Luca',
+    fullName: 'Luca Salkovic',
     featuredImg: 'luca.jpg',
     project: {
-      title: 'Lorem ipsum',
-      slug: 'lorem-ipsum',
+      title: 'Sounds and Sights of Everyday Kerala',
+      slug: 'sounds-and-sights-of-everyday-kerala',
       mode: 'audio',
-      description: 'Lorem ipsum is great ipsum.'
+      description: "Mix of on-site recordings and photos that reflect Kerala’s culture."
     }
   },
   { 
     name: 'Khater',
-    fullName: 'Khater',
+    fullName: 'Khater Abdelrahman',
     featuredImg: 'khater.jpg',
     project: {
-      title: 'Lorem ipsum 2',
-      slug: 'lorem-ipsum-2',
+      title: 'Silhouettes of Kerala',
+      slug: 'silhouettes-of-kerala',
       mode: 'photo',
-      description: 'Lorem ipsum is great ipsum.'
+      description: 'A creative exploration of Kerala’s rich heritage through captivating silhouettes and storytelling.'
     }
   },
   { 
@@ -152,18 +152,18 @@ export const students: Student[] = [
       title: 'Symbols and Theyyam',
       slug: 'symbols-and-theyyam',
       mode: 'form',
-      description: 'This project explores the rich symbolism of the Theyyam ritual in Northern Kerala, weaving poetry, video, and reflections to capture its cultural and multisensory depth.'
+      description: "This project explores the rich symbolism of the Theyyam ritual in Northern Kerala, weaving poetry, video, and reflections to capture its cultural and multisensory depth."
     }
   },
   { 
     name: 'Noor',
-    fullName: 'Noor',
+    fullName: 'Noor Haddad',
     featuredImg: 'noor.jpg',
     project: {
-      title: 'lorem ipsum 3',
-      slug: 'lorem-ipsum-3',
+      title: 'Scenes of Kerala',
+      slug: 'scenes-of-kerala',
       mode: 'audio',
-      description: 'Lorem ipsum is great ipsum.'
+      description: 'A blend of audio recordings and images capturing the spirit of Kerala.'
     }
   },
 ];
