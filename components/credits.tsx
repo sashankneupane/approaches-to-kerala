@@ -16,13 +16,13 @@ const credits: CreditSection[] = [
     names: [
       "Sashank Neupane", "Bipana Bastola", "Sungyun Sohn", "Soyuj Jung Basnet",
       "Alia Almuhairi", "Carlota Suarez Rochard", "Yumi Omori", "Timothy Chiu",
-      "Dinobi Ibegbu", "Sayda Abusalih", "Shahad Alsaqqaf", "Luca",
-      "Khater", "Mustafa Diri", "Noor"
+      "Dinobi Ibegbu", "Sayda Abusalih", "Shahad Alsaqqaf", "Luka Salkovic",
+      "Khater Abdelrahman", "Mustafa Diri", "Noor Haddad"
     ]
   },
   {
     title: "Website Development",
-    names: ["Sashank Neupane", "Soyuj Jung Basnet", "Bipana Bastola", "Yumi Omori"]
+    names: ["Sashank Neupane", "Soyuj Jung Basnet", "Bipana Bastola", "Yumi Omori", "Khater Abdelrahman"]
   }
 ];
 

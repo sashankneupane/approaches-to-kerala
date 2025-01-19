@@ -47,8 +47,8 @@ const pickerStyles = {
     picker: {
       background: '#1f2937',
       boxShadow: 'none',
-      borderRadius: '0.5rem',
-      width: '280px !important', // Reduced from 320px to 280px
+      borderRadius: '0.2rem',
+      width: '250px', // reduced from 220px
     },
     saturation: {
       borderRadius: '0.5rem 0.5rem 0 0',
@@ -108,7 +108,8 @@ const ViewMode = {
 type ViewModeType = typeof ViewMode[keyof typeof ViewMode];
 
 // Update the TutorialPopup component to handle different types
-const TutorialPopup = ({ type, onClose }: { type: 'color' | 'threshold'; onClose: () => void }) => {
+// Update TutorialPopup to remove close button
+const TutorialPopup = ({ type  }: { type: 'color' | 'threshold' }) => {
   const content = {
     color: {
       title: "Choose Your Color!",
@@ -139,7 +140,7 @@ const TutorialPopup = ({ type, onClose }: { type: 'color' | 'threshold'; onClose
         type === 'color' 
           ? 'bottom-[280px] right-[200px]' 
           : 'bottom-[240px] right-[200px]'
-      } z-50 bg-white/10 backdrop-blur-md rounded-lg p-6 text-white max-w-xs`}
+      } z-50 bg-black/20 backdrop-blur-md rounded-lg p-6 text-white max-w-xs`}
     >
       <div className="flex items-start gap-4">
         <div className="p-3 bg-white/20 rounded-full">
@@ -154,25 +155,6 @@ const TutorialPopup = ({ type, onClose }: { type: 'color' | 'threshold'; onClose
           </p>
         </div>
       </div>
-      <motion.div
-        className={`absolute ${
-          type === 'color' 
-            ? '-bottom-4 -right-4' 
-            : '-bottom-4 -right-4'
-        } w-12 h-12 rotate-45`}
-        animate={{ y: [0, 5, 0] }}
-        transition={{ repeat: Infinity, duration: 1.5 }}
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-full w-full" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-        </svg>
-      </motion.div>
-      <button
-        className="absolute top-2 right-2 text-white hover:bg-white/10 rounded-full p-1"
-        onClick={onClose}
-      >
-        Close
-      </button>
     </motion.div>
   );
 };
@@ -240,7 +222,16 @@ export default function ColorsOfKeralaPage() {
   const [currentTutorial, setCurrentTutorial] = useState<'color' | 'threshold' | null>(null);
   const DEFAULT_THRESHOLD = 150;
   const [shownTutorials, setShownTutorials] = useState<Set<string>>(new Set());
-  
+  const [showControls, setShowControls] = useState(true);
+
+  // Add new function to handle collapse all
+  const handleCollapseAll = () => {
+    setShowControls(!showControls);
+    if (showControls) {
+      setShowColorPicker(false);
+    }
+  };
+
   // Fetch colorInfo.json from public directory
   useEffect(() => {
     fetch('/photos/colors-of-kerala/colorinfo.json')
@@ -327,104 +318,159 @@ export default function ColorsOfKeralaPage() {
     return patterns[index % patterns.length];
   };
 
+  // Update to close color tutorial when color picker opens
+  const handleColorButtonMouseDown = () => {
+    setShowColorPicker(!showColorPicker);
+  };
+
+  const handleColorButtonMouseUp = () => {
+    if (currentTutorial === 'color') {
+      handleCloseTutorial();
+    }
+  };
+
   const renderControls = () => (
     <motion.div
       className="fixed bottom-8 right-8 z-40 flex flex-col gap-4"
       initial={{ y: 100 }}
       animate={{ y: 0 }}
     >
-      <div className="bg-gray-800/90 backdrop-blur-sm rounded-2xl shadow-lg p-4 flex flex-col gap-3">
-        <div className="flex items-center gap-3 pb-3 border-b border-gray-700">
-          <div
-            className="w-8 h-8 rounded-full shadow-inner cursor-pointer hover:ring-2 hover:ring-white/50"
-            style={{
-              backgroundColor: selectedColor ? 
-                `rgb(${selectedColor[0]},${selectedColor[1]},${selectedColor[2]})` : 
-                '#666'
-            }}
-            onClick={() => setShowColorPicker(!showColorPicker)}
-          />
-          <label className="text-gray-300 text-sm font-medium">
-            {selectedColor ? 'Selected Color' : 'Choose Color'}
-          </label>
-        </div>
+      <motion.button
+        className="self-end backdrop-blur-sm p-3 rounded-full shadow-lg hover:opacity-80 transition-opacity"
+        onClick={handleCollapseAll}
+        animate={{ rotate: showControls ? 180 : 0 }}
+        style={{
+          backgroundColor: selectedColor 
+            ? `rgba(${selectedColor[0]},${selectedColor[1]},${selectedColor[2]}, 0.9)`
+            : 'rgba(31, 41, 55, 0.9)' // gray-800/90
+        }}
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+        </svg>
+      </motion.button>
 
-        <div>
-          <label className="block text-gray-300 text-sm font-medium mb-2">
-            Match Threshold: {threshold}
-          </label>
-          <input
-            type="range"
-            min="50"
-            max="250"
-            value={threshold}
-            onChange={(e) => {
-              setThreshold(Number(e.target.value));
-              if (currentTutorial === 'threshold') {
-                handleCloseTutorial();
-              }
-            }}
-            className="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer"
-          />
-        </div>
-
-        <div className="pt-3 border-t border-gray-700">
-          <label className="block text-gray-300 text-sm font-medium mb-2">
-            View Mode
-          </label>
-          <div className="flex gap-2">
-            {Object.values(ViewMode).map(mode => (
-              <button
-                key={mode}
-                className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors
-                  ${viewMode === mode 
-                    ? 'bg-white/20 text-white' 
-                    : 'bg-gray-700/50 text-gray-300 hover:bg-gray-700'
-                  }`}
-                onClick={() => setViewMode(mode)}
-              >
-                {mode}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {selectedColor && (
-          <motion.button
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 10 }}
-            className="mt-2 w-full py-2 px-4 rounded-lg bg-red-500/20 text-red-300 hover:bg-red-500/30 transition-colors text-sm font-medium border border-red-500/20"
-            onClick={() => {
-              setSelectedColor(null);
-              setShowColorPicker(false);
-              setThreshold(DEFAULT_THRESHOLD);
-            }}
+      <AnimatePresence>
+        {showControls && (
+          <motion.div
+            className="bg-gray-800/90 backdrop-blur-sm rounded-2xl shadow-lg p-4 flex flex-col gap-3"
+            initial={{ opacity: 0, y: 20, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 20, scale: 0.95 }}
           >
-            Reset All
-          </motion.button>
+            <div className="flex items-center gap-3 pb-3 border-b border-gray-700">
+              <div
+                className="w-8 h-8 rounded-full shadow-inner cursor-pointer hover:ring-2 hover:ring-white/50"
+                style={{
+                  backgroundColor: selectedColor ? 
+                    `rgb(${selectedColor[0]},${selectedColor[1]},${selectedColor[2]})` : 
+                    '#666'
+                }}
+                onMouseDown={handleColorButtonMouseDown}
+                onMouseUp={handleColorButtonMouseUp}
+              />
+              <label className="text-gray-300 text-sm font-medium">
+                {selectedColor ? 'Selected Color' : 'Choose Color'}
+              </label>
+            </div>
+
+            <div>
+              <label className="block text-gray-300 text-sm font-medium mb-2">
+                Match Threshold: {threshold}
+              </label>
+              <input
+                type="range"
+                min="50"
+                max="250"
+                value={threshold}
+                onChange={(e) => {
+                  setThreshold(Number(e.target.value));
+                  if (currentTutorial === 'threshold') {
+                    handleCloseTutorial();
+                  }
+                }}
+                className="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer"
+              />
+            </div>
+
+            <div className="pt-3 border-t border-gray-700">
+              <label className="block text-gray-300 text-sm font-medium mb-2">
+                View Mode
+              </label>
+              <div className="flex gap-2">
+                {Object.values(ViewMode).map(mode => (
+                  <button
+                    key={mode}
+                    className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors
+                      ${viewMode === mode 
+                        ? 'bg-white/20 text-white' 
+                        : 'bg-gray-700/50 text-gray-300 hover:bg-gray-700'
+                      }`}
+                    onClick={() => setViewMode(mode)}
+                  >
+                    {mode}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {selectedColor && (
+              <motion.button
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 10 }}
+                className="mt-2 w-full py-2 px-4 rounded-lg bg-red-500/20 text-red-300 hover:bg-red-500/30 transition-colors text-sm font-medium border border-red-500/20"
+                onClick={() => {
+                  setSelectedColor(null);
+                  setShowColorPicker(false);
+                  setThreshold(DEFAULT_THRESHOLD);
+                }}
+              >
+                Reset All
+              </motion.button>
+            )}
+          </motion.div>
         )}
-      </div>
+      </AnimatePresence>
     </motion.div>
   );
 
   // Update color picker position
   const renderColorPicker = () => (
     <motion.div
-      className="fixed bottom-[320px] right-8 z-40 scale-75 origin-bottom-right"
-      initial={{ opacity: 0, scale: 0.8, y: 50 }} // Changed x to y for vertical animation
-      animate={{ opacity: 1, scale: 0.75, y: 0 }} // Updated scale in animation
-      exit={{ opacity: 0, scale: 0.8, y: 50 }}
+      className="fixed bottom-[350px] right-8 z-40 origin-bottom-right md:scale-25 scale-[0.2]"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: 20 }}
     >
-      <SketchPicker
-        color={selectedColor ? {
-          r: selectedColor[0],
-          g: selectedColor[1],
-          b: selectedColor[2],
-        } : undefined}
-        onChange={handleColorChange}  // Switched from onChangeComplete
-        styles={pickerStyles}
-      />
+      <div className="relative">
+        <button
+          className="absolute -top-2 -right-2 w-6 h-6 bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center z-50 transition-colors"
+          onClick={() => setShowColorPicker(false)}
+        >
+          <svg 
+            xmlns="http://www.w3.org/2000/svg" 
+            className="h-3 w-3 text-white" 
+            fill="none" 
+            viewBox="0 0 24 24" 
+            stroke="currentColor"
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+        <div className="bg-gray-800/90 backdrop-blur-sm rounded-lg overflow-hidden">
+          <SketchPicker
+            color={selectedColor ? {
+              r: selectedColor[0],
+              g: selectedColor[1],
+              b: selectedColor[2],
+            } : undefined}
+            onChange={handleColorChange}
+            styles={pickerStyles}
+            presetColors={[]}
+          />
+        </div>
+      </div>
     </motion.div>
   );
 
@@ -446,11 +492,12 @@ export default function ColorsOfKeralaPage() {
       case ViewMode.FLOW:
         return (
           <div 
-            className="relative h-[100vh] overflow-hidden bg-gradient-to-br from-gray-900 to-black p-20"
+            className="h-[100vh] overflow-hidden -ml-16"
             style={backgroundStyle}
           >
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,black_100%)] z-10" />
-            <div className="relative w-full h-full">
+            <div className="absolute inset-0 h-screen z-10 ${selectedColor ? `,rgba(${selectedColor[0]},${selectedColor[1]},${selectedColor[2]},0.3)_0%,rgba(0,0,0,1)_70%` : ''}" />
+            
+            <div className="w-full h-full">
               {!hasNoResults ? (
                 <AnimatePresence>
                   {filteredImages.map((info, idx) => {
@@ -576,7 +623,7 @@ export default function ColorsOfKeralaPage() {
       />
 
       {/* Remove the original <section> and replace with Hero above */}
-      <div className="p-8" id="colors">
+      <div className='w-full' id="colors">
         {/* Floating controls */}
         {renderControls()}
 
@@ -599,7 +646,6 @@ export default function ColorsOfKeralaPage() {
           {currentTutorial && (
             <TutorialPopup
               type={currentTutorial}
-              onClose={handleCloseTutorial}
             />
           )}
         </AnimatePresence>

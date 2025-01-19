@@ -7,7 +7,7 @@ const EchoesAcrossTheIndianOcean = () => {
     return (
         <div className="min-h-screen w-full">
             <Hero 
-                images={['/projects/echoes-across-the-indian-ocean/cover.jpg']}
+                images={['/photos/echoes-across-the-indian-ocean/cover.jpg']}
                 title="Echoes Across the Indian Ocean"
                 description="This project explores the historical and cultural ties between the Gulf countries and India, with a focus on Kerala's longstanding relationship with the Arabian Peninsula."
                 imageInterval={5000}

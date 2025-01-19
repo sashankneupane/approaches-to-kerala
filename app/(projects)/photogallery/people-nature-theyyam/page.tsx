@@ -31,7 +31,7 @@ export default function PeopleNatureTheyyamPage() {
       galleryImages={galleryImages}
       author={{
         name: "Yumi Omori",
-        image: "/photos/photogallery/people-nature-theyyam/dp.jpg",
+        image: "/photos/covers/yumi.jpg",
         bio: "Yumi Omori is a passionate photographer and explorer who captures the vibrant cultures and awe-inspiring landscapes of Kerala. Her lens reveals the heartbeat of local communities, weaving stories of rituals like Theyyam, and the harmonious coexistence between people and nature."
       }}
       storyLink="/photogallery/people-nature-theyyam/story"
