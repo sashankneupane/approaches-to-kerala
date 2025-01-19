@@ -28,7 +28,7 @@ export default function SilhouettesOfKerala() {
   return (
     <main className="min-h-screen w-full bg-black text-gray-100">
       <Hero
-        images={["/dp/khater.jpg"]}
+        images={["/photos/silhouettes-of-kerala/cover.jpg"]}
         title="Silhouettes of Kerala"
         description="An exploration of Kerala's people and the spaces they occupy"
       />
@@ -85,7 +85,7 @@ export default function SilhouettesOfKerala() {
           {/* Main Image with full width */}
           <div className="relative w-full">
             <Image
-              src="/projects/silhouettes-of-kerala/info.png"
+              src="/photos/silhouettes-of-kerala/info.png"
               alt="Silhouettes of Kerala"
               className="w-full h-auto"
               width={2000}

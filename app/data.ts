@@ -4,7 +4,6 @@ export const students: Student[] = [
   { 
     name: 'Sashank',
     fullName: 'Sashank Neupane',
-    featuredImg: 'sashank.jpg',
     project: {
       title: 'Kerala in 360',
       slug: 'kerala-in-360',
@@ -15,7 +14,6 @@ export const students: Student[] = [
   { 
     name: 'Bipana',
     fullName: 'Bipana Bastola',
-    featuredImg: 'bipana.jpg',
     project: {
       title: 'Portraits of Kerala',
       slug: 'portraits-of-kerala',
@@ -26,7 +24,6 @@ export const students: Student[] = [
   { 
     name: 'Sungyun',
     fullName: 'Sungyun Sohn',
-    featuredImg: 'sungyun.png',
     project: {
       title: 'Lights of Kerala',
       slug: 'lights-of-kerala',
@@ -37,7 +34,6 @@ export const students: Student[] = [
   { 
     name: 'Soyuj',
     fullName: 'Soyuj Jung Basnet',
-    featuredImg: 'soyuj.jpg',
     project: {
       title: 'Colors of Kerala',
       slug: 'colors-of-kerala',
@@ -48,7 +44,6 @@ export const students: Student[] = [
   { 
     name: 'Alia',
     fullName: 'Alia Almuhairi',
-    featuredImg: 'alia.jpg',
     project: {
       title: 'Echoes Across the Indian Ocean',
       slug: 'echoes-across-the-indian-ocean',
@@ -59,7 +54,6 @@ export const students: Student[] = [
   { 
     name: 'Carlota',
     fullName: 'Carlota Suarez Rochard',
-    featuredImg: 'carlota.jpg',
     project: {
       title: 'Capturing the Spirit',
       slug: 'capturing-the-spirit',
@@ -68,31 +62,18 @@ export const students: Student[] = [
     }
   },
   { 
-    name: 'Yumi',
-    fullName: 'Yumi Omori',
-    featuredImg: 'yumi.jpg',
+    name: 'Yumi, Timothy',
+    fullName: 'Yumi Omori, Timothy Chiu',
     project: {
       title: 'Photography Series in Kerala',
-      slug: 'people-nature-theyyam',
+      slug: 'photogallery',
       mode: 'photo',
-      description: 'ok description.'
-    }
-  },
-  { 
-    name: 'Timothy',
-    fullName: 'Timothy Chiu',
-    featuredImg: 'timothy.jpg',
-    project: {
-      title: 'Photography Series in Kerala',
-      slug: 'people-nature-theyyam',
-      mode: 'photo',
-      description: 'ok description.'
+      description: 'Photography series in Kerala'
     }
   },
   { 
     name: 'Didi',
     fullName: 'Dinobi Ibegbu',
-    featuredImg: 'didi.png',
     project: {
       title: 'Chromatic Narrative of Kerala',
       slug: 'chromatic-narrative-of-kerala',
@@ -103,7 +84,6 @@ export const students: Student[] = [
   { 
     name: 'Sayda',
     fullName: 'Sayda Abusalih',
-    featuredImg: 'sayda.jpg',
     project: {
       title: 'Legends and Myths of Kerala',
       slug: 'legends-and-myths-of-kerala',
@@ -114,7 +94,6 @@ export const students: Student[] = [
   { 
     name: 'Shahad',
     fullName: 'Shahad Alsaqqaf',
-    featuredImg: 'shahad.jpg',
     project: {
       title: 'Keralatography',
       slug: 'keralatography',
@@ -123,9 +102,8 @@ export const students: Student[] = [
     }
   },
   { 
-    name: 'Luca',
-    fullName: 'Luca Salkovic',
-    featuredImg: 'luca.jpg',
+    name: 'Luka',
+    fullName: 'Luka Salkovic',
     project: {
       title: 'Sounds and Sights of Everyday Kerala',
       slug: 'sounds-and-sights-of-everyday-kerala',
@@ -147,7 +125,6 @@ export const students: Student[] = [
   { 
     name: 'Mustafa',
     fullName: 'Mustafa Diri',
-    featuredImg: 'mustafa.jpg',
     project: {
       title: 'Symbols and Theyyam',
       slug: 'symbols-and-theyyam',
@@ -158,7 +135,6 @@ export const students: Student[] = [
   { 
     name: 'Noor',
     fullName: 'Noor Haddad',
-    featuredImg: 'noor.jpg',
     project: {
       title: 'Scenes of Kerala',
       slug: 'scenes-of-kerala',

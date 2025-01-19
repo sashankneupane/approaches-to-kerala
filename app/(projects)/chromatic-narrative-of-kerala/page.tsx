@@ -4,24 +4,28 @@ import Hero from "@/components/hero";
 import PhotoGrid from "@/components/photogrid";
 
 export default function Home() {
+
+  const baseUrl = "/photos/chromatic-narrative-of-kerala";
+  const imagesUrl = `${baseUrl}/chromatics`;
+
   const images = [
     {
-      src: "/projects/chromatic-narrative-of-kerala/red.jpg",
+      src: `${imagesUrl}/red.jpg`,
       title: "Red and Gold in Hindu Temples",
       description: "Red is often associated with Shakti, symbolizing power and passion. Gold represents prosperity and divinity, found in temple sanctums and deity adornments.",
     },
     {
-      src: "/projects/chromatic-narrative-of-kerala/theyyam.jpg",
+      src: `${imagesUrl}/theyyam.jpg`,
       title: "Vibrant Colors in Theyyam",
       description: "Red represents Bhadrakali and power, while yellow/gold signifies Vishnu, purity and knowledge in these ritualistic performances.",
     },
     {
-      src: "/projects/chromatic-narrative-of-kerala/blue1.jpg",
+      src: `${imagesUrl}/blue1.jpg`,
       title: "Blue in Maritime Contexts",
       description: "Blue represents the ocean's vastness and maritime traditions, symbolizing calmness and faith for seafarers.",
     },
     {
-      src: "/projects/chromatic-narrative-of-kerala/green1.jpg",
+      src: `${imagesUrl}/green1.jpg`,
       title: "Green in Islamic Religion",
       description: "Green, sacred in Islam, represents paradise and tranquility, deeply connected to Kerala's Muslim identity.",
     },
@@ -30,9 +34,9 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-black">
       <Hero 
-        images={["/projects/chromatic-narrative-of-kerala/cover.png"]}
+        images={[`${baseUrl}/cover.jpg`]}
         title="Chromatic Narrative of Kerala"
-        description="Exploring the Semiotics of Color in “God’s Own Country”"
+        description="Exploring the Semiotics of Color in “God&apos;s Own Country”"
       />
 
       {/* Project Description */}

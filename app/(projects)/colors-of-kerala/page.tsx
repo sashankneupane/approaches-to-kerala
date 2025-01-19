@@ -4,6 +4,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import Image from 'next/image';
 import { SketchPicker, ColorResult } from 'react-color';
 import { motion, AnimatePresence } from 'framer-motion';
+import Hero from '@/components/hero';
 
 interface ColorEntry {
   file_path: string;
@@ -242,7 +243,7 @@ export default function ColorsOfKeralaPage() {
   
   // Fetch colorInfo.json from public directory
   useEffect(() => {
-    fetch('/projects/colors-of-kerala/colorInfo.json')
+    fetch('/photos/colors-of-kerala/colorinfo.json')
       .then((response) => response.json())
       .then((data: ColorEntry[]) => {
         setShuffledImages(shuffleArray(data));
@@ -568,35 +569,13 @@ export default function ColorsOfKeralaPage() {
 
   return (
     <div className="bg-black min-h-screen">
-      <section
-        className="relative h-screen bg-cover bg-center flex items-center justify-center"
-        style={{ backgroundImage: "url('/projects/colors-of-kerala/IMG_3819.JPG')" }}
-      >
-        <div className="absolute inset-0 bg-black bg-opacity-70"></div>
-          <motion.div
-            className="text-center text-white p-8"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1 }}
-          >
-                    <div className="relative text-center text-white px-6">
+      <Hero
+        images={["/photos/colors-of-kerala/cover.jpg"]}
+        title="Colors of Kerala"
+        description="Experience the vibrant palette of Kerala through a collection of images that showcase the rich and diverse colors that define this beautiful region."
+      />
 
-          <h1 className="text-[100px] font-bold mb-4" style={{ fontFamily: 'Impact' }}>Colors of Kerala</h1>
-          
-          <p className="w-4/5 mx-auto text-xl font-light text-white mb-8">
-            Experience the vibrant palette of Kerala through a collection of images that showcase the rich and diverse colors that define this beautiful region.
-          </p>
-          <a
-            href="#colors"
-            className="mt-8 inline-block text-white border-2 border-white hover:bg-white hover:text-black font-bold py-3 px-6 transition-all"
-          >
-            Explore
-          </a>
-        </div>
-        <div className="mt-4 w-20 h-1 bg-white mx-auto rounded"></div>
-        </motion.div>
-      </section>
-
+      {/* Remove the original <section> and replace with Hero above */}
       <div className="p-8" id="colors">
         {/* Floating controls */}
         {renderControls()}

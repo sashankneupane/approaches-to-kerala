@@ -1,5 +1,5 @@
 'use client';
-import React, { useState, useCallback } from 'react';
+import React, { useState, useMemo, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import Hero from '@/components/hero';
 import PhotoGrid from '@/components/photogrid';
@@ -8,27 +8,30 @@ export default function LucaAudioPage() {
   const [activeAudio, setActiveAudio] = useState<HTMLAudioElement | null>(null);
   const [playingIndex, setPlayingIndex] = useState<number | null>(null);
 
+  const baseUrl = "/photos/sounds-and-sights-of-everyday-kerala";
+  const imagesUrl = `${baseUrl}/sights`;
+
   // for i in 1 to 24, padd lucaXX to the array
-  const imagePaths = Array.from({ length: 24 }, (_, i) => `/projects/sounds-and-sights-of-everyday-kerala/luca${String(i + 1).padStart(2, '0')}.jpg`);
+  const imagePaths = Array.from({ length: 24 }, (_, i) => `${imagesUrl}/luca${String(i + 1).padStart(2, '0')}.jpg`);
   const images = imagePaths.map((path) => ({ src: path, alt: "Luca", width: 800, height: 800 }));
 
 
-  const audioFiles = [
-    { title: "Folk Song at Calicut", file: "Calicut_girl_singing.mp4" },
-    { title: "English Pop Cover", file: "english_pop_song_WAV_V1.mp4" },
-    { title: "Student's Folk Performance", file: "folkore_student_singing_WAV_V1.mp4" },
-    { title: "Girl's Traditional Song", file: "girl_singing_short.mp3" },
-    { title: "Market Ambience & Song", file: "local_song_chaotic_background.mp3" },
-    { title: "Male Folk Song", file: "male_folk_song_WAV_V1.mp4" },
-    { title: "Mappila Folk Song", file: "mappla_folk_song.mp4" },
-    { title: "Street Performance", file: "Song by a guy from the random place.m4a" },
-  ];
+  const audioFiles = useMemo(() => [
+    { title: "Folk Song at Calicut", file: "calicut-girl-singing.mp4" },
+    { title: "English Pop Cover", file: "english-pop-song-wav-v1.mp4" },
+    { title: "Student's Folk Performance", file: "folkore-student-singing-wav-v1.mp4" },
+    { title: "Girl's Traditional Song", file: "girl-singing-short.mp3" },
+    { title: "Market Ambience & Song", file: "local-song-chaotic-background.mp3" },
+    { title: "Male Folk Song", file: "male-folk-song-wav-v1.mp4" },
+    { title: "Mappila Folk Song", file: "mappla-folk-song.mp4" },
+    { title: "Street Performance", file: "song-by-a-guy-from-the-random-place.m4a" },
+  ], []);
 
   const handleAudioPlay = useCallback((index: number) => {
     if (activeAudio) {
       activeAudio.pause();
     }
-    const audio = new Audio(`/audio/sounds-and-sights-of-everyday-kerala/${audioFiles[index].file}`);
+    const audio = new Audio(`/audios/sounds-and-sights-of-everyday-kerala/${audioFiles[index].file}`);
     audio.play();
     setActiveAudio(audio);
     setPlayingIndex(index);
@@ -46,7 +49,7 @@ export default function LucaAudioPage() {
   return (
     <main className="min-h-screen w-full bg-black text-white">
       <Hero
-        images={["/dp/luca.jpg"]}
+        images={[`${baseUrl}/cover.jpg`]}
         title="Sounds & Sights of Everyday Kerala"
         description="An immersive journey through Kerala's daily rhythms and visual stories"
       />

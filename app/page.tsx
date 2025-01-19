@@ -8,7 +8,7 @@ import Credits from '@/components/credits';
 import { students, featured_photos } from './data';
 
 export default function Home() {
-  const heroImages = featured_photos.map(photo => `/photos/${photo}.jpg`);
+  const heroImages = featured_photos.map(photo => `/photos/featured/${photo}.jpg`);
   
   return (
     <div className="w-full overflow-x-hidden bg-gradient-to-b from-black via-black to-gray-900">

@@ -11,8 +11,8 @@ const playfair = Playfair_Display({ subsets: ["latin"] });
  * Replace these with your actual images in /public/portfolio.
  */
 const IMAGES: string[] = [];
-for (let i = 0; i <= 26; i++) {
-  IMAGES.push(`/projects/people-nature-theyyam/project2/${i}.jpg`);
+for (let i = 1; i <= 26; i++) {
+  IMAGES.push(`/photos/photogallery/people-nature-theyyam/story/${i}.jpg`);
 }
 
 
@@ -20,7 +20,7 @@ for (let i = 0; i <= 26; i++) {
 const AUTO_SCROLL_INTERVAL = 4000;
 
 // Split the title so each letter can animate individually
-const TITLE = "Kerala in Focus".split("");
+const TITLE = "People,Nature,Theyyam".split("");
 
 // The background behind the title
 const titleBackgroundStyle: React.CSSProperties = {
@@ -29,7 +29,7 @@ const titleBackgroundStyle: React.CSSProperties = {
   left: 0,
   width: "100%",
   height: "100%",
-  backgroundImage: "url('/projects/people-nature-theyyam/IMG_3601.jpg')",
+  backgroundImage: "url('/photos/photogallery/people-nature-theyyam/gallery/1.jpg')",
   backgroundSize: "cover",
   backgroundPosition: "center",
   opacity: 1,
@@ -150,9 +150,9 @@ export default function AmazingScrollingGallery() {
           ))}
         </h1>
         {/* Fixed position Next Story button */}
-        <Link href="/people-nature-theyyam/story">
+        <Link href="/people-nature-theyyam/story2">
           <button style={nextStoryButtonStyle}>
-            Previous Story
+            Next Story
           </button>
         </Link>
       </section>
@@ -163,7 +163,7 @@ export default function AmazingScrollingGallery() {
           {/* Portrait */}
           <div style={portraitContainerStyle}>
             <Image
-              src="/dp/Timothy.jpeg"
+              src="/dp/yumi.jpg"
               alt="Author Portrait"
               width={300}
               height={300}
@@ -178,9 +178,13 @@ export default function AmazingScrollingGallery() {
 
           {/* Description */}
           <div style={authorTextContainerStyle}>
-            <h2 style={authorNameStyle}>By: Timothy Chiu</h2>
+            <h2 style={authorNameStyle}>By: Yumi Omori</h2>
             <p style={authorDescriptionStyle}>
-              Timothy Chiu is a hobbyist street photographer that enjoys capturing the stories of everyday life in his travels. In Kerala, his photo project aims to record the intimate moments of people and activity and the rich colors and textures found everywhere in India.
+              Yumi Omori is a passionate photographer and explorer who captures
+              the vibrant cultures and awe-inspiring landscapes of Kerala. Her
+              lens reveals the heartbeat of local communities, weaving stories
+              of rituals like Theyyam, and the harmonious coexistence between
+              people and nature.
             </p>
           </div>
         </div>
@@ -216,9 +220,9 @@ export default function AmazingScrollingGallery() {
 
       {/* Add new centered Next Story button after all images */}
       <section style={centeredNextStorySectionStyle}>
-        <Link href="/people-nature-theyyam/story">
+        <Link href="/people-nature-theyyam/story2">
           <button style={centeredNextStoryButtonStyle}>
-            <span>Previous Story</span>
+            <span>Next Story</span>
             <svg 
               width="24" 
               height="24" 
@@ -431,6 +435,7 @@ const centeredNextStoryButtonStyle: React.CSSProperties = {
   letterSpacing: '1px',
   textTransform: 'uppercase',
 };
+
 const returnToGalleryButtonStyle: React.CSSProperties = {
   display: 'flex',
   alignItems: 'center',

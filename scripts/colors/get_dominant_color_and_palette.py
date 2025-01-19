@@ -6,7 +6,7 @@ from tqdm import tqdm
 
 
 def collect_images(root_dir):
-    image_extensions = (".png", ".JPG", ".jpg", ".jpeg", ".webp")
+    image_extensions = (".png", ".jpg", ".jpg", ".jpg", ".webp")
     image_paths = []
     for dirpath, _, filenames in os.walk(root_dir):
         for filename in filenames:

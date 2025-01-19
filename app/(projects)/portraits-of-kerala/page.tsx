@@ -6,10 +6,22 @@ import { motion } from "framer-motion";
 import portraitsData from "./data.json";
 
 export default function PortraitsOfKerala() {
+
+  const baseUrl = "/photos/portraits-of-kerala";
+  const imagesUrl = `${baseUrl}/portraits`;
+
+  const heroImages = portraitsData.heroImages.map(image => `${imagesUrl}/${image}.jpg`);
+  const images = portraitsData.portraits.map(portrait => ({
+    src: `${imagesUrl}/${portrait.filename}.jpg`,
+    title: portrait.title,
+    subtitle: portrait.subtitle,
+    description: portrait.description
+  }));
+
   return (
     <main className="min-h-screen bg-black">
       <Hero 
-        images={portraitsData.heroImages}
+        images={heroImages}
         title="Portraits of Kerala"
         description="A collection of personal stories from the diverse people of Kerala, offering a glimpse into the state's rich traditions and evolving culture."
         imageInterval={5000}
@@ -42,11 +54,11 @@ export default function PortraitsOfKerala() {
       <section className="py-16">
         <div className="max-w-[1800px] mx-auto px-4">
           <PhotoGrid 
-            images={portraitsData.portraits}
-            type="B"
+            images={images}
+            type="M"
             showLayoutToggle={true}
             showTitle={true}
-            showSubtitle={true} // Added showSubtitle prop
+            showSubtitle={true}
             className="mb-8"
           />
         </div>

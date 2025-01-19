@@ -98,7 +98,7 @@ export default function ModelViewer({ className = "" }: ModelViewerProps) {
   const [viewType, setViewType] = useState<ViewType>('real');
 
   const getModelSource = () => {
-    const baseUrl = `/projects/lights-of-kerala/${selectedSize}`;
+    const baseUrl = `/photos/lights-of-kerala/${selectedSize}`;
     return {
       model: `${baseUrl}/${selectedSize}.gltf`,
       image: `${baseUrl}/${viewType}.png`

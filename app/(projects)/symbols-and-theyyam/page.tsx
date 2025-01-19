@@ -4,7 +4,7 @@ import Image from "next/image";
 import Hero from "@/components/hero";
 
 export default function SymbolsAndTheyyam() {
-  const projectDirectory = "/projects/symbols-and-theyyam";
+  const photosDir = "/photos/symbols-and-theyyam";
   const theyyamVideos = [
     "https://www.youtube.com/embed/lROnAXKDUko",
     "https://www.youtube.com/embed/dVFR84Gvhk0"
@@ -33,7 +33,7 @@ export default function SymbolsAndTheyyam() {
   return (
     <div className="bg-black">
       <Hero 
-        images={["/laterite.jpg"]}
+        images={["/photos/bg/laterite.jpg"]}
         title="Symbols and Theyyam"
         description="This project explores the rich symbolism of the Theyyam ritual in Northern Kerala, weaving poetry, video, and reflections to capture its cultural and multisensory depth."
       />
@@ -65,7 +65,7 @@ export default function SymbolsAndTheyyam() {
             {/* Images */}
             {photos.map((img, i) => (
               <div key={i} className="min-w-[800px] h-[600px] bg-zinc-900 rounded-lg overflow-hidden shadow-2xl">
-                <Image src={`${projectDirectory}/${img}`} width={800} height={600} alt={"Image " + i} className="object-cover w-full h-full" />
+                <Image src={`${photosDir}/symbols/${img}`} width={800} height={600} alt={"Image " + i} className="object-cover w-full h-full" />
               </div>
             ))}
             {/* Right Memo */}
@@ -83,7 +83,7 @@ export default function SymbolsAndTheyyam() {
         <div className="text-white px-6 flex gap-8 w-full justify-center items-start max-w-[2000px] mx-auto">
           <div className="flex-1 bg-zinc-900 p-4 rounded-lg shadow-2xl">
             <iframe
-              src={`${projectDirectory}/drums thrummed.pdf#toolbar=0`}
+              src={`${photosDir}/drums thrummed.pdf#toolbar=0`}
               style={{ width: '100%', height: '800px' }}
               className="rounded-lg"
             />
@@ -110,7 +110,7 @@ export default function SymbolsAndTheyyam() {
         <div className="text-white px-6 flex gap-8 w-full justify-center items-start max-w-[2000px] mx-auto">
           <div className="flex-1 bg-zinc-900 p-4 rounded-lg shadow-2xl">
             <iframe
-              src={`${projectDirectory}/metal and flesh.pdf#toolbar=0`}
+              src={`${photosDir}/metal and flesh.pdf#toolbar=0`}
               style={{ width: '100%', height: '800px' }}
               className="rounded-lg"
             />

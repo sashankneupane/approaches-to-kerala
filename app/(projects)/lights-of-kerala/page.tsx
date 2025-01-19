@@ -8,7 +8,7 @@ import ModelViewer from '@/components/modelviewer';
 
 export default function LightsOfKerala() {
   const gridImages = lamps.map(lamp => ({
-    src: lamp.src,
+    src: `/photos/lights-of-kerala/lights/lamp${lamp.id}.png`,
     alt: lamp.alt,
     title: lamp.title,
     subtitle: lamp.location,
@@ -19,7 +19,7 @@ export default function LightsOfKerala() {
   return (
     <div className="min-h-screen w-full bg-black">
       <Hero 
-        images={['/projects/lights-of-kerala/cover.png']}
+        images={['/photos/lights-of-kerala/cover.jpg']}
         title="Lights of Kerala"
         description="A symbol of purity, divine presence and dispelling darkness"
         imageInterval={5000}

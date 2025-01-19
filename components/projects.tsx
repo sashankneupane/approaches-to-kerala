@@ -80,7 +80,7 @@ const StudentsGrid: React.FC<StudentsGridProps> = ({ students }) => {
                 className="absolute inset-0 bg-cover bg-center transition-all duration-500
                   group-hover:scale-105 group-hover:grayscale-0 grayscale"
                 style={{
-                  backgroundImage: `url('/dp/${student.featuredImg}')`
+                  backgroundImage: `url('/photos/covers/${student.name.toLocaleLowerCase()}.jpg')`
                 }}
               />
 

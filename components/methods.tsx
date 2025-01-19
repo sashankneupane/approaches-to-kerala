@@ -20,10 +20,10 @@ const ProjectCard = ({ student }: { student: Student }) => (
               transition-all duration-300
               relative overflow-hidden"
   >
-    {student.featuredImg && (
+
       <div className="absolute inset-0 opacity-40 group-hover:opacity-50 transition-opacity">
         <Image
-          src={`/dp/${student.featuredImg}`}
+          src={`/photos/covers/${student.name.toLowerCase()}.jpg`}
           alt={student.project.title}
           fill
           sizes="(max-width: 768px) 100vw, 50vw"
@@ -33,7 +33,7 @@ const ProjectCard = ({ student }: { student: Student }) => (
           className="object-cover"
         />
       </div>
-    )}
+
     <Link href={`/${student.project.slug}`} 
           className="relative z-10 block transform transition-transform duration-300 hover:translate-x-2">
       <h3 className="text-xl font-light tracking-wide text-white/90 
@@ -64,7 +64,7 @@ const MethodCard = ({ mode, description, students }: {
       className="absolute inset-0 bg-cover bg-center transition-transform duration-700
                  group-hover:scale-110 brightness-50 opacity-60"
       style={{
-        backgroundImage: `url('/bg/${mode.toLowerCase()}.jpg')`
+        backgroundImage: `url('/photos/bg/${mode.toLowerCase()}.jpg')`
       }}
     />
     

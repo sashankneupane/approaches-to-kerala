@@ -1,98 +1,84 @@
 [
   {
     "id": "01",
-    "src": "/projects/lights-of-kerala/lamp01.png",
     "alt": "Collection of Oil lamps",
     "title": "Collection of Oil lamps, Murali's place",
     "location": "Murali's place"
   },
   {
     "id": "02",
-    "src": "/projects/lights-of-kerala/lamp02.png",
     "alt": "Hanging Oil lamps",
     "title": "Hanging Oil lamps, surrounding Murali's small temple",
     "location": "Murali's temple"
   },
   {
     "id": "03",
-    "src": "/projects/lights-of-kerala/lamp03.png",
     "alt": "Intricate design of a hanging Oil lamp",
     "title": "Intricate design of a hanging Oil lamp, Murali's place",
     "location": "Murali's place"
   },
   {
     "id": "04",
-    "src": "/projects/lights-of-kerala/lamp04.png",
     "alt": "Lobby of Magnet Hotel",
     "title": "Lobby of Magnet Hotel, Kannur",
     "location": "Kannur"
   },
   {
     "id": "05",
-    "src": "/projects/lights-of-kerala/lamp05.png",
     "alt": "Lobby of Seashore hotel",
     "title": "Lobby of Seashore hotel, Cochin",
     "location": "Cochin"
   },
   {
     "id": "06",
-    "src": "/projects/lights-of-kerala/lamp06.png",
     "alt": "Oil lamp made of stone",
     "title": "Oil lamp made of stone, Muziris",
     "location": "Muziris"
   },
   {
     "id": "07",
-    "src": "/projects/lights-of-kerala/lamp07.png",
     "alt": "Oil lamp with 3 plates",
     "title": "Oil lamp with 3 plates, Murali's place",
     "location": "Murali's place"
   },
   {
     "id": "08",
-    "src": "/projects/lights-of-kerala/lamp08.png",
     "alt": "Oil lamp with a lot of plates",
     "title": "Oil lamp with a lot of plates, Cochin airport",
     "location": "Cochin airport"
   },
   {
     "id": "09",
-    "src": "/projects/lights-of-kerala/lamp09.png",
     "alt": "Oil lamp with a lot of plates",
     "title": "Oil lamp with a lot of plates, Muziris",
     "location": "Muziris"
   },
   {
     "id": "10",
-    "src": "/projects/lights-of-kerala/lamp10.png",
     "alt": "Pouring oil into Oil lamps",
     "title": "Pouring oil into Oil lamps, Thekkan Kariyathan Temple",
     "location": "Thekkan Kariyathan Temple"
   },
   {
     "id": "11",
-    "src": "/projects/lights-of-kerala/lamp11.png",
     "alt": "Three types of Oil lamps in one frame",
     "title": "Three types of Oil lamps in one frame, Thekkan Kariyathan Temple",
     "location": "Thekkan Kariyathan Temple"
   },
   {
     "id": "12",
-    "src": "/projects/lights-of-kerala/lamp12.png",
     "alt": "Typical design of an Oil lamp",
     "title": "Typical design of an Oil lamp, Murali's place",
     "location": "Murali's place"
   },
   {
     "id": "13",
-    "src": "/projects/lights-of-kerala/lamp13.png",
     "alt": "Woodworks shop lamps",
     "title": "Woodworks shop at Sargaalaya village 1",
     "location": "Sargaalaya village"
   },
   {
     "id": "14",
-    "src": "/projects/lights-of-kerala/lamp14.png",
     "alt": "Woodworks shop lamps",
     "title": "Woodworks shop at Sargaalaya village",
     "location": "Sargaalaya village"
