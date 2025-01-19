@@ -39,7 +39,7 @@ export default function SymbolsAndTheyyam() {
       />
 
       {/* Section 1 (Horizontal scroll with memo notes) */}
-      <section className="relative py-24 bg-black" id="theyyam">
+      <section className="relative py-24 bg-black z-0" id="theyyam">
         <div className="relative text-white px-6">
           {/* Scroll Buttons */}
           <button 
@@ -79,7 +79,7 @@ export default function SymbolsAndTheyyam() {
       </section>
 
       {/* Section 2 (PDF + Both YouTube Videos) */}
-      <section className="py-8 bg-black">
+      <section className="relative py-8 bg-black z-20">
         <div className="text-white px-6 flex gap-8 w-full justify-center items-start max-w-[2000px] mx-auto">
           <div className="flex-1 bg-zinc-900 p-4 rounded-lg shadow-2xl">
             <iframe
@@ -106,7 +106,7 @@ export default function SymbolsAndTheyyam() {
       </section>
 
       {/* Section 3 (PDF + single YouTube) */}
-      <section className="py-8 bg-black">
+      <section className="relative py-8 bg-black z-20">
         <div className="text-white px-6 flex gap-8 w-full justify-center items-start max-w-[2000px] mx-auto">
           <div className="flex-1 bg-zinc-900 p-4 rounded-lg shadow-2xl">
             <iframe
