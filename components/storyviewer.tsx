@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 // Add this utility function at the top
-function debounce<T extends (...args: any[]) => void>(
+function debounce<T extends (...args: unknown[]) => void>(
   func: T,
   wait: number
 ): (...args: Parameters<T>) => void {
@@ -46,7 +46,7 @@ export default function StoryViewer({
   const [scrollY, setScrollY] = useState(0);
   const [activeLetterIndex, setActiveLetterIndex] = useState(0);
   const [isScrolling, setIsScrolling] = useState(false);
-  const scrollTimeout = useRef<NodeJS.Timeout>();
+  const scrollTimeout = useRef<NodeJS.Timeout | null>(null);
 
   // Refs to each section so we can scroll them into view
   const sectionRefs = useRef<Array<HTMLDivElement | null>>([]);
@@ -110,11 +110,11 @@ export default function StoryViewer({
         clearTimeout(scrollTimeout.current);
       }
     };
-  }, [activeIndex, isScrolling, images.length, autoScrollInterval]);
+  }, [activeIndex, isScrolling, images.length, autoScrollInterval, scrollToSection]);
 
   // Improved scroll handler
   useEffect(() => {
-    const debouncedScroll = debounce((e: Event) => {
+    const debouncedScroll = debounce(() => {
       const sy = window.scrollY;
       setScrollY(sy);
       
@@ -511,207 +511,3 @@ export default function StoryViewer({
     </div>
   );
 }
-
-/* -------------- STYLES & HELPERS -------------- */
-
-/**
- * Main container for the entire page.
- * We also apply a custom scrollbar here.
- */
-const pageContainerStyle: React.CSSProperties = {
-  margin: 0,
-  padding: 0,
-  // Make the container "scrollable" for 100vh sections
-  height: "100vh",
-  overflowY: "scroll",
-  scrollBehavior: "smooth",
-  scrollSnapType: "y mandatory", // Add snap behavior
-};
-
-/**
- * Each section is 100vh so you see one image per "screen."
- */
-const sectionStyle: React.CSSProperties = {
-  position: "relative",
-  width: "100%",
-  height: "100vh",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  transition: "background-color 0.5s ease-out",
-  scrollSnapAlign: "start", // Add snap alignment
-  scrollSnapStop: "always", // Force snap points
-};
-
-const activeSectionStyle: React.CSSProperties = {
-  backgroundColor: "rgba(255,255,255,0.15)",
-};
-
-/**
- * Base style for each image
- */
-const imageStyle: React.CSSProperties = {
-  width: "100%",
-  height: "100%",
-  objectFit: "cover",
-  transition: "transform 0.6s ease-out, opacity 0.6s ease-out",
-};
-
-/**
- * Give a big difference in scale:
- * - Active image: scale(1.0), opacity 1
- * - Inactive images: scale(0.2), opacity 0.3
- */
-function getScaleStyle(index: number, activeIndex: number) {
-  if (index === activeIndex) {
-    return { transform: "scale(1.0)", opacity: 1 };
-  }
-  return { transform: "scale(0.2)", opacity: 0.3 };
-}
-
-// Hero Section
-const heroSectionStyle: React.CSSProperties = {
-  backgroundColor: "transparent",
-  color: "#fff",
-  padding: "2rem",
-  textAlign: "center",
-  position: "relative",
-  overflow: "hidden",
-  minHeight: "100vh",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-};
-
-const titleStyle: React.CSSProperties = {
-  fontSize: "4rem",
-  letterSpacing: "0.5rem",
-  textTransform: "uppercase",
-  marginBottom: "2rem",
-  display: "flex",
-  justifyContent: "center",
-  gap: "0.5rem",
-};
-
-// Add this with the other style constants
-const titleBackgroundStyle: React.CSSProperties = {
-  position: "absolute",
-  top: 0,
-  left: 0,
-  width: "100%",
-  height: "100%",
-  backgroundSize: "cover",
-  backgroundPosition: "center",
-  opacity: 1,
-  transition: "opacity 0.5s ease-out",
-  zIndex: -1,
-};
-
-// Author / Description Section
-const authorSectionStyle: React.CSSProperties = {
-  minHeight: "70vh",
-  background: "#f8f8f8",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  padding: "2rem",
-};
-
-const authorContainerStyle: React.CSSProperties = {
-  maxWidth: "1000px",
-  width: "100%",
-  display: "flex",
-  flexDirection: "row",
-  gap: "2rem",
-  alignItems: "center",
-  justifyContent: "center",
-};
-
-const portraitContainerStyle: React.CSSProperties = {
-  width: "300px",
-  height: "300px",
-  borderRadius: "50%",
-  overflow: "hidden",
-  flexShrink: 0,
-};
-
-const authorTextContainerStyle: React.CSSProperties = {
-  flex: 1,
-};
-
-const authorNameStyle: React.CSSProperties = {
-  fontSize: "2rem",
-  marginBottom: "1rem",
-  fontFamily: playfair.style.fontFamily,
-};
-
-const authorDescriptionStyle: React.CSSProperties = {
-  fontSize: "1.1rem",
-  lineHeight: 1.6,
-  color: "#333",
-  fontFamily: playfair.style.fontFamily,
-};
-
-// Update the fixed Next Story button style
-const nextStoryButtonStyle: React.CSSProperties = {
-  position: "fixed",
-  top: "2rem",
-  right: "2rem",
-  padding: "0.75rem 1.5rem",
-  fontSize: "1rem",
-  cursor: "pointer",
-  border: "2px solid rgba(255, 255, 255, 0.8)",
-  backgroundColor: "rgba(0, 0, 0, 0.3)",
-  color: "#fff",
-  borderRadius: "30px",
-  transition: "all 0.3s ease",
-  backdropFilter: "blur(10px)",
-  zIndex: 1000,
-  fontFamily: playfair.style.fontFamily,
-  letterSpacing: "1px",
-  textTransform: "uppercase",
-  boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-};
-
-// Add styles for the centered Next Story section and button
-const centeredNextStorySectionStyle: React.CSSProperties = {
-  minHeight: "50vh",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  background: "#f8f8f8",
-};
-
-const centeredNextStoryButtonStyle: React.CSSProperties = {
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  padding: "1rem 2rem",
-  fontSize: "1.2rem",
-  cursor: "pointer",
-  border: "2px solid #333",
-  backgroundColor: "transparent",
-  color: "#333",
-  borderRadius: "40px",
-  transition: "all 0.3s ease",
-  fontFamily: playfair.style.fontFamily,
-  letterSpacing: "1px",
-  textTransform: "uppercase",
-};
-
-const returnToGalleryButtonStyle: React.CSSProperties = {
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  padding: "1rem 2rem",
-  fontSize: "1.2rem",
-  cursor: "pointer",
-  border: "2px solid #666",
-  backgroundColor: "transparent",
-  color: "#666",
-  borderRadius: "40px",
-  transition: "all 0.3s ease",
-  fontFamily: playfair.style.fontFamily,
-  letterSpacing: "1px",
-  textTransform: "uppercase",
-};

@@ -2,18 +2,7 @@
 import Link from 'next/link';
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-
-interface Student {
-  name: string;
-  fullName: string;
-  featuredImg: string;
-  project: {
-    title: string;
-    slug: string;
-    description: string;
-    coverImg?: string;
-  };
-}
+import { Student } from '@/app/types';
 
 interface StudentsGridProps {
   students: Student[];

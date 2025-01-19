@@ -2,8 +2,13 @@
 import React from "react";
 import PhotoSeries from "@/components/photoseries";
 
+interface GalleryImage {
+    src: string;
+    alt: string;
+}
+
 // Gallery images array
-const galleryImages = [];
+const galleryImages: GalleryImage[] = [];
 for (let i = 1; i <= 62; i++) {
   galleryImages.push({
     src: `/photos/photogallery/people-nature-theyyam/gallery/${i}.jpg`,

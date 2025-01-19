@@ -114,7 +114,6 @@ export const students: Student[] = [
   { 
     name: 'Khater',
     fullName: 'Khater Abdelrahman',
-    featuredImg: 'khater.jpg',
     project: {
       title: 'Silhouettes of Kerala',
       slug: 'silhouettes-of-kerala',
