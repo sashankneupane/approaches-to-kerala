@@ -67,9 +67,8 @@ export default function LightsOfKerala() {
           <div className="w-full h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
           <h2 className="text-3xl text-white/90 font-light my-24">3D Experience</h2>
         </motion.div>
-
-        {/* 3D Experience Section */}
-        <motion.div
+                {/* 3D Experience Section */}
+                <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}

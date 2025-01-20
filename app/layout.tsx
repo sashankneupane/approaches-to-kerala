@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Script from "next/script";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Inter, Montserrat } from 'next/font/google';
 import "./globals.css";
@@ -34,9 +35,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${inter.className} ${montserrat.variable}`}>
-      <head>
-        {/* Remove the model-viewer script from here */}
-      </head>
+      <Script
+        async
+        strategy='afterInteractive'
+        type='module'
+        src='https://unpkg.com/@google/model-viewer@^2.1.1/dist/model-viewer.min.js'
+      />
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >

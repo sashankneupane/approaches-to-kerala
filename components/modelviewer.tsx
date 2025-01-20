@@ -58,7 +58,7 @@ const ThreeDViewer = ({ src, size }: { src: string; size: string }) => {
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
     >
-      {/* <model-viewer
+      <model-viewer
         src={src}
         alt={`${size} Nilavilakku 3D Model`}
         camera-controls
@@ -80,7 +80,7 @@ const ThreeDViewer = ({ src, size }: { src: string; size: string }) => {
         exposure="1"
         class="rounded-xl"
         style={{ width: '100%', height: '100%', backgroundColor: 'transparent' }}
-      ></model-viewer> */}
+      ></model-viewer>
     <motion.div 
       className="absolute bottom-4 left-0 right-0 pointer-events-none flex justify-center"
       transition={{ duration: 0.2 }}
@@ -119,44 +119,47 @@ export default function ModelViewer({ className = "" }: ModelViewerProps) {
 
   return (
     <div className={`space-y-6 ${className}`}>
-      {/* Controls Container */}
-      <div className="flex items-center justify-between gap-4 px-4">
-        {/* Size Selector */}
-        <div className="bg-black/40 backdrop-blur-sm rounded-lg p-1 flex gap-2">
-          {['50cm', '150cm'].map((size) => (
-            <button
-              key={size}
-              onClick={() => setSelectedSize(size as ModelSize)}
-              className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 ${
-                selectedSize === size 
-                  ? 'bg-white text-black' 
-                  : 'text-white/60 hover:text-white'
-              }`}
-            >
-              {size}
-            </button>
-          ))}
+      {/* Controls Container - Responsive Layout */}
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 px-4">
+
+        {/* View Type Selector - Scrollable on Mobile */}
+        <div className="w-full sm:w-auto bg-black/40 backdrop-blur-sm rounded-lg p-1 overflow-x-auto">
+          <div className="flex gap-2 justify-start min-w-max">
+            {(['real', 'front', 'isometric', 'drawing'] as ViewType[]).map((type) => (
+              <ViewTypeButton
+                key={type}
+                type={type}
+                active={viewType === type}
+                onClick={() => setViewType(type)}
+              />
+            ))}
+          </div>
         </div>
 
-        {/* View Type Selector */}
-        <div className="bg-black/40 backdrop-blur-sm rounded-lg p-1 flex gap-2">
-          {(['real', 'front', 'isometric', 'drawing'] as ViewType[]).map((type) => (
-            <ViewTypeButton
-              key={type}
-              type={type}
-              active={viewType === type}
-              onClick={() => setViewType(type)}
-            />
-          ))}
+        {/* Size Selector - Always at Top/Left */}
+        <div className="w-auto bg-black/40 backdrop-blur-sm rounded-lg p-1">
+          <div className="flex gap-2">
+            {['50cm', '150cm'].map((size) => (
+              <button
+                key={size}
+                onClick={() => setSelectedSize(size as ModelSize)}
+                className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-300 ${
+                  selectedSize === size 
+                    ? 'bg-white text-black' 
+                    : 'text-white/60 hover:text-white'
+                }`}
+              >
+                {size}
+              </button>
+            ))}
+          </div>
         </div>
+
+
       </div>
 
       {/* Split View Container */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {/* 3D Model View - Left Side */}
-        <div className="h-[600px] bg-transparent rounded-xl overflow-hidden relative">
-          <ThreeDViewer src={sources.model} size={selectedSize} />
-        </div>
 
         {/* 2D View - Right Side */}
         <div className="h-[600px] bg-transparent rounded-xl overflow-hidden relative">
@@ -184,6 +187,12 @@ export default function ModelViewer({ className = "" }: ModelViewerProps) {
             </p>
           </div>
         </div>
+
+                {/* 3D Model View - Left Side */}
+        <div className="h-[600px] bg-transparent rounded-xl overflow-hidden relative">
+          <ThreeDViewer src={sources.model} size={selectedSize} />
+        </div>
+
       </div>
     </div>
   );

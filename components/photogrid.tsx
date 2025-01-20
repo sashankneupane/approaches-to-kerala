@@ -60,7 +60,7 @@ const FullScreenImage = ({ src, alt, title, subtitle, description, onClose }: {
             onLoadingComplete={({ naturalWidth, naturalHeight }) => 
               setDimensions({ width: naturalWidth, height: naturalHeight })}
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent rounded-lg" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-black/20 to-transparent rounded-lg" />
           {(title || subtitle || description) && (
             <motion.div 
               className="absolute bottom-0 left-0 right-0 p-4 md:p-6 lg:p-8 rounded-b-lg"
@@ -68,10 +68,10 @@ const FullScreenImage = ({ src, alt, title, subtitle, description, onClose }: {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
             >
-              <div className="max-w-full">
-          {title && <h2 className="text-lg md:text-xl lg:text-2xl font-semibold text-white mb-1 md:mb-2">{title}</h2>}
-          {subtitle && <h3 className="text-sm md:text-base lg:text-lg text-white/80 mb-1 md:mb-2">{subtitle}</h3>}
-          {description && <p className="text-xs md:text-sm lg:text-base text-white/70 leading-relaxed line-clamp-3">{description}</p>}
+              <div className="max-w-full [text-shadow:_0_1px_3px_rgba(0,0,0,0.9)]">
+                {title && <h2 className="text-lg md:text-xl lg:text-2xl font-semibold text-white mb-1 md:mb-2">{title}</h2>}
+                {subtitle && <h3 className="text-sm md:text-base lg:text-lg text-white mb-1 md:mb-2">{subtitle}</h3>}
+                {description && <p className="text-xs md:text-sm lg:text-base text-white/95 leading-relaxed line-clamp-3">{description}</p>}
               </div>
             </motion.div>
           )}
@@ -186,25 +186,25 @@ export default function PhotoGrid({
                 height={800}
                 className={`w-full h-full object-cover ${layout !== 'M' ? 'aspect-square' : ''}`}
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent">
+              <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-black/20 to-transparent">
                 <div className="absolute bottom-0 left-0 right-0 p-4">
-                  <div className="transform transition-all duration-300 group-hover:translate-y-[-8px]">
+                  <div className="transform transition-all duration-300 group-hover:translate-y-[-8px] [text-shadow:_0_1px_3px_rgba(0,0,0,0.9)]">
                     {image.title && (
-                      <h3 className={`text-white/80 font-medium text-lg mb-1 transition-all duration-300
-                        ${!showTitle ? 'opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0' : 'opacity-80'}
+                      <h3 className={`text-white font-medium text-lg mb-1 transition-all duration-300
+                        ${!showTitle ? 'opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0' : 'opacity-100'}
                       `}>
                         {image.title}
                       </h3>
                     )}
                     {image.subtitle && (
-                      <h4 className={`text-white/60 text-sm mb-3 transition-all duration-300
-                        ${!showTitle ? 'opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0' : 'opacity-60'}
+                      <h4 className={`text-white text-sm mb-3 transition-all duration-300
+                        ${!showTitle ? 'opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0' : 'opacity-90'}
                       `}>
                         {image.subtitle}
                       </h4>
                     )}
                     {image.description && (
-                      <p className="text-white/70 text-sm transform transition-all duration-300 
+                      <p className="text-white/90 text-sm transform transition-all duration-300 
                         opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0">
                         {image.description}
                       </p>
