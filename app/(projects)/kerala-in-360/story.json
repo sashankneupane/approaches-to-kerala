@@ -1,0 +1,90 @@
+{
+  "intro": "Welcome to an immersive journey through Kerala",
+  "transitions": [
+    {
+      "fromId": "lzm_lsAD56Y",
+      "message": "Let's step inside this historic fort..."
+    },
+    {
+      "fromId": "HAiaMBp1px0",
+      "message": "Now, let's see the ocean view from the fort..."
+    },
+    {
+      "fromId": "3rlBd857nrA",
+      "message": "Moving to the bustling fish market nearby..."
+    },
+    {
+      "fromId": "ZlcKw0bMe2g",
+      "message": "Time to meet a renowned Theyyam performer..."
+    },
+    {
+      "fromId": "N32ULkxvuRY",
+      "message": "Walking through the village streets..."
+    },
+    {
+      "fromId": "h9p9ndlB_Wk",
+      "message": "Approaching the temple where Theyyam is performed..."
+    },
+    {
+      "fromId": "hXI4aL0WJPM",
+      "message": "Inside the sacred premises..."
+    },
+    {
+      "fromId": "mIr7JJQptsg",
+      "message": "The preparations are beginning..."
+    },
+    {
+      "fromId": "1d5RYl59bIE",
+      "message": "Watch as the Theyyam performance unfolds..."
+    },
+    {
+      "fromId": "RYA_RZNC9e8",
+      "message": "Another form of Theyyam begins..."
+    },
+    {
+      "fromId": "vYGeL4iKdyc",
+      "message": "The spectacular fire Theyyam..."
+    },
+    {
+      "fromId": "67zvs4zCUIY",
+      "message": "A special performance loved by children..."
+    },
+    {
+      "fromId": "o-vCGIslFIY",
+      "message": "One more enchanting performance..."
+    },
+    {
+      "fromId": "efXNJrXZLeA",
+      "message": "The grand finale of Theyyam..."
+    },
+    {
+      "fromId": "Tz6KY5h0Dag",
+      "message": "Let's explore the artisan village of Saragalaya..."
+    },
+    {
+      "fromId": "B6deShWUkWA",
+      "message": "Taking a complete tour of Saragalaya..."
+    },
+    {
+      "fromId": "-hKwvugt9Cw",
+      "message": "Moving to an art gallery in the heart of Kozhikode..."
+    },
+    {
+      "fromId": "OGC9q8YXpsA",
+      "message": "Now to Beypore, famous for its traditional ship building..."
+    },
+    {
+      "fromId": "exDM-CKo7dw",
+      "message": "Climbing to the top of a freshly built Dhow..."
+    },
+    {
+      "fromId": "YuAI5yMnn3s",
+      "message": "Time for some Kalari Payattu, Kerala's martial art..."
+    },
+    {
+      "fromId": "nY0C-cjAg7Q",
+      "message": "The final demonstration of Kalari mastery..."
+    }
+  ],
+  "outro": "Thank you for experiencing Kerala's rich cultural heritage"
+}

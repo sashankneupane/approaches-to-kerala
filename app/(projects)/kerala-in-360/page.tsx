@@ -1,261 +1,260 @@
-"use client";
-import React, { useState } from "react";
-import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
-import performances from "./data.json";
+'use client'
+
+import { useState, useEffect } from 'react';
+import Image from 'next/image';
+import { motion, AnimatePresence } from 'framer-motion';
 import Hero from '@/components/hero';
+import videos from './data.json';
+import { TbTimeline } from 'react-icons/tb';
+import { IoLocationOutline } from 'react-icons/io5';
+// import {IoExpand} from 'react-icons/io5';
+import VideoModal from '@/components/video-modal';
+import FilterModal from '@/components/filter-modal'
+import { HiAdjustments } from 'react-icons/hi'
 
-type ViewMode = 'timeline' | 'locations' | 'themes';
+const themes = [...new Set(videos.flatMap(v => v.themes))];
+const daytimes = [...new Set(videos.map(v => v.daytime))];
 
-export default function Kerala360Page() {
-  const [selectedVideo, setSelectedVideo] = useState<(typeof performances)[0] | null>(null);
-  const [viewMode, setViewMode] = useState<ViewMode>('timeline');
+// Get thumbnails for hero section
+const heroImages = ["/photos/kerala-in-360/cover.jpg"];
+
+export default function Kerala360() {
+  const [activeFilters, setActiveFilters] = useState<{
+    themes: string[],
+    daytime: string
+  }>({ themes: [], daytime: '' })
   
-  // Organize data by date and place
-  const timelineData = performances.reduce((acc, video) => {
-    if (!acc[video.date]) acc[video.date] = [];
-    acc[video.date].push(video);
-    return acc;
-  }, {} as Record<string, typeof performances>);
+  const [groupBy, setGroupBy] = useState<'date' | 'location'>('date')
+  const [filteredVideos, setFilteredVideos] = useState(videos)
+  const [selectedVideo, setSelectedVideo] = useState<typeof videos[0] | null>(null)
+  const [isFilterOpen, setIsFilterOpen] = useState(false)
+  
+  useEffect(() => {
+    setFilteredVideos(videos.filter(video => {
+      const themeMatch = activeFilters.themes.length === 0 || 
+        activeFilters.themes.some(t => video.themes.includes(t))
+      const daytimeMatch = !activeFilters.daytime || video.daytime === activeFilters.daytime
+      return themeMatch && daytimeMatch
+    }))
+  }, [activeFilters])
 
-  const placeData = performances.reduce((acc, video) => {
-    if (!acc[video.place]) acc[video.place] = [];
-    acc[video.place].push(video);
-    return acc;
-  }, {} as Record<string, typeof performances>);
+  const groupedVideos = filteredVideos.reduce((acc, video) => {
+    const groupKey = groupBy === 'date' ? video.date : video.location
+    
+    if (!acc[groupKey]) {
+      acc[groupKey] = []
+    }
+    acc[groupKey].push(video)
+    return acc
+  }, {} as Record<string, typeof videos>)
 
-  const renderVideoGrid = (videos: typeof performances) => (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-      {videos.map((video) => (
-        <VideoCard
-          key={video.videoUrl}
-          video={video}
-          onClick={() => setSelectedVideo(video)}
-        />
-      ))}
-    </div>
-  );
+  // Sort groups by key
+  const sortedGroups = Object.entries(groupedVideos).sort(([a], [b]) => {
+    if (groupBy === 'date') {
+      return new Date(a).getTime() - new Date(b).getTime()
+    }
+    return a.localeCompare(b)
+  })
 
   return (
-    <div className="min-h-screen w-full bg-black">
-      <Hero
-        images={["/projects/kerala-in-360/cover.jpg"]}
+    <div className="min-h-screen bg-black relative">
+
+      <Hero 
+        images={heroImages}
         title="Kerala in 360°"
-        description="Step into an immersive journey through Kerala's cultural landscape"
+        description="Experience the mystical beauty of God's Own Country through immersive 360° videos"
       />
-
-      <main className="relative pt-16 pb-32">
-        {/* View Mode Navigation */}
-        <div className="sticky top-0 z-30 bg-black">
-          <div className="max-w-7xl mx-auto px-4">
-            <div className="flex justify-center gap-4 py-4">
-              {[
-                { id: 'timeline', label: 'Timeline', icon: '📅' },
-                { id: 'locations', label: 'Locations', icon: '📍' },
-              ].map((mode) => (
-                <motion.button
-                  key={mode.id}
-                  onClick={() => setViewMode(mode.id as ViewMode)}
-                  className={`px-6 py-3 rounded-xl flex items-center gap-2 transition-all ${
-                    viewMode === mode.id 
-                      ? 'bg-white text-black' 
-                      : 'bg-white/5 text-white hover:bg-white/10'
-                  }`}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
+      
+      {/* Enhanced gradient overlay for smoother transition */}
+      <div className="absolute left-0 right-0 h-64 -translate-y-64" />
+      
+      <div className="relative z-10 px-4 md:px-8 pb-24">
+        <motion.div className="max-w-7xl mx-auto">
+          {/* Video Grid */}
+          <div className="space-y-16"> {/* Increased spacing between groups */}
+            {sortedGroups.map(([group, groupVideos]) => (
+              <div key={group}>
+                <motion.div 
+                  layout
+                  className="relative mb-8"
                 >
-                  <span className="text-2xl">{mode.icon}</span>
-                  <span>{mode.label}</span>
-                </motion.button>
-              ))}
-            </div>
+                  <motion.div
+                    className="absolute -left-8 top-1/2 -translate-y-1/2 w-1 h-12 bg-gradient-to-b from-purple-500 to-white rounded-full opacity-50"
+                    animate={{ height: [48, 64, 48] }}
+                    transition={{ duration: 2, repeat: Infinity }}
+                  />
+                  <motion.h3 
+                    layout
+                    className="text-2xl md:text-3xl text-white/90 font-light pl-6 flex items-baseline gap-3"
+                  >
+                    <span className="bg-gradient-to-r from-white via-purple-200 to-white bg-clip-text text-transparent">
+                      {groupBy === 'date' 
+                        ? new Date(group).toLocaleDateString('en-US', {
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric'
+                          })
+                        : group
+                      }
+                    </span>
+                    <span className="text-base text-white/40">
+                      {groupVideos.length} video{groupVideos.length !== 1 ? 's' : ''}
+                    </span>
+                  </motion.h3>
+                  <div className="absolute left-6 right-0 h-px bg-gradient-to-r from-white/20 to-transparent mt-4" />
+                </motion.div>
+
+                <motion.div 
+                  layout
+                  className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8"
+                >
+                  <AnimatePresence mode="popLayout">
+                    {groupVideos.map((video, index) => (
+                      <motion.div
+                        key={video.id}
+                        layout
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, scale: 0.8 }}
+                        transition={{ duration: 0.4, delay: index * 0.1 }}
+                        className="group relative overflow-hidden rounded-2xl bg-black/40 backdrop-blur-sm border border-white/10 shadow-lg hover:shadow-xl transition-all duration-500"
+                      >
+                        <div className="aspect-video overflow-hidden">
+                          <Image
+                            src={`https://i.ytimg.com/vi/${video.id}/hqdefault.jpg`}
+                            alt={video.name}
+                            width={720}
+                            height={405}
+                            className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-80" />
+                        </div>
+                        
+                        <div className="absolute inset-0 p-2 flex flex-col justify-between">
+                          <div className="flex gap-2">
+                            {video.themes.map(theme => (
+                              <span key={theme} className="px-2 py-1 bg-black/30 backdrop-blur-sm rounded-full text-xs text-white/90">
+                                {theme}
+                              </span>
+                            ))}
+                          </div>
+                          
+                          <div>
+                            <h3 className="text-md font-medium text-white mb-1 ml-1">{video.name}</h3>
+                            <div className="flex items-center gap-3 text-white/70">
+                              <span className="flex items-center gap-1 text-sm">
+                                <IoLocationOutline className="w-4 h-4" />
+                                {video.location}
+                              </span>
+                              <span>•</span>
+                              <span className="capitalize text-sm">{video.daytime}</span>
+                            </div>
+                          </div>
+                        </div>
+
+                        <button
+                          onClick={() => setSelectedVideo(video)}
+                          className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                        >
+                          <div className="w-16 h-16 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300">
+                            <motion.div
+                              whileHover={{ scale: 1.1 }}
+                              whileTap={{ scale: 0.9 }}
+                              className="w-12 h-12 rounded-full bg-white flex items-center justify-center"
+                            >
+                              <svg className="w-6 h-6 text-black translate-x-0.5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M8 5v14l11-7z" />
+                              </svg>
+                            </motion.div>
+                          </div>
+                        </button>
+                      </motion.div>
+                    ))}
+                  </AnimatePresence>
+                </motion.div>
+              </div>
+            ))}
           </div>
-        </div>
-
-        {/* Content Area */}
-        <div className="max-w-7xl mx-auto px-4 mt-8">
-          <AnimatePresence mode="wait">
-            {viewMode === 'timeline' && (
-              <motion.div
-                key="timeline"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0 }}
-                className="space-y-16"
-              >
-                {Object.entries(timelineData)
-                  .sort(([dateA], [dateB]) => dateA.localeCompare(dateB))
-                  .map(([date, videos]) => (
-                    <section key={date}>
-                      <h2 className="text-2xl text-white/90 mb-8 sticky top-20 bg-black/80 backdrop-blur-sm py-4 px-4 rounded-lg">
-                        {new Date(date).toLocaleDateString('en-US', {
-                          weekday: 'long',
-                          year: 'numeric',
-                          month: 'long',
-                          day: 'numeric'
-                        })}
-                      </h2>
-                      {renderVideoGrid(videos)}
-                    </section>
-                  ))}
-              </motion.div>
-            )}
-
-            {viewMode === 'locations' && (
-              <motion.div
-                key="locations"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0 }}
-                className="space-y-16"
-              >
-                {Object.entries(placeData).map(([location, videos]) => (
-                  <section key={location}>
-                    <h2 className="text-2xl text-white/90 mb-8 sticky top-20 bg-black/80 backdrop-blur-sm py-4 px-4 rounded-lg">
-                      {location}
-                      <span className="text-sm text-white/50 ml-2">
-                        ({videos.length} videos)
-                      </span>
-                    </h2>
-                    {renderVideoGrid(videos)}
-                  </section>
-                ))}
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
-      </main>
-
-      {/* Video Modal */}
-      <AnimatePresence>
-        {selectedVideo && (
-          <VideoModal video={selectedVideo} onClose={() => setSelectedVideo(null)} />
-        )}
-      </AnimatePresence>
-
-      {/* Future uploads message */}
-      <motion.div 
-        className="fixed bottom-0 left-0 right-0 z-40 bg-gradient-to-t from-black via-black/95 to-transparent"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-      >
-        <div className="max-w-7xl mx-auto px-4 py-8">
-          <div className="flex items-center justify-center gap-6">
-        <div className="relative">
-          <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center">
-            <motion.div 
-          className="w-6 h-6 rounded-full bg-white"
-          animate={{ 
-            scale: [1, 1.2, 1],
-            opacity: [0.3, 1, 0.3]
-          }}
-          transition={{
-            duration: 2,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-            />
-          </div>
-        </div>
-        <p className="text-xl text-white/90">
-          More immersive experiences coming soon...
-        </p>
-          </div>
-        </div>
-      </motion.div>
-    </div>
-  );
-}
-
-interface VideoCardProps {
-  video: typeof performances[0];
-  onClick: () => void;
-}
-
-// Video Card Component
-const VideoCard = ({ video, onClick }: VideoCardProps) => (
-  <motion.div
-    className="relative aspect-video rounded-xl overflow-hidden group cursor-pointer"
-    whileHover={{ scale: 1.02 }}
-    onClick={onClick}
-  >
-    <Image
-      src={video.thumbnail}
-      alt={video.name}
-      fill
-      className="object-cover"
-    />
-    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent 
-      opacity-60 group-hover:opacity-90 transition-opacity duration-300" />
-    
-    <div className="absolute bottom-0 left-0 right-0 p-6 transform transition-transform duration-300
-      group-hover:translate-y-0 translate-y-4">
-      <h3 className="text-xl font-medium text-white mb-2">
-        {video.name}
-      </h3>
-      <p className="text-white/70 text-sm line-clamp-2 mb-4">
-        {video.description}
-      </p>
-      <div className="flex items-center gap-2 text-white/60">
-        <span>{video.place}</span>
-        <span>•</span>
-        <motion.div
-          className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center"
-          whileHover={{ scale: 1.1 }}
-        >
-          <span className="text-lg">▶</span>
         </motion.div>
       </div>
-    </div>
 
-    {/* Ambient Effects */}
-    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-      {[...Array(3)].map((_, i) => (
-        <motion.div
-          key={i}
-          className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent"
-          animate={{ x: ['-100%', '100%'] }}
-          transition={{
-            duration: 2,
-            delay: i * 0.4,
-            repeat: Infinity,
-            ease: "linear"
-          }}
-        />
-      ))}
-    </div>
-  </motion.div>
-);
+      {/* Floating Controls */}
+      <div className="fixed bottom-6 right-6 z-30 flex flex-col items-center gap-2">
+        {/* Filter Button */}
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          onClick={() => setIsFilterOpen(true)}
+          className="p-3 bg-white text-purple-900 rounded-full shadow-lg"
+          title="Open Filters"
+        >
+          <HiAdjustments className="w-5 h-5" />
+        </motion.button>
 
-interface VideoModalProps {
-  video: typeof performances[0];
-  onClose: () => void;
-}
+        {/* Group Toggle */}
+        <div className="flex flex-col items-center gap-2 p-1.5 bg-black/60 backdrop-blur-md rounded-full border border-white/10 shadow-xl">
+          <button
+            onClick={() => setGroupBy('date')}
+            className={`p-2 rounded-full transition-all ${
+          groupBy === 'date'
+            ? 'bg-white text-purple-900'
+            : 'text-white/70 hover:bg-white/10'
+            }`}
+            title="Group by Date"
+          >
+            <TbTimeline className="w-5 h-5" />
+          </button>
+          <button
+            onClick={() => setGroupBy('location')}
+            className={`p-2 rounded-full transition-all ${
+          groupBy === 'location'
+            ? 'bg-white text-purple-900'
+            : 'text-white/70 hover:bg-white/10'
+            }`}
+            title="Group by Location"
+          >
+            <IoLocationOutline className="w-5 h-5" />
+          </button>
+        </div>
 
-// Video Modal Component
-const VideoModal = ({ video, onClose }: VideoModalProps) => (
-  <motion.div
-    className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 backdrop-blur-lg"
-    initial={{ opacity: 0 }}
-    animate={{ opacity: 1 }}
-    exit={{ opacity: 0 }}
-    onClick={onClose}
-  >
-    <motion.div
-      className="relative w-full max-w-7xl mx-4 overflow-hidden rounded-2xl"
-      initial={{ scale: 0.9, y: 20 }}
-      animate={{ scale: 1, y: 0 }}
-      exit={{ scale: 0.9, y: 20 }}
-      onClick={e => e.stopPropagation()}
-    >
-      <div className="aspect-video">
-        <iframe
-          src={`${video.videoUrl}?autoplay=1&rel=0`}
-          className="w-full h-full"
-          allow="accelerometer; autoplay; gyroscope; picture-in-picture"
-          allowFullScreen
-        />
+        {/* Immersive Mode Button */}
+        {/* <Link
+          href="/kerala-in-360/immerse"
+          className="p-3 bg-purple-600 text-white rounded-full shadow-lg hover:bg-purple-700 transition-colors"
+        >
+          <IoExpand className="w-5 h-5" />
+        </Link> */}
       </div>
-    </motion.div>
-  </motion.div>
-);
+
+      <div className="flex justify-center">
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="my-16 px-6 py-3 bg-white/10 backdrop-blur-md rounded-full border border-white/20 shadow-2xl"
+        >
+          <p className="text-white/90 text-sm font-light">
+        ✨ More videos being uploaded soon...
+          </p>
+        </motion.div>
+      </div>
+
+      <FilterModal
+        isOpen={isFilterOpen}
+        onClose={() => setIsFilterOpen(false)}
+        themes={themes}
+        daytimes={daytimes}
+        activeFilters={activeFilters}
+        setActiveFilters={setActiveFilters}
+      />
+
+      <VideoModal
+        isOpen={!!selectedVideo}
+        onClose={() => setSelectedVideo(null)}
+        videoId={selectedVideo?.id}
+        videoTitle={selectedVideo?.name}
+      />
+
+
+    </div>
+  )
+}

@@ -1,75 +1,219 @@
 [
   {
-    "name": "St. Angelo Fort Entrance",
-    "place": "St. Angelo Fort",
+    "id": "lzm_lsAD56Y",
+    "name": "St. Angelo Fort Entrance",    
+    "landmark": "St. Angelo Fort",
     "location": "Kannur",
     "date": "2025-01-09",
-    "type": "Place",
-    "videoUrl": "https://www.youtube.com/embed/lzm_lsAD56Y?si=0fkhlYjUOIvnFNeX",
-    "thumbnail": "https://i.ytimg.com/vi/lzm_lsAD56Y/hqdefault.jpg",
-    "description": "Entrance walking shot of the St. Angelo Fort in Kannur in the evening."
+    "themes": ["landmark"],
+    "daytime": "evening",
+    "description": "Entrance walking shot of the St. Angelo Fort in Kannur."
   }, {
-    "name": "St. Angelo Fort Inside",
-    "place": "St. Angelo Fort",
+    "id": "HAiaMBp1px0",
+    "name": "Inside of St. Angelo Fort",
+    "landmark": "St. Angelo Fort",
     "location": "Kannur",
+    "themes": ["landmark"],
     "date": "2025-01-09",
-    "type": "Place",
-    "videoUrl": "https://www.youtube.com/embed/HAiaMBp1px0?si=d60GYO_lORJ9B6tr",
-    "thumbnail": "https://i.ytimg.com/vi/HAiaMBp1px0/hqdefault.jpg",
+    "daytime": "evening",
     "description": "Inside view of the St. Angelo Fort in Kannur in the evening."
   }, {
+    "id": "3rlBd857nrA",
     "name": "St. Angelo Fort Ocean Side",
-    "place": "St. Angelo Fort",
+    "landmark": "St. Angelo Fort",
     "location": "Kannur",
+    "themes": ["landmark"],
     "date": "2025-01-09",
-    "type": "Place",
-    "videoUrl": "https://www.youtube.com/embed/3rlBd857nrA?si=TLGk00j8WQv7aU_j",
-    "thumbnail": "https://i.ytimg.com/vi/3rlBd857nrA/hqdefault.jpg",
+    "daytime": "evening",
     "description": "Ocean side view of the St. Angelo Fort in Kannur in the evening."
   }, {
-    "name": "Fish Market Street View",
-    "place": "Kannur Fish Market",
+    "id": "ZlcKw0bMe2g",
+    "name": "Mapilla Bay Street View",
+    "landmark": "Mapilla Bay",
     "location": "Kannur",
+    "themes": ["landmark", "street"],
     "date": "2025-01-09",
-    "type": "Place",
-    "videoUrl": "https://www.youtube.com/embed/ZlcKw0bMe2g?si=mUCnMz1045k8qOLW",
-    "thumbnail": "https://i.ytimg.com/vi/ZlcKw0bMe2g/hqdefault.jpg",
-    "description": "Street view of the Kannur Fish Market in the evening."
+    "daytime": "evening",
+    "description": "Street view of the Kannur Fish Market, Mapilla Bay, in the evening."
   }, {
+    "id": "N32ULkxvuRY",
     "name": "House of a Theyyam Performer",
-    "place": "House of Murali Panicker",
+    "landmark": "House of Murali Panicker",
     "location": "Kannur",
+    "themes": ["landmark", "theyyam"],
     "date":"2025-01-10",
-    "type": "Place",
-    "videoUrl": "https://www.youtube.com/embed/N32ULkxvuRY?si=OmygtLQgkxztc00N",
-    "thumbnail": "https://i.ytimg.com/vi/N32ULkxvuRY/hqdefault.jpg",
-    "description": "House of a revered Theyyam performer, Murali Panicker, in Kannur."
+    "daytime": "morning",
+    "description": "House of a revered Theyyam performer and astrologer, Murali Panicker, in Kannur."
   }, {
+    "id": "h9p9ndlB_Wk",
     "name": "Village Street in Kannur",
-    "place": "Kannur",
+    "landmark": "House of Murali Panicker",
     "location": "Kannur",
+    "themes": ["street", "theyyam"],
     "date": "2025-01-10",
-    "type": "Place",
-    "videoUrl": "https://www.youtube.com/embed/h9p9ndlB_Wk?si=nojPuAQEcB4_Gk6R",
-    "thumbnail": "https://i.ytimg.com/vi/h9p9ndlB_Wk/hqdefault.jpg",
-    "description": "A village street view leading to a temple where Theyyams are present."
+    "daytime": "morning",
+    "description": "A village street view in Kannur. I shot it when going to the house of Theyyam performer Murali Panicker."
   }, {
-    "name": "Village Street Entrance to a Theyyam Performance",
-    "place": "Kannur",
+    "id": "hXI4aL0WJPM",
+    "name": "Entrance to a Theyyam Performance Temple",
+    "landmark": "Temple",
     "location": "Kannur",
+    "themes": ["temple", "theyyam"],
     "date": "2025-01-10",
-    "type": "Place",
-    "videoUrl": "https://www.youtube.com/embed/hXI4aL0WJPM?si=QJbgHxHV14hmOdOY",
-    "thumbnail": "https://i.ytimg.com/vi/hXI4aL0WJPM/hqdefault.jpg",
-    "description": "A village street near reverred Theyyam performer Murali Panicker's house."
+    "daytime": "afternoon",
+    "description": "A street entrance to a Theyyam performance temple in Kannur. Captured during the day."
   }, {
+    "id": "AEbgpS79ISA",
     "name": "Premises of a Theyyam Temple",
-    "place": "Kannur",
+    "landmark": "Temple",
     "location": "Kannur",
+    "themes": ["temple", "theyyam"],
     "date": "2025-01-10",
-    "type": "Place",
-    "videoUrl": "https://www.youtube.com/embed/AEbgpS79ISA?si=EaU-c8F-xpZ7z9Cq",
-    "thumbnail": "https://i.ytimg.com/vi/AEbgpS79ISA/hqdefault.jpg",
-    "description": "Premises of a Theyyam temple in Kannur."
+    "daytime": "afternoon",
+    "description": "Premises of a Theyyam temple in Kannur. Theyyam performances had just concluded."
+  }, {
+    "id": "2MbunCbbIpE",
+    "name": "Morning Street View to a Theyyam Temple",
+    "landmark": "Temple",
+    "location": "Kannur",
+    "themes": ["temple", "street", "theyyam"],
+    "date": "2025-01-11",
+    "daytime": "morning",
+    "description": "Morning street view to a Theyyam temple in Kannur."
+  }, {
+    "id": "mIr7JJQptsg",
+    "name": "Preparation for Theyyam Performances",
+    "landmark": "Temple",
+    "location": "Kannur",
+    "themes": ["temple", "theyyam"],
+    "date": "2025-01-11",
+    "daytime": "morning",
+    "description": "Preparation for Theyyam performances inside temple premises in Kannur."
+  }, {
+    "id": "1d5RYl59bIE",
+    "name": "Premises of the temple before Theyyam performances begin",
+    "landmark": "Temple",
+    "location": "Kannur",
+    "themes": ["temple", "theyyam"],
+    "date": "2025-01-11",
+    "daytime": "morning",
+    "description": "Premises of the temple before Theyyam performances begin in Kannur."
+  }, {
+    "id": "RYA_RZNC9e8",
+    "name": "Theyyam Performance 1",
+    "landmark": "Temple",
+    "location": "Kannur",
+    "themes": ["temple", "theyyam"],
+    "date": "2025-01-11",
+    "daytime": "morning",
+    "description": "Early Theyyam performance in Kannur."
+  }, {
+    "id": "vYGeL4iKdyc",
+    "name": "Theyyam Performance 2",
+    "landmark": "Temple",
+    "location": "Kannur",
+    "themes": ["temple", "theyyam"],
+    "date": "2025-01-11",
+    "daytime": "afternoon",
+    "description": "A Theyyam performance involving a small baby Theyyam in Kannur."
+  }, {
+    "id": "67zvs4zCUIY",
+    "name": "Fire Theyyam Raw Video (not 360)",
+    "landmark": "Temple",
+    "location": "Kannur",
+    "themes": ["temple", "theyyam"],
+    "date": "2025-01-11",
+    "daytime": "afternoon",
+    "description": "Fire Theyyam Performance in Kannur. This is a raw video and not 360."
+  }, {
+    "id": "o-vCGIslFIY",
+    "name": "Kid favorite Theyyam Performance",
+    "landmark": "Temple",
+    "location": "Kannur",
+    "themes": ["temple", "theyyam"],
+    "date": "2025-01-11",
+    "daytime": "afternoon",
+    "description": "Kid favorite Theyyam performance in Kannur."
+  }, {
+    "id": "efXNJrXZLeA",
+    "name": "Kid favorite Theyyam Performance 2",
+    "landmark": "Temple",
+    "location": "Kannur",
+    "themes": ["temple", "theyyam"],
+    "date": "2025-01-11",
+    "daytime": "afternoon",
+    "description": "Another performance of the kid favorite Theyyam in Kannur."
+  }, {
+    "id": "Tz6KY5h0Dag",
+    "name": "Tall Theyyam Performance",
+    "landmark": "Temple",
+    "location": "Kannur",
+    "themes": ["temple", "theyyam"],
+    "date": "2025-01-11",
+    "daytime": "evening",
+    "description": "A tall Theyyam performance in Kannur."
+  }, {
+    "id": "B6deShWUkWA",
+    "name": "Gift Shop in Saragalaya",
+    "landmark": "Saragalaya",
+    "location": "Kozhikode",
+    "themes": ["landmark", "art"],
+    "date": "2025-01-12",
+    "daytime": "morning",
+    "description": "A virtual tour of a gift shop in Saragalaya, Kozhikode."
+  }, {
+    "id": "-hKwvugt9Cw",
+    "name": "Virtual Tour of Saragalaya",
+    "landmark": "Saragalaya",
+    "location": "Kozhikode",
+    "themes": ["landmark", "art"],
+    "date": "2025-01-12",
+    "daytime": "morning",
+    "description": "A virtual tour of Saragalaya village that includes 360 visuals of all the shops."
+  }, {
+    "id": "OGC9q8YXpsA",
+    "name": "Virtual Tour of Art Gallery next to Crown Theatre",
+    "landmark": "Crown Theatre",
+    "location": "Kozhikode",
+    "themes": ["landmark", "art"],
+    "date": "2025-01-13",
+    "daytime": "morning",
+    "description": "A virtual tour of an art gallery next to Crown Theatre in Kozhikode."
+  }, {
+    "id": "exDM-CKo7dw",
+    "name": "Dhow Construction in Beypore",
+    "landmark": "Beypore",
+    "location": "Kozhikode",
+    "themes": ["landmark", "art", "architecture"],
+    "date": "2025-01-13",
+    "daytime": "afternoon",
+    "description": "A virtual tour of the Dhow Construction in Beypore, Kozhikode."
+  }, {
+    "id": "YuAI5yMnn3s",
+    "name": "On top of freshly constructed Dhow",
+    "landmark": "Beypore",
+    "location": "Kozhikode",
+    "themes": ["landmark", "art", "architecture"],
+    "date": "2025-01-13",
+    "daytime": "afternoon",
+    "description": "On top of a freshly constructed Dhow in Beypore, Kozhikode."
+  }, {
+    "id": "nY0C-cjAg7Q",
+    "name": "Kalari Payattu Performance by a cute kid",
+    "landmark": "University of Calicut",
+    "location": "Kozhikode",
+    "themes": ["landmark", "art", "martial arts"],
+    "date": "2025-01-13",
+    "daytime": "evening",
+    "description": "Kalari Payattu performance by a cute kid in University of Calicut, Kozhikode."
+  }, {
+    "id": "WHPzwXva0YI",
+    "name": "Two Kalari Payattu Performers with sharp knives",
+    "landmark": "University of Calicut",
+    "location": "Kozhikode",
+    "themes": ["landmark", "art", "martial arts"],
+    "date": "2025-01-13",
+    "daytime": "evening",
+    "description": "Two Kalari Payattu performers with sharp knives in University of Calicut, Kozhikode."
   }
 ]
