@@ -25,6 +25,7 @@ export default function PortraitsOfKerala() {
         title="Portraits of Kerala"
         description="A collection of personal stories from the diverse people of Kerala, offering a glimpse into the state's rich traditions and evolving culture."
         imageInterval={5000}
+        author="Bipana Bastola"
       />
 
       {/* Project Description */}

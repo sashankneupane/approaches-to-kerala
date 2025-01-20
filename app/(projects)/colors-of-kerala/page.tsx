@@ -620,6 +620,7 @@ export default function ColorsOfKeralaPage() {
         images={["/photos/colors-of-kerala/cover.jpg"]}
         title="Colors of Kerala"
         description="Experience the vibrant palette of Kerala through a collection of images that showcase the rich and diverse colors that define this beautiful region."
+        author='Soyuj Jung Basnet'
       />
 
       {/* Remove the original <section> and replace with Hero above */}

@@ -31,6 +31,7 @@ export default function SilhouettesOfKerala() {
         images={["/photos/silhouettes-of-kerala/cover.jpg"]}
         title="Silhouettes of Kerala"
         description="An exploration of Kerala's people and the spaces they occupy"
+        author="Khater Abdelrahman"
       />
 
       <div className="w-full">

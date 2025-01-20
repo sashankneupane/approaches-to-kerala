@@ -63,6 +63,7 @@ export default function Kerala360() {
         images={heroImages}
         title="Kerala in 360°"
         description="Experience the mystical beauty of God's Own Country through immersive 360° videos"
+        author="Sashank Neupane"
       />
       
       {/* Enhanced gradient overlay for smoother transition */}

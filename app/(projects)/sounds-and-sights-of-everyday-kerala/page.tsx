@@ -52,6 +52,7 @@ export default function LucaAudioPage() {
         images={[`${baseUrl}/cover.jpg`]}
         title="Sounds & Sights of Everyday Kerala"
         description="An immersive journey through Kerala's daily rhythms and visual stories"
+        author="Luka Salkovic"
       />
 
       <div className="max-w-7xl mx-auto px-4 py-16">

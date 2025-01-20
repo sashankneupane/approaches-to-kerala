@@ -11,6 +11,7 @@ const Keralatography = () => {
         title="Keralatography"
         description="A Visual Journey Through Kerala"
         imageInterval={5000}
+        author="Shahad Alsaqqaf"
       />
 
       <div className="w-full px-4 py-24">

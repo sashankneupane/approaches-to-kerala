@@ -23,6 +23,7 @@ export default function LightsOfKerala() {
         title="Lights of Kerala"
         description="A symbol of purity, divine presence and dispelling darkness"
         imageInterval={5000}
+        author='Sungyun Sohn'
       />
 
       <main className="max-w-[2000px] mx-auto px-4 py-24">

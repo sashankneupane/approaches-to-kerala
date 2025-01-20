@@ -36,6 +36,7 @@ export default function SymbolsAndTheyyam() {
         images={["/photos/bg/laterite.jpg"]}
         title="Symbols and Theyyam"
         description="This project explores the rich symbolism of the Theyyam ritual in Northern Kerala, weaving poetry, video, and reflections to capture its cultural and multisensory depth."
+        author="Mustafa Diri"
       />
 
       {/* Section 1 (Horizontal scroll with memo notes) */}

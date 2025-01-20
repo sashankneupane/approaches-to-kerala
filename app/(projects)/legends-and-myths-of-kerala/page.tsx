@@ -83,13 +83,14 @@ This legend is often cited as the origin of Kerala's modern nickname "God's Own 
       style={{ backgroundImage: "url('/dp/sayda.jpg')" }}
       >
         <div className="absolute inset-0 bg-black bg-opacity-70"></div>
-        <div className="relative text-center text-white px-6">
+        <div className="relative text-center text-white px-6 flex flex-col items-center">
           <h1 className="text-[100px] font-bold mb-4" style={{ fontFamily: 'Impact' }}>Legends and Myths of Kerala</h1>
+          <p className="text-xl mb-8 font-light tracking-wider">By Sayda Abusalih</p>
           <a
-            href="#stories"
-            className="mt-8 inline-block text-white border-2 border-white hover:bg-white hover:text-black font-bold py-3 px-6 transition-all"
+        href="#stories"
+        className="mt-4 inline-block text-white border-2 border-white hover:bg-white hover:text-black font-bold py-3 px-6 transition-all"
           >
-            Explore
+        Explore
           </a>
         </div>
       </section>

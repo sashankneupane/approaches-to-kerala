@@ -26,6 +26,7 @@ export default function NoorAudioPage() {
         images={["/photos/scenes-of-kerala/cover.jpg"]}
         title="Scenes of Kerala"
         description="An audio-visual journey through Kerala's cultural landscape"
+        author='Noor Haddad'
       />
 
       <div className="relative">

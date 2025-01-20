@@ -13,9 +13,10 @@ interface HeroProps {
   title: string;
   description: string;
   imageInterval?: number;
+  author?: string;
 }
 
-export default function Hero({ images, title, description, imageInterval = 5000 }: HeroProps) {
+export default function Hero({ images, title, description, imageInterval = 5000, author }: HeroProps) {
   const [currentPhotoIndex, setCurrentPhotoIndex] = useState(0);
   const [isVisible, setIsVisible] = useState(true);
   const [scrollProgress, setScrollProgress] = useState(0);
@@ -114,6 +115,16 @@ export default function Hero({ images, title, description, imageInterval = 5000 
           }}
           transition={{ duration: 0.2 }}
         >
+          {author && (
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="text-white/60 text-lg mb-4 font-light tracking-wider"
+            >
+              By {author}
+            </motion.p>
+          )}
+
           <motion.h1 
             className={`${customFont.className} text-6xl md:text-4xl lg:text-8xl text-white mb-8 tracking-tight`}
             animate={{ opacity: isVisible ? 1 : 0 }}

@@ -37,6 +37,7 @@ export default function Home() {
         images={[`${baseUrl}/cover.jpg`]}
         title="Chromatic Narrative of Kerala"
         description="Exploring the Semiotics of Color in “God&apos;s Own Country”"
+        author="Dinobi Ibegbu"
       />
 
       {/* Project Description */}

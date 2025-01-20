@@ -44,6 +44,7 @@ export default function PhotoGalleryPage() {
         title="Photo Gallery"
         description="Explore our curated collection of stunning images that showcase the essence of our travels and stories."
         imageInterval={5000}
+        author="Timothy Chiu, Yumi Omori"
       />
       
       {/* Overview Section */}
