@@ -1,22 +1,7 @@
 'use client';
 import React from 'react';
-// import Image from 'next/image';
 import { motion } from 'framer-motion';
 
-// const HighlightNumber = ({ number, label }: { number: string, label: string }) => (
-//   <div className="text-center">
-//     <motion.div
-//       initial={{ opacity: 0, y: 20 }}
-//       whileInView={{ opacity: 1, y: 0 }}
-//       viewport={{ once: true }}
-//       transition={{ duration: 0.6 }}
-//       className=" rounded-xl px-2 py-1 transition-all duration-100"
-//     >
-//       <span className="block text-3xl font-light text-white mb-1">{number}</span>
-//       <span className="text-xs uppercase tracking-wider text-white/80">{label}</span>
-//     </motion.div>
-//   </div>
-// );
 
 const AboutPage: React.FC = () => {
   return (
@@ -48,16 +33,6 @@ const AboutPage: React.FC = () => {
               reflect deep histories.
             </p>
           </motion.div>
-
-          {/* Numbers Grid with Background - Right Column */}
-          {/* <div className="relative">
-            <div className="relative z-10 grid grid-cols-2 gap-8 py-4 px-8 rounded-2xl">
-              <HighlightNumber number="15" label="Students" />
-              <HighlightNumber number="4" label="Approaches" />
-              <HighlightNumber number="1" label="Region" />
-              <HighlightNumber number="∞" label="Perspectives" />
-            </div>
-          </div> */}
         </div>
       </div>
     </div>

@@ -7,23 +7,34 @@ interface CreditSection {
   names: string[];
 }
 
-const extractAndSortFormalNames = (students: { formalName: string }[]) => {
-  const allFormalNames = students
-    .flatMap(student => student.formalName.split(';').map(name => name.trim())); // Split and trim
+const extractAndSortFormalNames = (students: { formalName: string; fullName: string }[]) => {
+  // Create pairs of [formalName, fullName]
+  const namePairs = students.flatMap(student => 
+    student.formalName.split(';').map((name, index) => ({
+      formalName: name.trim(),
+      fullName: student.fullName.split(';')[index].trim()
+    }))
+  );
 
-  const sortedFormalNames = allFormalNames.sort((a, b) => {
-    const surnameA = a.split(',')[0].trim().toLowerCase();
-    const surnameB = b.split(',')[0].trim().toLowerCase();
+  // Sort by formal names
+  namePairs.sort((a, b) => {
+    const surnameA = a.formalName.split(',')[0].trim().toLowerCase();
+    const surnameB = b.formalName.split(',')[0].trim().toLowerCase();
     return surnameA.localeCompare(surnameB);
   });
 
-  return sortedFormalNames;
+  // Return only the full names in sorted order
+  return namePairs.map(pair => pair.fullName);
 };
 
 const credits: CreditSection[] = [
   {
     title: "Course Instructors",
     names: ["Prof. Samuel Mark Anderson", "Prof. Neelima Jayachandran"]
+  },
+  {
+    title: "Travel and Logistics",
+    names: ["Anna Rygielska", "Lallan"]
   },
   {
     title: "Students",
@@ -44,6 +55,7 @@ const credits: CreditSection[] = [
       "Murali Panicker",
       "Balakrishnan Peruvannan",
       "The Thekkan Kariyathan Temple Committee",
+      "Dr. Ajmal Mueen M.A.",
       "Guru Yasir Kurikkal, Kendra Sangeet Natak Akademi"
     ]
   }

@@ -41,8 +41,8 @@ const ProjectCard = ({ student }: { student: Student }) => (
         {student.project.title}
       </h3>
       <p className="text-sm text-white/70 mt-3 font-light 
-                    border-l-2 border-white/20 pl-3">
-        {student.fullName}
+            border-l-2 border-white/20 pl-3">
+        {student.fullName.replace(/;/g, ',')}
       </p>
     </Link>
   </motion.div>

@@ -1,6 +1,12 @@
 'use client';
+import { Macondo } from 'next/font/google';
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+
+const customFont = Macondo({
+  weight: ['400'],
+  subsets: ['latin'],
+});
 
 interface HeroProps {
   images: string[];
@@ -109,7 +115,7 @@ export default function Hero({ images, title, description, imageInterval = 5000 
           transition={{ duration: 0.2 }}
         >
           <motion.h1 
-            className="text-6xl md:text-4xl lg:text-8xl text-white font-light mb-8 tracking-tight"
+            className={`${customFont.className} text-6xl md:text-4xl lg:text-8xl text-white mb-8 tracking-tight`}
             animate={{ opacity: isVisible ? 1 : 0 }}
           >
             <span className="inline-block">

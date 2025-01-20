@@ -69,7 +69,7 @@ export const students: Student[] = [
   },
   { 
     name: 'Yumi, Timothy',
-    fullName: 'Yumi Omori, Timothy Chiu',
+    fullName: 'Yumi Omori; Timothy Chiu',
     formalName: 'Omori, Yumi; Chiu, Timothy',
     project: {
       title: 'Photography Series in Kerala',
