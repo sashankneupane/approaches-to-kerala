@@ -1,10 +1,24 @@
 'use client';
 import { motion } from 'framer-motion';
+import { students } from '@/app/data';
 
 interface CreditSection {
   title: string;
   names: string[];
 }
+
+const extractAndSortFormalNames = (students: { formalName: string }[]) => {
+  const allFormalNames = students
+    .flatMap(student => student.formalName.split(';').map(name => name.trim())); // Split and trim
+
+  const sortedFormalNames = allFormalNames.sort((a, b) => {
+    const surnameA = a.split(',')[0].trim().toLowerCase();
+    const surnameB = b.split(',')[0].trim().toLowerCase();
+    return surnameA.localeCompare(surnameB);
+  });
+
+  return sortedFormalNames;
+};
 
 const credits: CreditSection[] = [
   {
@@ -13,16 +27,25 @@ const credits: CreditSection[] = [
   },
   {
     title: "Students",
-    names: [
-      "Sashank Neupane", "Bipana Bastola", "Sungyun Sohn", "Soyuj Jung Basnet",
-      "Alia Almuhairi", "Carlota Suarez Rochard", "Yumi Omori", "Timothy Chiu",
-      "Dinobi Ibegbu", "Sayda Abusalih", "Shahad Alsaqqaf", "Luka Salkovic",
-      "Khater Abdelrahman", "Mustafa Diri", "Noor Haddad"
-    ]
+    names: extractAndSortFormalNames(students)
   },
   {
     title: "Website Development",
     names: ["Sashank Neupane", "Soyuj Jung Basnet", "Bipana Bastola", "Yumi Omori", "Khater Abdelrahman"]
+  },
+  {
+    title: "Special Thanks",
+    names: [
+      "Carol Brandt, Gloria Spittel, Rae Harker, and NYUAD Global Learning",
+      "A.K. Beerankutty, Noushad Yoosef, and the Kerala Social Centre Abu Dhabi",
+      "Prof. Jisha Kalyani, and the School of Folklore Studies, University of Calicut",
+      "Prof. P.P. Abdul Razak",
+      "Hema Seetharam, DEZIGN KSHETR",
+      "Murali Panicker",
+      "Balakrishnan Peruvannan",
+      "The Thekkan Kariyathan Temple Committee",
+      "Guru Yasir Kurikkal, Kendra Sangeet Natak Akademi"
+    ]
   }
 ];
 
@@ -54,36 +77,18 @@ const CreditSection = ({ title, names }: CreditSection) => (
 
 export default function Credits() {
   return (
-    <section className="relative min-h-screen bg-gradient-to-b from-black via-black to-gray-950">
-      {/* Top gradient transition */}
-      <div className="absolute top-0 left-0 right-0 h-64 to-transparent" />
-
-      {/* Animated background elements */}
-      <div className="absolute inset-0 overflow-hidden opacity-30">
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl" />
-      </div>
-
-      <div className="relative max-w-7xl mx-auto px-4 py-32">
-        {/* Section Title */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          className="text-center mb-24"
+    <section className="w-full py-32">
+      <div className='max-w-7xl mx-auto px-4'>
+        <motion.h1
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          className="mx-auto text-5xl md:text-7xl font-light text-white/90 mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-light text-white/90 mb-6">Credits</h2>
-          <motion.div
-            initial={{ width: 0 }}
-            whileInView={{ width: "100%" }}
-            viewport={{ once: true }}
-            transition={{ duration: 1 }}
-            className="h-px bg-gradient-to-r from-transparent via-white/30 to-transparent max-w-xs mx-auto"
-          />
-        </motion.div>
+          Credits
+        </motion.h1>
 
         {/* Credit sections with enhanced styling */}
-        <div className="relative space-y-20">
+        <div className="relative space-y-8">
           {credits.map((section, idx) => (
             <motion.div
               key={idx}
@@ -94,7 +99,7 @@ export default function Credits() {
               className="backdrop-blur-sm bg-white/5 rounded-2xl p-8 border border-white/10"
             >
               <h3 className="text-white/50 text-sm tracking-wider uppercase mb-8">{section.title}</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-3">
+              <div className={`grid gap-x-8 gap-y-3 ${section.title === "Special Thanks" ? "grid-cols-1" : "grid-cols-1 md:grid-cols-2 lg:grid-cols-3"}`}>
                 {section.names.map((name, idx) => (
                   <motion.p
                     key={idx}
@@ -111,27 +116,7 @@ export default function Credits() {
             </motion.div>
           ))}
         </div>
-
-        {/* Footer with enhanced styling */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          className="mt-32 text-center relative"
-        >
-          <div className="inline-block backdrop-blur-sm bg-white/5 rounded-full px-6 py-3 border border-white/10">
-            <p className="text-white/40 text-sm">
-              A project of NYU Abu Dhabi
-            </p>
-          </div>
-          <p className="text-white/30 text-xs mt-4">
-            © {new Date().getFullYear()} All rights reserved
-          </p>
-        </motion.div>
       </div>
-
-      {/* Bottom gradient for smooth ending */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-gray-950 to-transparent" />
     </section>
   );
 }

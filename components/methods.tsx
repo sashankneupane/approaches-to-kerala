@@ -48,9 +48,8 @@ const ProjectCard = ({ student }: { student: Student }) => (
   </motion.div>
 );
 
-const MethodCard = ({ mode, description, students }: { 
+const MethodCard = ({ mode, students }: { 
   mode: string; 
-  description: string; 
   students: Student[];
 }) => (
   <motion.div
@@ -62,9 +61,9 @@ const MethodCard = ({ mode, description, students }: {
     {/* Background */}
     <div 
       className="absolute inset-0 bg-cover bg-center transition-transform duration-700
-                 group-hover:scale-110 brightness-50 opacity-60"
+                 group-hover:scale-110 brightness-50"
       style={{
-        backgroundImage: `url('/photos/bg/${mode.toLowerCase()}.jpg')`
+        backgroundImage: `url('/photos/bg/${mode}.jpg')`
       }}
     />
     
@@ -73,27 +72,23 @@ const MethodCard = ({ mode, description, students }: {
     
     {/* Content */}
     <div className="relative h-full p-8 flex flex-col justify-between">
-      <div>
-        <motion.h3 
-          className="text-3xl md:text-4xl font-light text-white/90 mb-4"
-          whileHover={{ x: 10 }}
-        >
-          {modeDescriptions[mode as keyof typeof modeDescriptions].title}
-        </motion.h3>
-        <p className="text-lg text-white/70 max-w-md">{description}</p>
-      </div>
+      <motion.h3 
+        className="text-3xl md:text-4xl font-light text-white/90 mb-4"
+        whileHover={{ x: 10 }}
+      >
+        {mode}
+      </motion.h3>
 
       {/* Projects Grid */}
       <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        className="space-y-4 mt-8"
+        className="space-y-4 mt-8 md:hidden md:group-hover:block transition-all duration-300"
       >
-        <h4 className="text-white/50 text-sm uppercase tracking-wider mb-6">Featured Projects</h4>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {students
-            .filter(student => student.project.mode === mode.toLowerCase())
+            .filter(student => student.project.mode === mode)
             .map((student, idx) => (
               <ProjectCard key={idx} student={student} />
             ))}
@@ -103,28 +98,7 @@ const MethodCard = ({ mode, description, students }: {
   </motion.div>
 );
 
-export const modeDescriptions = {
-  form: {
-    title: "Form ☯",
-    shortDesc: "3D documentation of artifacts",
-    longDesc: "Experience tactile narratives through artifacts and installations"
-  },
-  photo: {
-    title: "Photo 📷",
-    shortDesc: "Visual narratives",
-    longDesc: "Visual stories capturing Kerala's cultural essence"
-  },
-  audio: {
-    title: "Sound 🎵",
-    shortDesc: "Sonic landscapes",
-    longDesc: "Immerse in the soundscapes of tradition"
-  },
-  video: {
-    title: "Video 🎥",
-    shortDesc: "360° documentation",
-    longDesc: "Dynamic perspectives of living heritage"
-  }
-};
+const modes = ['form', 'photo', 'audio', 'video'];
 
 interface MethodsSectionProps {
   students: Student[];
@@ -133,39 +107,23 @@ interface MethodsSectionProps {
 
 const MethodsSection: React.FC<MethodsSectionProps> = ({ students }) => {
   return (
-    <section className="min-h-screen bg-black">
-      {/* Hero Title Section */}
-      <div className="relative h-[40vh] flex items-center justify-center text-center px-4">
-        <div className="absolute inset-0 bg-gradient-to-b from-black via-black/95 to-black" />
-        <div className="relative z-10 max-w-4xl mx-auto space-y-4">
-        <p className="text-sm uppercase tracking-widest text-white/40 mb-8">Research</p>
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-5xl md:text-7xl font-light text-white/90"
-          >
-            Methods
-          </motion.h1>
-          <div className="h-px w-32 mx-auto bg-gradient-to-r from-transparent via-white/50 to-transparent" />
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="text-lg md:text-xl text-white/60 max-w-3xl mx-auto"
-          >
-            Documenting Kerala&apos;s cultural heritage through diverse mediums and perspectives
-          </motion.p>
-        </div>
-      </div>
+    <section className="py-32">
+      <div className="max-w-7xl mx-auto px-4">
+        {/* Title */}
+        <motion.h1
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          className="text-5xl md:text-7xl font-light text-white/90 mb-16"
+        >
+          Methods
+        </motion.h1>
 
-      {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-4 py-24">
+        {/* Main Content */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {Object.entries(modeDescriptions).map(([mode, { longDesc }]) => (
+          {modes.map(mode => (
             <MethodCard
               key={mode}
               mode={mode}
-              description={longDesc}
               students={students}
             />
           ))}
