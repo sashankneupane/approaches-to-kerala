@@ -172,32 +172,6 @@ export default function PhotoSeries({
           <PhotoGrid images={galleryImages} type={"M"} showLayoutToggle={true} />
         </div>
       </section>
-
-      {/* Bottom-Left Main Gallery Button */}
-      <AnimatePresence>
-        {showMainGalleryBtn && (
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -20 }}
-            className="fixed bottom-4 left-4 z-40"
-          >
-            <Link href="/photogallery">
-              <motion.div
-                className="bg-black/40 hover:bg-black/60 rounded-full p-4 backdrop-blur-sm
-                           border border-white/20 flex items-center gap-2 transition-all duration-300"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <svg className="w-5 h-5 text-white/90" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 12h14M5 12l6-6m-6 6l6 6" />
-                </svg>
-                <span className="text-white/90 text-sm">Main Gallery</span>
-              </motion.div>
-            </Link>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </main>
   );
 }
