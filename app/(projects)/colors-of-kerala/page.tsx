@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useMemo } from 'react';
 import Image from 'next/image';
+import PhotoGrid from '@/components/photogrid';
 import { SketchPicker, ColorResult } from 'react-color';
 import { motion, AnimatePresence } from 'framer-motion';
 import Hero from '@/components/hero';
@@ -48,7 +49,7 @@ const pickerStyles = {
       background: '#1f2937',
       boxShadow: 'none',
       borderRadius: '0.2rem',
-      width: '250px', // reduced from 220px
+      width: '100%', // Make width 100% of container
     },
     saturation: {
       borderRadius: '0.5rem 0.5rem 0 0',
@@ -107,58 +108,6 @@ const ViewMode = {
 
 type ViewModeType = typeof ViewMode[keyof typeof ViewMode];
 
-// Update the TutorialPopup component to handle different types
-// Update TutorialPopup to remove close button
-const TutorialPopup = ({ type  }: { type: 'color' | 'threshold' }) => {
-  const content = {
-    color: {
-      title: "Choose Your Color!",
-      description: "Click the colored circle next to 'Selected Color' to pick a color and see matching images.",
-      icon: (
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
-      )
-    },
-    threshold: {
-      title: "Adjust Match Threshold",
-      description: "Use the slider under 'Match Threshold' to control how closely images match your selected color.",
-      icon: (
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
-      )
-    }
-  };
-
-  // Ensure we have valid content for the current type
-  const currentContent = content[type];
-  if (!currentContent) return null;
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -20 }}
-      className={`fixed ${
-        type === 'color' 
-          ? 'bottom-[280px] right-[200px]' 
-          : 'bottom-[240px] right-[200px]'
-      } z-50 bg-black/20 backdrop-blur-md rounded-lg p-6 text-white max-w-xs`}
-    >
-      <div className="flex items-start gap-4">
-        <div className="p-3 bg-white/20 rounded-full">
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            {currentContent.icon}
-          </svg>
-        </div>
-        <div>
-          <h3 className="font-bold text-lg mb-2">{currentContent.title}</h3>
-          <p className="text-white/80 text-sm">
-            {currentContent.description}
-          </p>
-        </div>
-      </div>
-    </motion.div>
-  );
-};
-
 // Add this helper function for the flow layout
 const getFlowPosition = (
   index: number, 
@@ -188,10 +137,6 @@ const getFlowPosition = (
   return { x, y, scale: 1 - normalizedScore * 0.3 };
 };
 
-interface ImageSize {
-  height: string;
-  orientation: 'vertical' | 'horizontal';
-}
 
 // Add NoResults component near other component definitions
 const NoResults = () => (
@@ -215,22 +160,33 @@ export default function ColorsOfKeralaPage() {
   const [shuffledImages, setShuffledImages] = useState<ColorEntry[]>([]);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [threshold, setThreshold] = useState(150);
-  const [viewMode, setViewMode] = useState<ViewModeType>(ViewMode.MASONRY);
+  const [viewMode, setViewMode] = useState<ViewModeType>(ViewMode.GRID);
   const [showColorPicker, setShowColorPicker] = useState(false);
-  const scrollTimerRef = React.useRef<NodeJS.Timeout | null>(null);
   const [viewport, setViewport] = useState({ width: 0, height: 0 });
-  const [currentTutorial, setCurrentTutorial] = useState<'color' | 'threshold' | null>(null);
   const DEFAULT_THRESHOLD = 150;
-  const [shownTutorials, setShownTutorials] = useState<Set<string>>(new Set());
   const [showControls, setShowControls] = useState(true);
+  const [isControlsVisible, setIsControlsVisible] = useState(false);
 
-  // Add new function to handle collapse all
-  const handleCollapseAll = () => {
-    setShowControls(!showControls);
-    if (showControls) {
-      setShowColorPicker(false);
-    }
+  // Add debounce function
+  const debounce = <T extends (...args: unknown[]) => void>(func: T, wait: number): ((...args: Parameters<T>) => void) => {
+    let timeout: NodeJS.Timeout;
+    return (...args: Parameters<T>) => {
+      clearTimeout(timeout);
+      timeout = setTimeout(() => func(...args), wait);
+    };
   };
+
+  // Update scroll handler with debounce
+  useEffect(() => {
+    const handleScroll = debounce(() => {
+      const scrollPosition = window.scrollY;
+      const windowHeight = window.innerHeight;
+      setIsControlsVisible(scrollPosition > windowHeight * 0.5);
+    }, 10); // 10ms debounce
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   // Fetch colorInfo.json from public directory
   useEffect(() => {
@@ -242,42 +198,9 @@ export default function ColorsOfKeralaPage() {
       .catch((err) => console.error(err));
   }, []);
 
-  useEffect(() => {
-    // Show the tutorial on load
-    setCurrentTutorial('color');
-  }, []);
-
-  useEffect(() => {
-    // Show color tutorial first
-    if (!shownTutorials.has('color')) {
-      setCurrentTutorial('color');
-    }
-  }, [shownTutorials]);
-
-  useEffect(() => {
-    // Show threshold tutorial after color tutorial closes
-    if (currentTutorial === null && selectedColor && !shownTutorials.has('threshold')) {
-      const timer = setTimeout(() => {
-        setCurrentTutorial('threshold');
-      }, 500);
-      return () => clearTimeout(timer);
-    }
-  }, [currentTutorial, selectedColor, shownTutorials]);
-
-  const handleCloseTutorial = () => {
-    if (currentTutorial) {
-      setShownTutorials(prev => new Set([...prev, currentTutorial]));
-    }
-    setCurrentTutorial(null);
-    if (scrollTimerRef.current) clearTimeout(scrollTimerRef.current);
-  };
-
   // As user picks color in SketchPicker, store it
   const handleColorChange = (color: ColorResult) => {
     setSelectedColor([color.rgb.r, color.rgb.g, color.rgb.b]);
-    if (currentTutorial === 'color') {
-      handleCloseTutorial();
-    }
   };
 
   // Add viewport measurement
@@ -305,140 +228,141 @@ export default function ColorsOfKeralaPage() {
     });
   }, [shuffledImages, selectedColor]);
 
-  const getImageSize = (index: number): ImageSize => {
-    // Create varying sizes with orientations
-    const patterns: ImageSize[] = [
-      { height: 'h-64', orientation: 'horizontal' },  // medium horizontal
-      { height: 'h-96', orientation: 'vertical' },    // tall vertical
-      { height: 'h-48', orientation: 'horizontal' },  // small horizontal
-      { height: 'h-80', orientation: 'vertical' },    // medium vertical
-      { height: 'h-72', orientation: 'horizontal' },  // large horizontal
-      { height: 'h-108', orientation: 'vertical' },   // extra tall vertical
-    ];
-    return patterns[index % patterns.length];
-  };
-
-  // Update to close color tutorial when color picker opens
-  const handleColorButtonMouseDown = () => {
-    setShowColorPicker(!showColorPicker);
-  };
-
-  const handleColorButtonMouseUp = () => {
-    if (currentTutorial === 'color') {
-      handleCloseTutorial();
-    }
-  };
-
   const renderControls = () => (
-    <motion.div
-      className="fixed bottom-8 right-8 z-40 flex flex-col gap-4"
-      initial={{ y: 100 }}
-      animate={{ y: 0 }}
-    >
-      <motion.button
-        className="self-end backdrop-blur-sm p-3 rounded-full shadow-lg hover:opacity-80 transition-opacity"
-        onClick={handleCollapseAll}
-        animate={{ rotate: showControls ? 180 : 0 }}
-        style={{
-          backgroundColor: selectedColor 
-            ? `rgba(${selectedColor[0]},${selectedColor[1]},${selectedColor[2]}, 0.9)`
-            : 'rgba(31, 41, 55, 0.9)' // gray-800/90
-        }}
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-        </svg>
-      </motion.button>
-
-      <AnimatePresence>
-        {showControls && (
-          <motion.div
-            className="bg-gray-800/90 backdrop-blur-sm rounded-2xl shadow-lg p-4 flex flex-col gap-3"
-            initial={{ opacity: 0, y: 20, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 20, scale: 0.95 }}
-          >
-            <div className="flex items-center gap-3 pb-3 border-b border-gray-700">
-              <div
-                className="w-8 h-8 rounded-full shadow-inner cursor-pointer hover:ring-2 hover:ring-white/50"
-                style={{
-                  backgroundColor: selectedColor ? 
-                    `rgb(${selectedColor[0]},${selectedColor[1]},${selectedColor[2]})` : 
-                    '#666'
-                }}
-                onMouseDown={handleColorButtonMouseDown}
-                onMouseUp={handleColorButtonMouseUp}
-              />
-              <label className="text-gray-300 text-sm font-medium">
-                {selectedColor ? 'Selected Color' : 'Choose Color'}
-              </label>
-            </div>
-
-            <div>
-              <label className="block text-gray-300 text-sm font-medium mb-2">
-                Match Threshold: {threshold}
-              </label>
-              <input
-                type="range"
-                min="50"
-                max="250"
-                value={threshold}
-                onChange={(e) => {
-                  setThreshold(Number(e.target.value));
-                  if (currentTutorial === 'threshold') {
-                    handleCloseTutorial();
-                  }
-                }}
-                className="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer"
-              />
-            </div>
-
-            <div className="pt-3 border-t border-gray-700">
-              <label className="block text-gray-300 text-sm font-medium mb-2">
-                View Mode
-              </label>
-              <div className="flex gap-2">
-                {Object.values(ViewMode).map(mode => (
-                  <button
-                    key={mode}
-                    className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors
-                      ${viewMode === mode 
-                        ? 'bg-white/20 text-white' 
-                        : 'bg-gray-700/50 text-gray-300 hover:bg-gray-700'
-                      }`}
-                    onClick={() => setViewMode(mode)}
+    <AnimatePresence>
+      {isControlsVisible && (
+        <motion.div
+          className="fixed bottom-8 right-8 z-40 flex flex-col gap-4"
+          initial={{ opacity: 0, y: 100 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 100 }}
+          transition={{ type: "tween", duration: 0.2 }}
+          style={{ willChange: "transform, opacity" }}
+        >
+          <AnimatePresence>
+            {showControls ? (
+              <motion.div
+                className="bg-gray-800/90 backdrop-blur-sm rounded-2xl shadow-lg p-4 flex flex-col gap-3"
+                initial={{ opacity: 0, y: 20, scale: 0.95 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: 20, scale: 0.95 }}
+              >
+                <div className="flex items-center justify-between gap-3 pb-3 border-b border-gray-700">
+                  <div className="flex items-center gap-3">
+                    <div className="relative">
+                      <div
+                        className="w-8 h-8 rounded-full shadow-inner cursor-pointer hover:ring-2 hover:ring-white/50"
+                        style={{
+                          backgroundColor: selectedColor ? 
+                            `rgb(${selectedColor[0]},${selectedColor[1]},${selectedColor[2]})` : 
+                            '#666'
+                        }}
+                        onMouseDown={() => setShowColorPicker(!showColorPicker)}
+                      />
+                      {selectedColor && (
+                        <motion.button
+                          initial={{ opacity: 0, scale: 0 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          exit={{ opacity: 0, scale: 0 }}
+                          className="absolute -top-1 -right-1 w-4 h-4 bg-red-500/20 hover:bg-red-500/30 rounded-full flex items-center justify-center transition-colors"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setSelectedColor(null);
+                            setShowColorPicker(false);
+                            setThreshold(DEFAULT_THRESHOLD);
+                          }}
+                        >
+                          <svg 
+                            xmlns="http://www.w3.org/2000/svg" 
+                            className="h-2 w-2 text-red-300" 
+                            fill="none" 
+                            viewBox="0 0 24 24" 
+                            stroke="currentColor"
+                          >
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M6 18L18 6M6 6l12 12" />
+                          </svg>
+                        </motion.button>
+                      )}
+                    </div>
+                    <label className="text-gray-300 text-sm font-medium">
+                      {selectedColor ? 'Selected Color' : 'Choose Color'}
+                    </label>
+                  </div>
+                  <motion.button
+                    className="p-2 hover:bg-white/10 rounded-lg transition-colors"
+                    onClick={() => {
+                      setShowControls(false);
+                      setShowColorPicker(false);
+                    }}
                   >
-                    {mode}
-                  </button>
-                ))}
-              </div>
-            </div>
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
+                    </svg>
+                  </motion.button>
+                </div>
+                <div>
+                  <label className="block text-gray-300 text-sm font-medium mb-2">
+                    Match Threshold: {threshold}
+                  </label>
+                  <input
+                    type="range"
+                    min="50"
+                    max="250"
+                    value={threshold}
+                    onChange={(e) => setThreshold(Number(e.target.value))}
+                    className="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer"
+                  />
+                </div>
 
-            {selectedColor && (
+                <div className="pt-3 border-t border-gray-700">
+                  <label className="block text-gray-300 text-sm font-medium mb-2">
+                    View Mode
+                  </label>
+                  <div className="flex gap-2">
+                    {Object.values(ViewMode).map(mode => (
+                      <button
+                        key={mode}
+                        className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors
+                          ${viewMode === mode 
+                            ? 'bg-white/20 text-white' 
+                            : 'bg-gray-700/50 text-gray-300 hover:bg-gray-700'
+                          }`}
+                        onClick={() => setViewMode(mode)}
+                      >
+                        {mode}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </motion.div>
+            ) : (
               <motion.button
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 10 }}
-                className="mt-2 w-full py-2 px-4 rounded-lg bg-red-500/20 text-red-300 hover:bg-red-500/30 transition-colors text-sm font-medium border border-red-500/20"
-                onClick={() => {
-                  setSelectedColor(null);
-                  setShowColorPicker(false);
-                  setThreshold(DEFAULT_THRESHOLD);
+                className="self-end backdrop-blur-sm p-2 rounded-full shadow-lg hover:opacity-80 transition-opacity"
+                onClick={() => setShowControls(true)}
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.9 }}
+                style={{
+                  backgroundColor: selectedColor 
+                    ? `rgba(${selectedColor[0]},${selectedColor[1]},${selectedColor[2]}, 0.9)`
+                    : 'rgba(31, 41, 55, 0.9)'
                 }}
               >
-                Reset All
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
               </motion.button>
             )}
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </motion.div>
+          </AnimatePresence>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 
   // Update color picker position
   const renderColorPicker = () => (
     <motion.div
-      className="fixed bottom-[350px] right-8 z-40 origin-bottom-right md:scale-25 scale-[0.2]"
+      className="fixed bottom-[350px] right-8 z-40 w-[250px]" // Set fixed width
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: 20 }}
@@ -486,7 +410,17 @@ export default function ColorsOfKeralaPage() {
       return colorScore < threshold;
     });
 
+    // Convert ColorEntry images to PhotoGrid format here, after filtering
+    const photoGridImages = filteredImages.map(info => ({
+      src: info.file_path,
+      alt: "Kerala Image"
+    }));
+
     const hasNoResults = selectedColor && filteredImages.length === 0;
+
+    if (hasNoResults) {
+      return <NoResults />;
+    }
 
     switch (viewMode) {
       case ViewMode.FLOW:
@@ -495,8 +429,7 @@ export default function ColorsOfKeralaPage() {
             className="h-[100vh] overflow-hidden -ml-16"
             style={backgroundStyle}
           >
-            <div className="absolute inset-0 h-screen z-10 ${selectedColor ? `,rgba(${selectedColor[0]},${selectedColor[1]},${selectedColor[2]},0.3)_0%,rgba(0,0,0,1)_70%` : ''}" />
-            
+            <div className="absolute inset-0 h-screen z-10" />
             <div className="w-full h-full">
               {!hasNoResults ? (
                 <AnimatePresence>
@@ -556,59 +489,15 @@ export default function ColorsOfKeralaPage() {
 
       case ViewMode.MASONRY:
       case ViewMode.GRID:
-        const Container = viewMode === ViewMode.MASONRY 
-          ? "columns-2 md:columns-3 lg:columns-4 gap-4"
-          : "grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4";
-
         return (
-          <div 
-            className={`relative min-h-[80vh] p-8 rounded-lg ${!hasNoResults ? Container : ''}`}
-            style={backgroundStyle}
-          >
-            {!hasNoResults ? (
-              <AnimatePresence>
-                {filteredImages.map((info, idx) => {
-                  const colorScore = selectedColor ? getColorScore(info, selectedColor) : Infinity;
-                  const isMatch = selectedColor && colorScore < threshold;
-                  const imageSize = viewMode === ViewMode.MASONRY ? getImageSize(idx) : null;
-                  
-                  if (selectedColor && !isMatch) return null;
-
-                  return (
-                    <motion.div
-                      key={idx}
-                      layout
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      animate={{ 
-                        opacity: 1, 
-                        scale: 1,
-                        filter: selectedColor ? 'grayscale(0%)' : 'grayscale(100%)'
-                      }}
-                      exit={{ opacity: 0, scale: 0.8 }}
-                      transition={{ duration: 0.3 }}
-                      className={`${
-                        viewMode === ViewMode.MASONRY
-                          ? `mb-4 break-inside-avoid cursor-pointer ${imageSize?.height}`
-                          : 'aspect-square'
-                      } cursor-pointer relative overflow-hidden rounded-lg`}
-                      onClick={() => setSelectedImage(info.file_path)}
-                    >
-                      <Image
-                        src={info.file_path}
-                        alt=""
-                        className={`w-full h-full object-cover hover:scale-105 transition-transform ${
-                          imageSize?.orientation === 'vertical' ? 'object-[center_20%]' : ''
-                        }`}
-                        width={400}
-                        height={400}
-                      />
-                    </motion.div>
-                  );
-                })}
-              </AnimatePresence>
-            ) : (
-              <NoResults />
-            )}
+          <div className="p-8" style={backgroundStyle}>
+            <PhotoGrid
+              images={photoGridImages}
+              type={viewMode === ViewMode.MASONRY ? 'M' : 'S'}
+              enableFullScreen={true}
+              showLayoutToggle={false}
+              className={selectedColor ? '' : 'grayscale'}
+            />
           </div>
         );
     }
@@ -641,16 +530,4 @@ export default function ColorsOfKeralaPage() {
               onClose={() => setSelectedImage(null)}
             />
           )}
-        </AnimatePresence>
-
-        <AnimatePresence>
-          {currentTutorial && (
-            <TutorialPopup
-              type={currentTutorial}
-            />
-          )}
-        </AnimatePresence>
-      </div>
-    </div>
-  );
-}
+        </AnimatePresence>      </div>    </div>  );}

@@ -8,7 +8,7 @@ interface ImageData {
   alt?: string;
   title?: string;
   subtitle?: string;
-  description?: string;  // Updated to allow null
+  description?: string;
   width?: number;
   height?: number;
 }
