@@ -26,9 +26,8 @@ interface StoryViewerProps {
   backgroundImage: string;
   title: string;
   autoScrollInterval?: number;
-  nextStoryHref?: string;
-  previousStoryHref?: string;
   author?: AuthorInfo;
+  galleryLink: string;  // Changed from URL to string
 }
 
 const playfair = Playfair_Display({ subsets: ["latin"] });
@@ -38,9 +37,8 @@ export default function StoryViewer({
   backgroundImage,
   title,
   autoScrollInterval = 4000,
-  nextStoryHref,
-  previousStoryHref,
   author,
+  galleryLink,
 }: StoryViewerProps) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [scrollY, setScrollY] = useState(0);
@@ -159,263 +157,65 @@ export default function StoryViewer({
     };
   };
 
-  // Update container style
-  const pageContainerStyle: React.CSSProperties = {
-    margin: 0,
-    padding: 0,
-    height: "100vh",
-    overflowY: "scroll",
-    scrollBehavior: "smooth",
-    scrollSnapType: "y mandatory", // Add snap behavior
-  };
-
-  // Update section style
-  const sectionStyle: React.CSSProperties = {
-    position: "relative",
-    width: "100%",
-    height: "100vh",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    transition: "background-color 0.5s ease-out",
-    scrollSnapAlign: "start", // Add snap alignment
-    scrollSnapStop: "always", // Force snap points
-  };
-
-  const activeSectionStyle: React.CSSProperties = {
-    backgroundColor: "rgba(255,255,255,0.15)",
-  };
-
-  /**
-   * Base style for each image
-   */
-  const imageStyle: React.CSSProperties = {
-    width: "100%",
-    height: "100%",
-    objectFit: "cover",
-    transition: "transform 0.6s ease-out, opacity 0.6s ease-out",
-  };
-
-  /**
-   * Give a big difference in scale:
-   * - Active image: scale(1.0), opacity 1
-   * - Inactive images: scale(0.2), opacity 0.3
-   */
-  function getScaleStyle(index: number, activeIndex: number) {
-    if (index === activeIndex) {
-      return { transform: "scale(1.0)", opacity: 1 };
-    }
-    return { transform: "scale(0.2)", opacity: 0.3 };
-  }
-
-  // Hero Section
-  const heroSectionStyle: React.CSSProperties = {
-    backgroundColor: "transparent",
-    color: "#fff",
-    padding: "2rem",
-    textAlign: "center",
-    position: "relative",
-    overflow: "hidden",
-    minHeight: "100vh",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-  };
-
-  const titleStyle: React.CSSProperties = {
-    fontSize: "4rem",
-    letterSpacing: "0.5rem",
-    textTransform: "uppercase",
-    marginBottom: "2rem",
-    display: "flex",
-    justifyContent: "center",
-    gap: "0.5rem",
-  };
-
-  // Add this with the other style constants
-  const titleBackgroundStyle: React.CSSProperties = {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    width: "100%",
-    height: "100%",
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-    opacity: 1,
-    transition: "opacity 0.5s ease-out",
-    zIndex: -1,
-  };
-
-  // Author / Description Section
-  const authorSectionStyle: React.CSSProperties = {
-    minHeight: "70vh",
-    background: "#f8f8f8",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    padding: "2rem",
-  };
-
-  const authorContainerStyle: React.CSSProperties = {
-    maxWidth: "1000px",
-    width: "100%",
-    display: "flex",
-    flexDirection: "row",
-    gap: "2rem",
-    alignItems: "center",
-    justifyContent: "center",
-  };
-
-  const portraitContainerStyle: React.CSSProperties = {
-    width: "300px",
-    height: "300px",
-    borderRadius: "50%",
-    overflow: "hidden",
-    flexShrink: 0,
-  };
-
-  const authorTextContainerStyle: React.CSSProperties = {
-    flex: 1,
-  };
-
-  const authorNameStyle: React.CSSProperties = {
-    fontSize: "2rem",
-    marginBottom: "1rem",
-    fontFamily: playfair.style.fontFamily,
-  };
-
-  const authorDescriptionStyle: React.CSSProperties = {
-    fontSize: "1.1rem",
-    lineHeight: 1.6,
-    color: "#333",
-    fontFamily: playfair.style.fontFamily,
-  };
-
-  // Update the fixed Next Story button style
-  const nextStoryButtonStyle: React.CSSProperties = {
-    position: "fixed",
-    top: "2rem",
-    right: "2rem",
-    padding: "0.75rem 1.5rem",
-    fontSize: "1rem",
-    cursor: "pointer",
-    border: "2px solid rgba(255, 255, 255, 0.8)",
-    backgroundColor: "rgba(0, 0, 0, 0.3)",
-    color: "#fff",
-    borderRadius: "30px",
-    transition: "all 0.3s ease",
-    backdropFilter: "blur(10px)",
-    zIndex: 1000,
-    fontFamily: playfair.style.fontFamily,
-    letterSpacing: "1px",
-    textTransform: "uppercase",
-    boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-  };
-
-  // Add styles for the centered Next Story section and button
-  const centeredNextStorySectionStyle: React.CSSProperties = {
-    minHeight: "50vh",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    background: "#f8f8f8",
-  };
-
-  const centeredNextStoryButtonStyle: React.CSSProperties = {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    padding: "1rem 2rem",
-    fontSize: "1.2rem",
-    cursor: "pointer",
-    border: "2px solid #333",
-    backgroundColor: "transparent",
-    color: "#333",
-    borderRadius: "40px",
-    transition: "all 0.3s ease",
-    fontFamily: playfair.style.fontFamily,
-    letterSpacing: "1px",
-    textTransform: "uppercase",
-  };
-
-  const returnToGalleryButtonStyle: React.CSSProperties = {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    padding: "1rem 2rem",
-    fontSize: "1.2rem",
-    cursor: "pointer",
-    border: "2px solid #666",
-    backgroundColor: "transparent",
-    color: "#666",
-    borderRadius: "40px",
-    transition: "all 0.3s ease",
-    fontFamily: playfair.style.fontFamily,
-    letterSpacing: "1px",
-    textTransform: "uppercase",
-  };
-
   return (
-    <div style={pageContainerStyle}>
+    <div className="h-screen overflow-y-scroll scroll-smooth snap-y snap-mandatory m-0 p-0">
       {/* Title / Hero Section */}
-      <section style={heroSectionStyle}>
+      <section className="min-h-screen bg-transparent text-white p-8 text-center relative overflow-hidden flex items-center justify-center">
         <div
+          className="absolute inset-0 bg-cover bg-center transition-opacity duration-500 -z-10"
           style={{
-            ...titleBackgroundStyle,
             backgroundImage: `url(${backgroundImage})`,
-            opacity: Math.max(0, 1 - scrollY / 500), // Fade out as we scroll
+            opacity: Math.max(0, 1 - scrollY / 500),
           }}
         />
-        <h1 style={titleStyle}>
+        <h1 className="text-6xl tracking-widest uppercase mb-8 flex justify-center gap-2">
           {title.split("").map((letter, i) => (
             <span key={i} style={getLetterStyle(i, scrollY)}>
               {letter}
             </span>
           ))}
         </h1>
-        {/* Fixed position Next Story button */}
-        {nextStoryHref && (
-          <Link href={nextStoryHref}>
-            <button style={nextStoryButtonStyle}>Next Story</button>
-          </Link>
-        )}
-        {previousStoryHref && (
-          <Link href={previousStoryHref}>
-            <button style={nextStoryButtonStyle}>Previous Story</button>
-          </Link>
-        )}
+        <Link href={galleryLink} passHref>
+          <button className="fixed top-4 right-4 bg-black/40 hover:bg-black/60 rounded-full p-3 backdrop-blur-sm
+                         border border-white/20 flex items-center gap-2 transition-all duration-300
+                         hover:scale-105 active:scale-95 z-10">
+            <span className="text-white/90 text-sm">Gallery</span>
+            <svg 
+              className="w-5 h-5 text-white/90" 
+              fill="none" 
+              stroke="currentColor" 
+              viewBox="0 0 24 24"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 12h14M5 12l6-6m-6 6l6 6" />
+            </svg>
+          </button>
+        </Link>
       </section>
 
-      {/* New Author / Description Section */}
+      {/* Author Section */}
       {author && (
-        <section style={authorSectionStyle}>
-          <div style={authorContainerStyle}>
-            {/* Portrait */}
-            <div style={portraitContainerStyle}>
+        <section className="min-h-[70vh] bg-gray-50 flex items-center justify-center p-8">
+          <div className="max-w-5xl w-full flex flex-row gap-8 items-center justify-center">
+            <div className="w-[300px] h-[300px] rounded-full overflow-hidden flex-shrink-0">
               <Image
                 src={author.portrait}
                 alt="Author Portrait"
                 width={300}
                 height={300}
-                style={{
-                  borderRadius: "50%",
-                  objectFit: "cover",
-                  width: "100%",
-                  height: "100%",
-                }}
+                className="w-full h-full object-cover rounded-full"
               />
             </div>
-
-            {/* Description */}
-            <div style={authorTextContainerStyle}>
-              <h2 style={authorNameStyle}>By: {author.name}</h2>
-              <p style={authorDescriptionStyle}>{author.description}</p>
+            <div className="flex-1">
+              <h2 className={`text-4xl mb-4 ${playfair.className}`}>By: {author.name}</h2>
+              <p className={`text-lg leading-relaxed text-gray-700 ${playfair.className}`}>
+                {author.description}
+              </p>
             </div>
           </div>
         </section>
       )}
 
-      {/* Scrolling Images */}
+      {/* Image Sections */}
       {images.map((src, i) => (
         <section
           key={i}
@@ -425,89 +225,18 @@ export default function StoryViewer({
             }
           }}
           data-index={i}
-          style={{
-            ...sectionStyle,
-            ...(i === activeIndex ? activeSectionStyle : {}),
-          }}
+          className={`relative w-full h-screen flex items-center justify-center transition-colors duration-500 snap-start snap-always
+            ${i === activeIndex ? 'bg-white/15' : ''}`}
         >
           <Image
             src={src}
             alt={`Photo ${i + 1}`}
             fill
-            style={{
-              ...imageStyle,
-              ...getScaleStyle(i, activeIndex),
-              objectFit: "cover",
-            }}
+            className={`object-cover transition-all duration-600 ease-out
+              ${i === activeIndex ? 'scale-100 opacity-100' : 'scale-20 opacity-30'}`}
           />
         </section>
       ))}
-
-      {/* Add new centered Next Story button after all images */}
-      <section style={centeredNextStorySectionStyle}>
-        {nextStoryHref && (
-          <Link href={nextStoryHref}>
-            <button style={centeredNextStoryButtonStyle}>
-              <span>Next Story</span>
-              <svg
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                style={{ marginLeft: "8px" }}
-              >
-                <path d="M5 12h14M12 5l7 7-7 7" />
-              </svg>
-            </button>
-          </Link>
-        )}
-        {previousStoryHref && (
-          <Link href={previousStoryHref}>
-            <button style={centeredNextStoryButtonStyle}>
-              <span>Previous Story</span>
-              <svg
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                style={{ marginLeft: "8px" }}
-              >
-                <path d="M5 12h14M12 5l7 7-7 7" />
-              </svg>
-            </button>
-          </Link>
-        )}
-        <Link href="/people-nature-theyyam">
-          <button style={returnToGalleryButtonStyle}>
-            <span>Return to Gallery</span>
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              style={{ marginLeft: "8px" }}
-            >
-              <path d="M19 12H5M12 19l-7-7 7-7" />
-            </svg>
-          </button>
-        </Link>
-      </section>
-
-      <style jsx>{`
-        .navigation-button {
-          transition: all 0.3s ease;
-        }
-        .navigation-button:hover {
-          background-color: rgba(255, 255, 255, 0.2);
-          transform: translateY(-2px);
-        }
-      `}</style>
     </div>
   );
 }
