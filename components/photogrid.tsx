@@ -33,6 +33,7 @@ const FullScreenImage = ({ src, alt, title, subtitle, description, onClose }: {
   description?: string;
   onClose: () => void 
 }) => {
+  const [isLoading, setIsLoading] = useState(true);
   const [, setDimensions] = useState({ width: 0, height: 0 });
 
   return (
@@ -40,9 +41,19 @@ const FullScreenImage = ({ src, alt, title, subtitle, description, onClose }: {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/95"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 overflow-hidden"
       onClick={onClose}
     >
+      {/* Add blurred background */}
+      <div 
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{
+          backgroundImage: `url(${src})`,
+          filter: 'blur(20px) brightness(0.3)',
+          transform: 'scale(1.1)', // Prevent blur edges from showing
+        }}
+      />
+      
       <motion.div
         className="relative w-full h-full max-h-screen flex items-center justify-center p-4"
         initial={{ scale: 0.9, y: 20 }}
@@ -50,23 +61,33 @@ const FullScreenImage = ({ src, alt, title, subtitle, description, onClose }: {
         exit={{ scale: 0.9, y: 20 }}
       >
         <div className="relative group max-w-full max-h-full">
+          {isLoading && (
+            <div className="absolute inset-0 bg-gray-900/80 rounded-lg animate-pulse flex items-center justify-center">
+              <div className="w-full h-[85vh] max-w-[1200px] relative">
+                <div className="absolute inset-0 bg-gradient-to-b from-gray-800/50 to-gray-900/50 rounded-lg" />
+              </div>
+            </div>
+          )}
           <Image
             src={src}
             alt={alt || ""}
-            className="w-auto h-auto max-w-full max-h-[85vh] object-contain rounded-lg"
+            className={`w-auto h-auto max-w-full max-h-[85vh] object-contain rounded-lg transition-opacity duration-300 ${
+              isLoading ? 'opacity-0' : 'opacity-100'
+            }`}
             width={1200}
             height={800}
             priority
-            onLoadingComplete={({ naturalWidth, naturalHeight }) => 
-              setDimensions({ width: naturalWidth, height: naturalHeight })}
+            onLoadingComplete={({ naturalWidth, naturalHeight }) => {
+              setDimensions({ width: naturalWidth, height: naturalHeight });
+              setIsLoading(false);
+            }}
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-black/20 to-transparent rounded-lg" />
-          {(title || subtitle || description) && (
+          {!isLoading && (title || subtitle || description) && (
             <motion.div 
               className="absolute bottom-0 left-0 right-0 p-4 md:p-6 lg:p-8 rounded-b-lg"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
+              transition={{ delay: 0.2 }}
             >
               <div className="max-w-full [text-shadow:_0_1px_3px_rgba(0,0,0,0.9)]">
                 {title && <h2 className="text-lg md:text-xl lg:text-2xl font-semibold text-white mb-1 md:mb-2">{title}</h2>}
