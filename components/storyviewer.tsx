@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, useCallback } from "react";
 import { Playfair_Display } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
@@ -77,8 +77,8 @@ export default function StoryViewer({
     return () => observer.disconnect();
   }, []);
 
-  // Improved scroll behavior
-  const scrollToSection = (index: number) => {
+  // Wrap scrollToSection with useCallback
+  const scrollToSection = useCallback((index: number) => {
     if (isScrolling) return;
     
     setIsScrolling(true);
@@ -92,7 +92,7 @@ export default function StoryViewer({
       // Reset scrolling state after animation
       setTimeout(() => setIsScrolling(false), 1000);
     }
-  };
+  }, [isScrolling]);
 
   // Modified auto-scroll effect
   useEffect(() => {
@@ -108,7 +108,7 @@ export default function StoryViewer({
         clearTimeout(scrollTimeout.current);
       }
     };
-  }, [activeIndex, isScrolling, images.length, autoScrollInterval, scrollToSection]);
+  }, [activeIndex, autoScrollInterval, images.length, isScrolling, scrollToSection]);
 
   // Improved scroll handler
   useEffect(() => {

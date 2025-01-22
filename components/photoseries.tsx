@@ -31,7 +31,6 @@ export default function PhotoSeries({
   storyLink
 }: PhotoSeriesProps) {
   const [scrollY, setScrollY] = useState(0);
-  const [showMainGalleryBtn, setShowMainGalleryBtn] = useState(false);
   const gridRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -41,22 +40,6 @@ export default function PhotoSeries({
     
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(entries => {
-      if (entries[0].isIntersecting) {
-        setShowMainGalleryBtn(true);
-      } else {
-        setShowMainGalleryBtn(false);
-      }
-    }, { threshold: 0.1 });
-
-    if (gridRef.current) observer.observe(gridRef.current);
-
-    return () => {
-      if (gridRef.current) observer.unobserve(gridRef.current);
-    };
   }, []);
 
   return (
