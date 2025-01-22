@@ -62,7 +62,7 @@ export default function Kerala360() {
       <Hero 
         images={heroImages}
         title="Kerala in 360°"
-        description="Experience the mystical beauty of God's Own Country through immersive 360° videos"
+        description="Experience the beauty of God's Own Country through immersive 360° videos"
         author="Sashank Neupane"
       />
       

@@ -4,7 +4,7 @@ import Hero from '@/components/hero';
 import PhotoGrid from '@/components/photogrid';
 import lamps from './data.json';
 import { motion } from 'framer-motion';
-import ModelViewer from '@/components/modelviewer';
+// import ModelViewer from '@/components/modelviewer';
 
 export default function LightsOfKerala() {
   const gridImages = lamps.map(lamp => ({
@@ -75,7 +75,8 @@ export default function LightsOfKerala() {
           viewport={{ once: true }}
           className='w-4/5 mx-auto'
         >
-          <ModelViewer className="w-full" />
+          {/* <ModelViewer className="w-full" /> */}
+          @
         </motion.div>
       </main>
     </div>

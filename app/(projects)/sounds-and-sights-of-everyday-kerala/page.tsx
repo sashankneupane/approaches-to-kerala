@@ -1,5 +1,5 @@
 'use client';
-import React, { useState, useMemo, useCallback } from 'react';
+import React, { useState, useMemo, useCallback, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Hero from '@/components/hero';
 import PhotoGrid from '@/components/photogrid';
@@ -22,7 +22,7 @@ export default function LucaAudioPage() {
     { title: "Student's Folk Performance", file: "folkore-student-singing-wav-v1.mp4" },
     { title: "Girl's Traditional Song", file: "girl-singing-short.mp3" },
     { title: "Market Ambience & Song", file: "local-song-chaotic-background.mp3" },
-    { title: "Male Folk Song", file: "male-folk-song-wav-v1.mp4" },
+    { title: "Men's Folk Song", file: "male-folk-song-wav-v1.mp4" },
     { title: "Mappila Folk Song", file: "mappla-folk-song.mp4" },
     { title: "Street Performance", file: "song-by-a-guy-from-the-random-place.m4a" },
   ], []);
@@ -45,6 +45,16 @@ export default function LucaAudioPage() {
     }
   }, [activeAudio]);
 
+  // Add cleanup effect
+  useEffect(() => {
+    return () => {
+      if (activeAudio) {
+        activeAudio.pause();
+        setActiveAudio(null);
+        setPlayingIndex(null);
+      }
+    };
+  }, [activeAudio]);
 
   return (
     <main className="min-h-screen w-full bg-black text-white">
