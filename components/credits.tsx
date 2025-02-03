@@ -34,7 +34,7 @@ const credits: CreditSection[] = [
   },
   {
     title: "Travel and Logistics",
-    names: ["Anna Rygielska", "Lallan"]
+    names: ["Anna Rygielska", "Lalan Mon C A"]
   },
   {
     title: "Students",
