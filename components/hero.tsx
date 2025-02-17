@@ -83,22 +83,22 @@ export default function Hero({ images, title, description, imageInterval = 5000,
               className="absolute inset-0 bg-cover bg-center bg-fixed"
               style={{ 
                 backgroundImage: `url(${images[currentPhotoIndex]})`,
-                filter: 'brightness(0.7) saturate(1.2)'
+                filter: 'brightness(0.9) saturate(1.2)' // increased brightness
               }}
             />
-            <div className="absolute inset-0 bg-black/30" />
+            <div className="absolute inset-0 bg-black/20" /> {/* reduced overlay opacity */}
           </motion.div>
         </AnimatePresence>
 
         {/* Gradients */}
         <div 
-          className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black"
+          className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/10" // adjusted gradient
           style={{ 
             opacity: Math.max(0.8 - scrollProgress, 0)
           }} 
         />
         <div 
-          className="absolute inset-0 bg-gradient-to-r from-black/30 via-transparent to-black/30"
+          className="absolute inset-0 bg-gradient-to-r from-black/20 via-transparent to-black/20" // adjusted gradient
           style={{ 
             opacity: Math.max(0.8 - scrollProgress, 0)
           }} 

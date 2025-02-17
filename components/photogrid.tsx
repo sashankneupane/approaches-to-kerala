@@ -102,6 +102,44 @@ const FullScreenImage = ({ src, alt, title, subtitle, description, onClose }: {
   );
 };
 
+const LayoutIcon = ({ type }: { type: LayoutType }) => {
+  switch (type) {
+    case 'B':
+      return (
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+          <rect x="2" y="2" width="5" height="12" rx="1" />
+          <rect x="9" y="2" width="5" height="12" rx="1" />
+        </svg>
+      );
+    case 'S':
+      return (
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+          <rect x="2" y="2" width="3" height="3" rx="0.5" />
+          <rect x="6.5" y="2" width="3" height="3" rx="0.5" />
+          <rect x="11" y="2" width="3" height="3" rx="0.5" />
+          <rect x="2" y="6.5" width="3" height="3" rx="0.5" />
+          <rect x="6.5" y="6.5" width="3" height="3" rx="0.5" />
+          <rect x="11" y="6.5" width="3" height="3" rx="0.5" />
+          <rect x="2" y="11" width="3" height="3" rx="0.5" />
+          <rect x="6.5" y="11" width="3" height="3" rx="0.5" />
+          <rect x="11" y="11" width="3" height="3" rx="0.5" />
+        </svg>
+      );
+    case 'M':
+    default:
+      return (
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+          <rect x="2" y="2" width="3.5" height="5" rx="0.5" />
+          <rect x="6.5" y="2" width="3.5" height="7" rx="0.5" />
+          <rect x="11" y="2" width="3" height="4" rx="0.5" />
+          <rect x="2" y="8" width="3.5" height="6" rx="0.5" />
+          <rect x="6.5" y="10" width="3.5" height="4" rx="0.5" />
+          <rect x="11" y="7" width="3" height="7" rx="0.5" />
+        </svg>
+      );
+  }
+};
+
 export default function PhotoGrid({
   images,
   className = "",
@@ -164,22 +202,22 @@ export default function PhotoGrid({
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
-            transition={{ duration: 0.3 }}
+            transition={{ duration: 0.5, ease: 'easeOut' }} // smoother transition
           >
-            <div className="bg-black/40 hover:bg-black/60 rounded-full p-1 backdrop-blur-sm">
+            <div className="bg-transparent hover:bg-black/40 rounded-full p-1.5 backdrop-blur-sm group">
               <div className="flex flex-col gap-2">
-                {['B', 'S', 'M'].map((l) => (
-                <button
-                  key={l}
-                  onClick={() => setLayout(l as LayoutType)}
-                  className={`px-2 py-1 rounded-full text-sm font-medium ${
-                  layout === l 
-                    ? 'bg-white/20 text-white' 
-                    : 'text-white/40 hover:text-white'
-                  }`}
-                >
-                  {l}
-                </button>
+                {(['B', 'S', 'M'] as LayoutType[]).map((l) => (
+                  <button
+                    key={l}
+                    onClick={() => setLayout(l)}
+                    className={`p-2 rounded-full transition-all duration-500 ${
+                      layout === l 
+                        ? 'block text-white' 
+                        : 'hidden group-hover:block text-white/40 hover:text-white'
+                    }`}
+                  >
+                    <LayoutIcon type={l} />
+                  </button>
                 ))}
               </div>
             </div>
