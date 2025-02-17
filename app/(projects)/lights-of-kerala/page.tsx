@@ -65,7 +65,7 @@ export default function LightsOfKerala() {
           viewport={{ once: true }}
         >
           <div className="w-full h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
-          <h2 className="text-3xl text-white/90 font-light my-24">3D Experience</h2>
+          <h2 className="text-3xl text-white/90 font-light my-24">CAD Models</h2>
         </motion.div>
                 {/* 3D Experience Section */}
                 <motion.div
