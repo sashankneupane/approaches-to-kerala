@@ -50,24 +50,14 @@ export default function PhotoGalleryPage() {
       {/* Overview Section */}
       <section className="relative py-24 bg-gradient-to-b from-black/80 to-black/90">
         <div className="relative z-10 max-w-4xl mx-auto space-y-4 px-4 text-center">
-          <p className="text-sm uppercase tracking-widest text-white/40 mb-8">Gallery Overview</p>
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-5xl md:text-7xl font-light text-white/90"
+            className="text-3xl md:text-5xl font-light text-white/90"
           >
-            Visual Journey Through Kerala
+            A Visual Journey Through Kerala
           </motion.h1>
           <div className="h-px w-32 mx-auto bg-white/20" />
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="text-lg md:text-xl text-white/60 max-w-5xl mx-auto"
-          >
-            A curated collection of moments capturing the vibrant culture, breathtaking landscapes, 
-            and intimate stories of Kerala&apos;s people and traditions.
-          </motion.p>
         </div>
       </section>
       
@@ -88,48 +78,19 @@ export default function PhotoGalleryPage() {
         
         <div className="relative">
           <div className="container mx-auto px-4 text-center mb-16">
-            <motion.p 
-              className="text-white/60 uppercase tracking-widest mb-6"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-            >
-              Featured Collections
-            </motion.p>
-            <motion.h2 
-              className="text-4xl md:text-6xl text-white/90 font-light mb-8"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-            >
-              Discover Our Photo Series
-            </motion.h2>
-            
-            {/* Decorative element instead of line */}
-            <motion.div 
-              className="flex items-center justify-center gap-3 mb-8"
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.3 }}
-            >
-              <span className="w-3 h-3 rounded-full bg-white/20" />
-              <span className="w-12 h-0.5 bg-gradient-to-r from-transparent via-white/40 to-transparent" />
-              <span className="w-4 h-4 rotate-45 bg-white/20" />
-              <span className="w-12 h-0.5 bg-gradient-to-r from-transparent via-white/40 to-transparent" />
-              <span className="w-3 h-3 rounded-full bg-white/20" />
-            </motion.div>
 
-            <motion.p 
-              className="text-xl text-white/70 max-w-3xl mx-auto mb-16"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.4 }}
-            >
-              Dive deeper into our curated collections that explore the rich cultural tapestry of Kerala through different lenses.
-            </motion.p>
+            <div className="space-y-4 mb-16">
+              <motion.h2 
+                className="text-3xl md:text-4xl text-white/90 font-light"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.1 }}
+              >
+                Photo Series
+              </motion.h2>
+              <div className="h-px w-32 mx-auto bg-white/20 mb-4" />
+            </div>
 
             {/* Grid container for side-by-side layout */}
             <div className="grid md:grid-cols-2 gap-8">
